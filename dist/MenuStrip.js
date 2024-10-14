@@ -109,3 +109,4 @@ var MenuStrip = function (_a) {
             } }, menuConfig.map(function (menu, index) { return renderMenu(menu, index); }))));
 };
 export default MenuStrip;
+// Export types using 'export type' in index.ts

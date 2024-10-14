@@ -201,3 +201,5 @@ const MenuStrip: React.FC<MenuStripProps> = ({ menuConfig, darkMode = false, sx 
 };
 
 export default MenuStrip;
+
+// Export types using 'export type' in index.ts

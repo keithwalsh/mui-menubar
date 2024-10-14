@@ -1,1 +1,2 @@
-export { default as MenuStrip } from './MenuStrip';
+// Export the MenuStrip component
+export { default as MenuStrip } from "./MenuStrip";

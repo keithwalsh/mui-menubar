@@ -1,6 +1,5 @@
-// src/index.ts
+// Export the MenuStrip component
+export { default as MenuStrip } from "./MenuStrip";
 
-export { default as MenuStrip } from "./MenuStrip"; // Export the component
-
-// Export types
+// Export types using 'export type'
 export type { MenuConfig, MenuItemConfig, MenuItemActionConfig, DividerMenuItemConfig } from "./MenuStrip";
