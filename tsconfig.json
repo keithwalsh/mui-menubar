@@ -1,17 +1,17 @@
 {
     "compilerOptions": {
-      "outDir": "dist",
-      "module": "ESNext",
-      "target": "ES5",
-      "lib": ["DOM", "ES6"],
-      "jsx": "react",
-      "declaration": true,
-      "declarationDir": "dist",
-      "moduleResolution": "node",
-      "esModuleInterop": true,
-      "skipLibCheck": true,
-      "strict": true
+        "outDir": "dist",
+        "module": "ESNext",
+        "target": "ES5",
+        "lib": ["DOM", "ES6"],
+        "jsx": "react",
+        "declaration": true,
+        "declarationDir": "dist",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "strict": true
     },
-    "include": ["src"]
-  }
-  
+    "include": ["src/**/*"],
+    "exclude": ["dist", "node_modules"]
+}
