@@ -2,8 +2,8 @@
     "compilerOptions": {
         "outDir": "dist",
         "module": "ESNext",
-        "target": "ES5",
-        "lib": ["DOM", "ES6"],
+        "target": "es2016",
+        "lib": ["DOM", "es2016"],
         "jsx": "react",
         "declaration": true,
         "declarationDir": "dist",

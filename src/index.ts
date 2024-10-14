@@ -2,4 +2,4 @@
 export { default as MenuStrip } from "./MenuStrip";
 
 // Export types using 'export type'
-export type { MenuConfig, MenuItemConfig, MenuItemActionConfig, DividerMenuItemConfig } from "./MenuStrip";
+export type { MenuTopLevelDefinition, MenuItemDefinitionUnion, MenuItemActionDefinition, MenuItemDividerDefinition } from "./MenuStrip";

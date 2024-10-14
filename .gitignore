@@ -4,3 +4,4 @@ NOTES.md
 build-storybook.log
 storybook-static/
 test/
+dist/

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, memo } from "react";
 import { AppBar, Button, Menu, MenuItem, SxProps, Theme, Toolbar, ListItemIcon, ListItemText, Divider } from "@mui/material";
 import { SvgIconProps } from "@mui/material/SvgIcon";
 import { KeyboardArrowDown } from "@mui/icons-material";
@@ -6,172 +6,200 @@ import { KeyboardArrowDown } from "@mui/icons-material";
 /**
  * Defines the possible kinds of menu items.
  */
-export type MenuItemKind = "item" | "divider";
+export type MenuItemKind = "action" | "divider";
 
 /**
  * Base interface for menu items.
  * - `kind` is optional and defaults to 'item' if not provided.
  */
-export interface BaseMenuItemConfig {
+export interface MenuItemBaseDefinition {
     kind?: MenuItemKind;
 }
 
 /**
  * Interface for regular action menu items.
- * - Extends BaseMenuItemConfig.
- * - `kind` is either 'item' or undefined.
+ * - Extends MenuItemBaseDefinition.
+ * - `kind` is either 'action' or undefined.
  * - Includes label, optional action, and optional icon.
  */
-export interface MenuItemActionConfig extends BaseMenuItemConfig {
-    kind?: "item"; // Explicitly 'item' or undefined
+export interface MenuItemActionDefinition extends MenuItemBaseDefinition {
+    kind?: "action"; // Explicitly 'action' or undefined
     label: string;
     action?: () => void;
-    icon?: React.ComponentType<SvgIconProps>; // Updated type
+    icon?: React.ComponentType<SvgIconProps>;
 }
 
 /**
  * Interface for divider menu items.
  * - `kind` is strictly 'divider'.
  */
-export interface DividerMenuItemConfig extends BaseMenuItemConfig {
+export interface MenuItemDividerDefinition extends MenuItemBaseDefinition {
     kind: "divider";
 }
 
 /**
+ * Why Use Separate Interfaces?
+ * - Distinct Types: By having separate interfaces for actionable items and dividers, TypeScript can enforce strict type checking, ensuring that each menu item is used correctly based on its type.
+ * - Preventing Errors: For example, a divider cannot accidentally be assigned properties like label or action, which are irrelevant to its purpose. TypeScript will flag such mismatches during development.
+ */
+
+/**
  * Union type for any menu item configuration.
  */
-export type MenuItemConfig = MenuItemActionConfig | DividerMenuItemConfig;
+export type MenuItemDefinitionUnion = MenuItemActionDefinition | MenuItemDividerDefinition;
 
 /**
  * Interface for top-level menu configurations.
  * - Each menu has a label and an array of menu items.
  */
-export interface MenuConfig {
+export interface MenuTopLevelDefinition {
     label: string;
-    items: MenuItemConfig[];
+    items: MenuItemDefinitionUnion[];
 }
 
 interface MenuStripProps {
-    menuConfig: MenuConfig[];
+    config: MenuTopLevelDefinition[];
     darkMode?: boolean;
     sx?: SxProps<Theme>;
 }
 
-const MenuStrip: React.FC<MenuStripProps> = ({ menuConfig, darkMode = false, sx }) => {
-    // Initialize anchor elements for each top-level menu
-    const [anchorEls, setAnchorEls] = useState<(HTMLElement | null)[]>(new Array(menuConfig.length).fill(null));
+const MenuStrip: React.FC<MenuStripProps> = ({ config, darkMode = false, sx }) => {
+    /**
+     * Track only the currently open menu to reduce state complexity and improve performance.
+     * https://mui.com/material-ui/api/menu/#:~:text=anchorEl
+     */
+    const [openMenu, setOpenMenu] = useState<{ index: number; anchorEl: HTMLElement } | null>(null);
 
     /**
-     * Handles the opening of a menu by setting the corresponding anchor element.
-     * @param event - The mouse event that triggered the menu opening.
-     * @param index - The index of the menu to open.
+     * Handles the opening of a menu by setting the currently open menu's index and anchor element.
+     * @param mouseEvent - The mouse event that triggered the menu opening.
+     * @param menuIndex - The index of the menu to open.
      */
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>, index: number) => {
-        const newAnchorEls = [...anchorEls];
-        newAnchorEls[index] = event.currentTarget;
-        setAnchorEls(newAnchorEls);
-    };
+    const handleClick = useCallback((mouseEvent: React.MouseEvent<HTMLButtonElement>, menuIndex: number) => {
+        setOpenMenu({ index: menuIndex, anchorEl: mouseEvent.currentTarget });
+    }, []);
 
     /**
-     * Handles the closing of a menu by clearing the corresponding anchor element.
-     * @param index - The index of the menu to close.
+     * Handles the closing of the currently open menu.
      */
-    const handleClose = (index: number) => {
-        const newAnchorEls = [...anchorEls];
-        newAnchorEls[index] = null;
-        setAnchorEls(newAnchorEls);
-    };
+    const handleClose = useCallback(() => {
+        setOpenMenu(null);
+    }, []);
 
     /**
      * Handles keyboard interactions for accessibility.
-     * @param event - The keyboard event.
-     * @param index - The index of the menu.
+     * @param keyBoardEvent - The keyboard event.
+     * @param menuIndex - The index of the menu.
      */
-    const handleKeyDown = (event: React.KeyboardEvent, index: number) => {
-        if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            handleClick(event as unknown as React.MouseEvent<HTMLButtonElement>, index);
+    const handleKeyDown = useCallback((keyBoardEvent: React.KeyboardEvent<HTMLButtonElement>, menuIndex: number) => {
+        if (["Enter", " ", "ArrowDown"].includes(keyBoardEvent.key)) {
+            keyBoardEvent.preventDefault();
+            setOpenMenu({ index: menuIndex, anchorEl: keyBoardEvent.currentTarget });
         }
-    };
+    }, []);
 
     /**
      * Type guard to determine if a menu item is a divider.
-     * @param item - The menu item to check.
+     * @param menuItem - The menu item to check.
      * @returns True if the item is a divider, false otherwise.
      */
-    const isDivider = (item: MenuItemConfig): item is DividerMenuItemConfig => {
-        return item.kind === "divider";
+    const isDivider = (menuItem: MenuItemDefinitionUnion): menuItem is MenuItemDividerDefinition => {
+        return menuItem.kind === "divider";
     };
 
     /**
-     * Renders a single menu item or a divider based on its configuration.
-     * @param item - The menu item configuration.
+     * Memoized component for rendering individual menu items or dividers.
+     * @param menuItem - The menu item to check.
      * @param closeMenu - Function to close the parent menu.
-     * @param itemIndex - The index of the menu item within its menu.
-     * @param menuIndex - The index of the parent menu.
+     * @param menuItemIndex - The index of the menu item within its menu.
+     * @param menuTopLevelIndex - The index of the parent menu.
      * @returns A JSX element representing the menu item or divider.
      */
-    const renderMenuItem = (item: MenuItemConfig, closeMenu: () => void, itemIndex: number, menuIndex: number) => {
-        if (isDivider(item)) {
-            return <Divider key={`menu-${menuIndex}-divider-${itemIndex}`} sx={{ my: 0.5 }} />;
+    const MenuItemComponent: React.FC<{
+        menuItem: MenuItemDefinitionUnion;
+        closeMenu: () => void;
+        menuItemIndex: number;
+        menuTopLevelIndex: number;
+    }> = memo(({ menuItem, closeMenu, menuItemIndex, menuTopLevelIndex }) => {
+        if (isDivider(menuItem)) {
+            return <Divider key={`menu-${menuTopLevelIndex}-divider-${menuItemIndex}`} sx={{ my: 0.5 }} />;
         }
 
-        // TypeScript now knows item is MenuItemActionConfig
-        const actionItem = item as MenuItemActionConfig;
+        const menuItemAction = menuItem as MenuItemActionDefinition;
 
         return (
             <MenuItem
+                role="menuitem"
                 dense
                 onClick={() => {
-                    if (actionItem.action) actionItem.action();
+                    if (menuItemAction.action) menuItemAction.action();
                     closeMenu();
                 }}
-                key={`menu-${menuIndex}-item-${itemIndex}`}
+                key={`menu-${menuTopLevelIndex}-item-${menuItemIndex}`}
             >
-                {actionItem.icon && (
+                {menuItemAction.icon && (
                     <ListItemIcon sx={{ marginRight: -0.75 }}>
-                        <actionItem.icon fontSize="small" sx={{ marginLeft: 0 }} />
+                        <menuItemAction.icon fontSize="small" sx={{ marginLeft: 0 }} />
                     </ListItemIcon>
                 )}
-                <ListItemText primary={actionItem.label} />
+                <ListItemText primary={menuItemAction.label} />
             </MenuItem>
+        );
+    });
+
+    /**
+     * Renders a top-level menu with its corresponding items.
+     * @param menuTopLevel - The top-level menu to check.
+     * @param menuTopLevelIndex - The index of the top-level menu.
+     * @returns A JSX fragment containing the menu button and its dropdown.
+     */
+    const renderMenu = (menuTopLevel: MenuTopLevelDefinition, menuTopLevelIndex: number) => {
+        const isOpen = openMenu?.index === menuTopLevelIndex;
+        return (
+            <React.Fragment key={`menu-${menuTopLevelIndex}-${menuTopLevel.label}`}>
+                <Button
+                    endIcon={<KeyboardArrowDown sx={{ marginLeft: -0.8 }} />}
+                    aria-controls={isOpen ? `menu-${menuTopLevelIndex}` : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={isOpen}
+                    onClick={(event) => handleClick(event, menuTopLevelIndex)}
+                    onKeyDown={(event) => handleKeyDown(event, menuTopLevelIndex)}
+                    color="inherit"
+                    sx={{ textTransform: "none" }}
+                >
+                    {menuTopLevel.label}
+                </Button>
+                <Menu
+                    id={`menu-${menuTopLevelIndex}`}
+                    anchorEl={isOpen ? openMenu.anchorEl : null}
+                    keepMounted
+                    open={isOpen}
+                    onClose={handleClose}
+                    MenuListProps={{
+                        "aria-labelledby": `menu-button-${menuTopLevelIndex}`,
+                        role: "menu",
+                    }}
+                >
+                    {menuTopLevel.items.map((menuItem, menuItemIndex) => (
+                        <MenuItemComponent
+                            key={`menu-${menuTopLevelIndex}-item-${menuItemIndex}`}
+                            menuItem={menuItem}
+                            closeMenu={handleClose}
+                            menuItemIndex={menuItemIndex}
+                            menuTopLevelIndex={menuTopLevelIndex}
+                        />
+                    ))}
+                </Menu>
+            </React.Fragment>
         );
     };
 
     /**
-     * Renders a top-level menu with its corresponding items.
-     * @param menu - The top-level menu configuration.
-     * @param index - The index of the top-level menu.
-     * @returns A JSX fragment containing the menu button and its dropdown.
+     * Handle cases where the config might be empty.
      */
-    const renderMenu = (menu: MenuConfig, index: number) => (
-        <React.Fragment key={`menu-${index}-${menu.label}`}>
-            <Button
-                endIcon={<KeyboardArrowDown sx={{ marginLeft: -0.8 }} />}
-                aria-controls={`menu-${index}`}
-                aria-haspopup="true"
-                aria-expanded={Boolean(anchorEls[index])}
-                onClick={(e) => handleClick(e, index)}
-                onKeyDown={(e) => handleKeyDown(e, index)}
-                color="inherit"
-                sx={{ textTransform: "none" }}
-            >
-                {menu.label}
-            </Button>
-            <Menu
-                id={`menu-${index}`}
-                anchorEl={anchorEls[index]}
-                keepMounted
-                open={Boolean(anchorEls[index])}
-                onClose={() => handleClose(index)}
-                MenuListProps={{
-                    "aria-labelledby": `menu-button-${index}`,
-                }}
-            >
-                {menu.items.map((item, itemIndex) => renderMenuItem(item, () => handleClose(index), itemIndex, index))}
-            </Menu>
-        </React.Fragment>
-    );
+    if (config.length === 0) {
+        return null; // Or render a placeholder if desired
+    }
 
     return (
         <AppBar
@@ -194,12 +222,10 @@ const MenuStrip: React.FC<MenuStripProps> = ({ menuConfig, darkMode = false, sx 
                     },
                 }}
             >
-                {menuConfig.map((menu, index) => renderMenu(menu, index))}
+                {config.map((menuTopLevel, menuTopLevelIndex) => renderMenu(menuTopLevel, menuTopLevelIndex))}
             </Toolbar>
         </AppBar>
     );
 };
 
 export default MenuStrip;
-
-// Export types using 'export type' in index.ts
