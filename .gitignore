@@ -5,3 +5,5 @@ build-storybook.log
 storybook-static/
 test/
 dist/
+
+*storybook.log

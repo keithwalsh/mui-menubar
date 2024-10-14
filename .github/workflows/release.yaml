@@ -40,12 +40,6 @@ jobs:
             - name: Install dependencies
               run: npm install
 
-            # Bump the version using standard-version (semver)
-            - name: Bump version with standard-version
-              run: npx standard-version
-              env:
-                  GITHUB_TOKEN: ${{ secrets.PAT_TOKEN4 }} # Use the Personal Access Token (PAT)
-
             # Publish to npm
             - name: Publish to npm
               run: npm publish
