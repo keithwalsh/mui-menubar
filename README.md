@@ -1,10 +1,11 @@
 # react-mui-menustrip-ts
 
-A React **MenuStrip** component built with **Material-UI (MUI)** and **TypeScript**, offering a flexible and customizable menu system for your React applications.
+A React **MenuStrip** component built with **Material-UI (MUI)** and **TypeScript**, offering a flexible and customizable menu system for your React applications, including support for nested submenus.
 
 ## Features
 
--   **Flexible Configuration:** Define multiple top-level menus with nested items and dividers.
+-   **Flexible Configuration:** Define multiple top-level menus with nested items, submenus, and dividers.
+-   **Nested Submenus:** Support for arbitrarily deep nested submenus.
 -   **TypeScript Support:** Strongly typed components and configurations.
 -   **Material-UI Integration:** Seamlessly integrates with MUI's theming and styling.
 -   **Dark Mode:** Easily toggle between light and dark themes.
@@ -22,7 +23,6 @@ A React **MenuStrip** component built with **Material-UI (MUI)** and **TypeScrip
 
     ```
     npm install react-mui-menustrip-ts
-
     ```
 
 ## Usage
@@ -45,6 +45,14 @@ const menuConfig: MenuConfig[] = [
             { label: "New", action: () => console.log("New clicked"), icon: Home },
             { label: "Open", action: () => console.log("Open clicked") },
             { kind: "divider" },
+            {
+                kind: "submenu",
+                label: "Recent",
+                items: [
+                    { label: "Document 1", action: () => console.log("Document 1 clicked") },
+                    { label: "Document 2", action: () => console.log("Document 2 clicked") },
+                ],
+            },
             { label: "Exit", action: () => console.log("Exit clicked") },
         ],
     },
@@ -85,11 +93,7 @@ const theme = createTheme({
 
 const App: React.FC = () => (
     <ThemeProvider theme={theme}>
-        <MenuStrip menuConfig={menuConfig} darkMode={false} />
-        <div style={{ padding: "20px" }}>
-            <h1>Welcome to My App</h1>
-            <p>This is a sample application using the MenuStrip component.</p>
-        </div>
+        <MenuStrip config={menuConfig} darkMode={false} />
     </ThemeProvider>
 );
 
@@ -100,11 +104,11 @@ export default App;
 
 ### `MenuStrip` Props
 
-| Prop         | Type             | Description                                  | Default |
-| ------------ | ---------------- | -------------------------------------------- | ------- |
-| `menuConfig` | `MenuConfig[]`   | Required. Array defining the menu structure. | -       |
-| `darkMode`   | `boolean`        | Enables dark mode styling.                   | `false` |
-| `sx`         | `SxProps<Theme>` | Custom styles for the `AppBar` component.    | -       |
+| Prop       | Type             | Description                                  | Default |
+| ---------- | ---------------- | -------------------------------------------- | ------- |
+| `config`   | `MenuConfig[]`   | Required. Array defining the menu structure. | -       |
+| `darkMode` | `boolean`        | Enables dark mode styling.                   | `false` |
+| `sx`       | `SxProps<Theme>` | Custom styles for the `AppBar` component.    | -       |
 
 ### Type Definitions
 
@@ -113,32 +117,43 @@ export default App;
 ```tsx
 export interface MenuConfig {
     label: string;
-    items: MenuItemConfig[];
+    items: MenuItemDefinitionUnion[];
 }
 ```
 
-`MenuItemConfig`
+`MenuItemDefinitionUnion`
 
 ```tsx
-export type MenuItemConfig = MenuItemActionConfig | DividerMenuItemConfig;
+export type MenuItemDefinitionUnion = MenuItemActionDefinition | MenuItemDividerDefinition | MenuItemSubmenuDefinition;
 ```
 
-`MenuItemActionConfig`
+`MenuItemActionDefinition`
 
 ```tsx
-export interface MenuItemActionConfig {
-    kind?: "item";
+export interface MenuItemActionDefinition {
+    kind?: "action";
     label: string;
     action?: () => void;
     icon?: React.ComponentType<SvgIconProps>;
 }
 ```
 
-`DividerMenuItemConfig`
+`MenuItemDividerDefinition`
 
 ```tsx
-export interface DividerMenuItemConfig {
+export interface MenuItemDividerDefinition {
     kind: "divider";
+}
+```
+
+`MenuItemSubmenuDefinition`
+
+```tsx
+export interface MenuItemSubmenuDefinition {
+    kind: "submenu";
+    label: string;
+    items: MenuItemDefinitionUnion[];
+    icon?: React.ComponentType<SvgIconProps>;
 }
 ```
 
@@ -148,7 +163,7 @@ export interface DividerMenuItemConfig {
 
 ```tsx
 <MenuStrip
-    menuConfig={menuConfig}
+    config={menuConfig}
     darkMode={true}
     sx={{
         backgroundColor: "#333",
@@ -160,18 +175,11 @@ export interface DividerMenuItemConfig {
 ### Dark Mode
 
 ```tsx
-<MenuStrip
-    menuConfig={menuConfig}
-    darkMode={true}
-    sx={{
-        backgroundColor: "#333",
-        color: "#fff",
-    }}
-/>
+<MenuStrip config={menuConfig} darkMode={true} />
 ```
 
 ## Accessibility
 
--   **Keyboard Navigation:** Open menus with Enter or Space.
+-   **Keyboard Navigation:** Open menus with Enter or Space, navigate with arrow keys.
 -   **ARIA Attributes:** Properly set for screen readers.
 -   **Focus Management:** Ensures focus is handled when menus open/close.
