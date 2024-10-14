@@ -1,0 +1,39 @@
+{
+    "name": "react-mui-menustrip-ts",
+    "version": "0.0.1",
+    "description": "A React MenuStrip component using Material-UI.",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+      "build": "tsc",
+      "prepare": "npm run build"
+    },
+    "peerDependencies": {
+      "react": "^17.0.0 || ^18.0.0",
+      "react-dom": "^17.0.0 || ^18.0.0",
+      "@mui/material": "^5.0.0",
+      "@mui/icons-material": "^5.0.0"
+    },
+    "devDependencies": {
+      "typescript": "^4.0.0",
+      "@types/react": "^17.0.0",
+      "@types/react-dom": "^17.0.0"
+    },
+    "files": [
+      "dist"
+    ],
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/yourusername/your-repo.git" // Replace with your repository URL
+    },
+    "keywords": [
+      "react",
+      "menu",
+      "material-ui",
+      "component",
+      "typescript"
+    ],
+    "author": "Keith Walsh",
+    "license": "MIT"
+  }
+  
