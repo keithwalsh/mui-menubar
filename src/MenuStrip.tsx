@@ -68,7 +68,7 @@ export interface MenuConfig {
 
 interface MenuStripProps {
     config: MenuConfig[];
-    darkMode?: boolean;
+    colorTheme?: string;
     sx?: SxProps<Theme>;
 }
 
@@ -94,20 +94,21 @@ const isDivider = (menuItem: MenuItemDefinitionUnion): menuItem is MenuItemDivid
 const RenderMenuItems: React.FC<{
     menuItems: MenuItemDefinitionUnion[];
     closeMenu: () => void;
-    darkMode: boolean;
-}> = memo(({ menuItems, closeMenu, darkMode }) => {
+    colorTheme?: string;
+}> = memo(({ menuItems, closeMenu, colorTheme = "light" }) => {
     const renderMenuItem = (menuItem: MenuItemDefinitionUnion, index: number) => {
         if (isDivider(menuItem)) {
             return <Divider key={`divider-${index}`} />;
         }
 
         if (menuItem.kind === "submenu") {
-            return <RenderNestedMenuItem key={`submenu-${index}`} subMenuItem={menuItem} parentCloseMenu={closeMenu} darkMode={darkMode} />;
+            return <RenderNestedMenuItem key={`submenu-${index}`} subMenuItem={menuItem} parentCloseMenu={closeMenu} colorTheme={colorTheme} />;
         }
 
         const actionItem = menuItem as MenuItemActionDefinition;
         return (
             <MenuItem
+                dense
                 key={`item-${index}`}
                 onClick={() => {
                     if (actionItem.action) actionItem.action();
@@ -131,14 +132,14 @@ const RenderMenuItems: React.FC<{
  * Renders a nested submenu item within a parent menu.
  * @param subMenuItem - The submenu item definition, containing label, icon, and nested menu items.
  * @param parentCloseMenu - A function to close the parent menu when a nested item is clicked.
- * @param darkMode - A boolean indicating whether dark mode is enabled, affecting the styling.
+ * @param colorTheme - A boolean indicating whether dark mode is enabled, affecting the styling.
  * @returns A React fragment containing the submenu trigger and its expandable menu items.
  */
 const RenderNestedMenuItem: React.FC<{
     subMenuItem: MenuItemSubmenuDefinition;
     parentCloseMenu: () => void;
-    darkMode: boolean;
-}> = memo(({ subMenuItem, parentCloseMenu, darkMode }) => {
+    colorTheme?: string;
+}> = memo(({ subMenuItem, parentCloseMenu, colorTheme = "light" }) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -157,7 +158,7 @@ const RenderNestedMenuItem: React.FC<{
 
     return (
         <>
-            <MenuItem onClick={handleClick}>
+            <MenuItem dense onClick={handleClick}>
                 {subMenuItem.icon && (
                     <ListItemIcon>
                         <subMenuItem.icon fontSize="small" />
@@ -179,7 +180,7 @@ const RenderNestedMenuItem: React.FC<{
                     horizontal: "left",
                 }}
             >
-                <RenderMenuItems menuItems={subMenuItem.items} closeMenu={handleItemClick} darkMode={darkMode} />
+                <RenderMenuItems menuItems={subMenuItem.items} closeMenu={handleItemClick} colorTheme={colorTheme} />
             </Menu>
         </>
     );
@@ -188,11 +189,11 @@ const RenderNestedMenuItem: React.FC<{
 /**
  * Memoized component for rendering individual menu items or dividers.
  * @param config - The menu item to check.
- * @param darkMode - Function to close the parent menu.
+ * @param colorTheme - Function to close the parent menu.
  * @param sx - The index of the menu item within its menu.
  * @returns A JSX element representing the menu item or divider.
  */
-const MenuStrip: React.FC<MenuStripProps> = ({ config, darkMode = false, sx }) => {
+const MenuStrip: React.FC<MenuStripProps> = ({ config = [], colorTheme = "light", sx }) => {
     /**
      * Track only the currently open menu to reduce state complexity and improve performance.
      * https://mui.com/material-ui/api/menu/#:~:text=anchorEl
@@ -260,12 +261,12 @@ const MenuStrip: React.FC<MenuStripProps> = ({ config, darkMode = false, sx }) =
                             role: "menu",
                         }}
                     >
-                        <RenderMenuItems menuItems={menuTopLevel.items} closeMenu={handleClose} darkMode={darkMode} />
+                        <RenderMenuItems menuItems={menuTopLevel.items} closeMenu={handleClose} colorTheme={colorTheme} />
                     </Menu>
                 </React.Fragment>
             );
         },
-        [openMenu, handleClick, handleKeyDown, handleClose, darkMode]
+        [openMenu, handleClick, handleKeyDown, handleClose, colorTheme]
     );
 
     if (config.length === 0) {
@@ -280,7 +281,7 @@ const MenuStrip: React.FC<MenuStripProps> = ({ config, darkMode = false, sx }) =
                 backgroundColor: "transparent",
             }}
             style={{
-                color: darkMode ? "rgb(255, 255, 255)" : "rgba(0, 0, 0, 0.87)",
+                color: colorTheme == "dark" ? "rgb(255, 255, 255)" : "rgba(0, 0, 0, 0.87)",
             }}
             elevation={0}
         >
