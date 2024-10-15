@@ -24,7 +24,7 @@ const sampleConfig: MenuConfig[] = [
     {
         label: "File",
         items: [
-            { label: "New", action: () => console.log("New file"), icon: FileCopy },
+            { label: "Hello", action: () => console.log("New file"), icon: FileCopy },
             { label: "Open", action: () => console.log("Open file"), icon: FolderOpen },
             { kind: "divider" },
             { label: "Save", action: () => console.log("Save file"), icon: Save },
