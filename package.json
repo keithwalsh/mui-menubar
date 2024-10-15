@@ -1,6 +1,6 @@
 {
     "name": "react-mui-menustrip-ts",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "description": "A React MenuStrip component using Material-UI.",
     "main": "dist/index.js",
     "module": "dist/index.esm.js",
@@ -8,7 +8,8 @@
     "scripts": {
         "prepare": "npm run build",
         "storybook": "storybook dev -p 6006",
-        "build-storybook": "storybook build"
+        "build-storybook": "storybook build",
+        "chromatic": "npx chromatic --project-token=chpt_195167f3a5e3189"
     },
     "peerDependencies": {
         "@emotion/react": "^11.0.0",
@@ -32,6 +33,7 @@
         "@storybook/theming": "^8.3.5",
         "@types/react": "^17.0.0",
         "@types/react-dom": "^17.0.0",
+        "chromatic": "^11.12.5",
         "storybook": "^8.3.5",
         "typescript": "^4.0.0"
     },
@@ -40,7 +42,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/yourusername/react-mui-menustrip-ts.git"
+        "url": "git+https://github.com/yourusername/react-mui-menustrip-ts.git"
     },
     "keywords": [
         "react",
@@ -49,6 +51,12 @@
         "component",
         "typescript"
     ],
-    "author": "Keith Walsh",
-    "license": "MIT"
+    "author": {
+        "name": "Keith Walsh"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/yourusername/react-mui-menustrip-ts/issues"
+    },
+    "homepage": "https://github.com/yourusername/react-mui-menustrip-ts#readme"
 }
