@@ -19,7 +19,7 @@ const RenderMenuItems: React.FC<RenderMenuItemsProps> = memo(({ menuItems, handl
             return <RenderNestedMenuItem key={`submenu-${index}`} subMenuItem={menuItem} handleClose={handleClose} colorTheme={colorTheme} />;
         }
 
-        const { label, icon: Icon, shortcut, action } = menuItem as MenuBarAction;
+        const { label, icon: Icon, shortcut, action, disabled } = menuItem as MenuBarAction;
 
         return (
             <MenuItem
@@ -29,6 +29,7 @@ const RenderMenuItems: React.FC<RenderMenuItemsProps> = memo(({ menuItems, handl
                     action?.();
                     handleClose();
                 }}
+                disabled={disabled}
             >
                 {Icon && (
                     <ListItemIcon>

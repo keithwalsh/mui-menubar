@@ -31,6 +31,7 @@ const RenderMenuTopLevel: React.FC<RenderMenuTopLevelProps> = ({
                 onKeyDown={(event) => handleKeyDown(event, menuTopLevelIndex)}
                 color="inherit"
                 sx={{ textTransform: "none" }}
+                disabled={menuTopLevel.disabled}
             >
                 {menuTopLevel.label}
             </Button>

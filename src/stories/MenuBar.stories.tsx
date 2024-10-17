@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Storybook stories for the MenuBar component, showcasing various
+ * configurations and themes. Includes examples for light and dark modes.
+ */
+
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import MenuBar, { MenuConfig } from "../components/MenuBar";
@@ -25,7 +30,7 @@ const sampleConfig: MenuConfig[] = [
         label: "File",
         items: [
             { kind: "action", label: "Hello", action: () => console.log("New file"), icon: FileCopy, shortcut: "Ctrl+S" },
-            { kind: "action", label: "Open", action: () => console.log("Open file action triggered"), icon: FolderOpen },
+            { kind: "action", label: "Open", action: () => console.log("Open file action triggered"), icon: FolderOpen, disabled: true },
             { kind: "divider" },
             { kind: "action", label: "Save", action: () => console.log("Save file"), icon: Save },
             { kind: "action", label: "Exit", action: () => console.log("Exit application"), icon: ExitToApp },
@@ -64,7 +69,7 @@ export const Default: Story = {
         config: sampleConfig,
         colorTheme: "light",
     },
-    render: (args) => (
+    render: (args: { colorTheme?: string }) => (
         <div style={{ backgroundColor: getBackgroundColor(args.colorTheme), padding: "20px" }}>
             <MenuBar {...args} />
         </div>
@@ -126,6 +131,6 @@ DarkMode.parameters = {
 };
 
 // Helper function to get background color
-const getBackgroundColor = (colorTheme: string | undefined): string => {
+function getBackgroundColor(colorTheme: string | undefined): string {
     return colorTheme === "dark" ? "#333333" : "transparent";
-};
+}

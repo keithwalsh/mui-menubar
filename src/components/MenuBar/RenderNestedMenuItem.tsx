@@ -51,7 +51,7 @@ const RenderNestedMenuItem: React.FC<RenderNestedMenuItemProps> = memo(({ subMen
 
     return (
         <>
-            <MenuItem ref={menuItemRef} dense onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <MenuItem ref={menuItemRef} dense onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} disabled={subMenuItem.disabled}>
                 {subMenuItem.icon && (
                     <ListItemIcon>
                         <subMenuItem.icon fontSize="small" />
@@ -62,7 +62,7 @@ const RenderNestedMenuItem: React.FC<RenderNestedMenuItemProps> = memo(({ subMen
             </MenuItem>
             <Menu
                 anchorEl={anchorRef}
-                open={isSubMenuOpen}
+                open={isSubMenuOpen && !subMenuItem.disabled}
                 onClose={() => setIsSubMenuOpen(false)}
                 anchorOrigin={{
                     vertical: "top",

@@ -1,23 +1,20 @@
 /**
- * @fileoverview Defines types and interfaces for the MenuBar component.
- * Includes definitions for menu items, configuration, props, and rendering
- * functions. Supports various menu item types and theming options.
+ * @fileoverview Defines types and interfaces used throughout the MenuBar
+ * component and its subcomponents.
  */
 
 import { SxProps, Theme } from "@mui/material";
 import { SvgIconProps } from "@mui/material/SvgIcon";
 
 /** Represents the different types of menu items available in the MenuBar. */
-export type Kind = "action" | "divider" | "submenu";
+export type MenuBarItemKind = "action" | "divider" | "submenu";
 
 /** Defines the color theme options for the MenuBar component. */
 export type ColorTheme = "light" | "dark";
 
-export type MenuBarItem = MenuBarAction | MenuBarDivider | MenuBarSubmenu;
-
 /** Base interface for all menu item types. */
 export interface MenuBarBase {
-    kind: Kind;
+    kind: MenuBarItemKind;
 }
 
 /** Interface for action menu items that can be clicked. */
@@ -27,6 +24,7 @@ export interface MenuBarAction extends MenuBarBase {
     action: () => void;
     icon?: React.ComponentType<SvgIconProps>;
     shortcut?: string;
+    disabled?: boolean;
 }
 
 /** Interface for divider menu items used to separate groups of items. */
@@ -40,12 +38,17 @@ export interface MenuBarSubmenu extends MenuBarBase {
     label: string;
     items: MenuBarItem[];
     icon?: React.ComponentType<SvgIconProps>;
+    disabled?: boolean;
 }
 
-/** Interface for configuring a single menu in the MenuBar. */
+/** Union type for all possible menu item types. */
+export type MenuBarItem = MenuBarAction | MenuBarDivider | MenuBarSubmenu;
+
+/** Interface for top-level menu configuration. */
 export interface MenuConfig {
     label: string;
     items: MenuBarItem[];
+    disabled?: boolean;
 }
 
 /** Props interface for the MenuBar component. */
