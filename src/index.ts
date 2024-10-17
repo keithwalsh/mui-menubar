@@ -1,5 +1,5 @@
 // Export the MenuStrip component
-export { default as MenuStrip } from "./MenuStrip";
+export { default as MenuBar } from "./components/MenuBar";
 
 // Export types using 'export type'
-export type { MenuConfig, MenuItemDefinitionUnion, MenuItemActionDefinition, MenuItemDividerDefinition } from "./MenuStrip";
+export type { MenuConfig, MenuBarItem, MenuBarAction, MenuBarDivider } from "./components/MenuBar";

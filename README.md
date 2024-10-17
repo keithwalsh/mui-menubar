@@ -1,17 +1,19 @@
-# react-mui-menustrip-ts
+# Ⓜ ─ mui-menubar ─ 🍫
 
-A React **MenuStrip** component built with **Material-UI (MUI)** and **TypeScript**, offering a flexible and customizable menu system for your React applications, including support for nested submenus.
+[![NPM Version](https://img.shields.io/npm/v/mui-menubar.svg)](https://www.npmjs.com/package/mui-menubar)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)
+![Build](https://github.com/keithwalsh/mui-menubar/actions/workflows/build.yml/badge.svg)
 
-## Features
+A React **MenuBar** component built with **Material-UI (MUI)** and **TypeScript**, offering a robust and customizable menu system for React applications, including support for nested submenus and hotkeys.
 
--   **Flexible Configuration:** Define multiple top-level menus with nested items, submenus, and dividers.
--   **Nested Submenus:** Support for arbitrarily deep nested submenus.
--   **TypeScript Support:** Strongly typed components and configurations.
--   **Material-UI Integration:** Seamlessly integrates with MUI's theming and styling.
--   **Dark Mode:** Easily toggle between light and dark themes.
--   **Accessibility:** Keyboard navigable and ARIA compliant.
+## 🚀 Features
 
-## Installation
+-   **Flexible Configuration:** Define multiple top-level menus with nested items, submenus, dividers, actions and hotkeys.
+-   **TypeScript:** Strongly typed components and configurations.
+-   **Material-UI:** Integrates with MUI's theming and styling.
+-   **Accessibility:** Keyboard navigation is supported within dropdowns (e.g., Arrow keys to navigate, Enter to select).
+
+## 📦 Installation
 
 1. Ensure your project meets the peer dependencies before installing.
 
@@ -19,13 +21,13 @@ A React **MenuStrip** component built with **Material-UI (MUI)** and **TypeScrip
     npm install react react-dom @mui/material@^5.0.0 @mui/icons-material@^5.0.0 @emotion/react @emotion/styled
     ```
 
-2. Install `react-mui-menustrip-ts`
+2. Install `mui-menubar`
 
     ```
-    npm install react-mui-menustrip-ts
+    npm install mui-menubar
     ```
 
-## Usage
+## 🎮 Usage
 
 ### Import the Component
 
@@ -77,7 +79,7 @@ const menuConfig: MenuConfig[] = [
 
 ```tsx
 import React from "react";
-import { MenuStrip, MenuConfig } from "react-mui-menustrip-ts";
+import { MenuBar, MenuConfig } from "mui-menubar";
 import { Home, Settings, Help } from "@mui/icons-material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
@@ -93,29 +95,29 @@ const theme = createTheme({
 
 const App: React.FC = () => (
     <ThemeProvider theme={theme}>
-        <MenuStrip config={menuConfig} darkMode={false} />
+        <MenuBar config={menuConfig} darkMode={false} />
     </ThemeProvider>
 );
 
 export default App;
 ```
 
-## API Reference
+## 🔧 API Reference
 
 ### `MenuStrip` Props
 
-| Prop       | Type             | Description                                  | Default |
-| ---------- | ---------------- | -------------------------------------------- | ------- |
-| `config`   | `MenuConfig[]`   | Required. Array defining the menu structure. | -       |
-| `darkMode` | `boolean`        | Enables dark mode styling.                   | `false` |
-| `sx`       | `SxProps<Theme>` | Custom styles for the `AppBar` component.    | -       |
+| Prop         | Type             | Description                                  | Default |
+| ------------ | ---------------- | -------------------------------------------- | ------- |
+| `config`     | `MenuConfig[]`   | Required. Array defining the menu structure. | -       |
+| `colorTheme` | `string`         | Changes color styles (e.g. "light" / "dark") | `light` |
+| `sx`         | `SxProps<Theme>` | Custom styles for the `AppBar` component.    | -       |
 
 ### Type Definitions
 
 `MenuConfig`
 
 ```tsx
-export interface MenuConfig {
+interface MenuConfig {
     label: string;
     items: MenuItemDefinitionUnion[];
 }
@@ -124,24 +126,25 @@ export interface MenuConfig {
 `MenuItemDefinitionUnion`
 
 ```tsx
-export type MenuItemDefinitionUnion = MenuItemActionDefinition | MenuItemDividerDefinition | MenuItemSubmenuDefinition;
+type MenuItemDefinitionUnion = MenuItemActionDefinition | MenuItemDividerDefinition | MenuItemSubmenuDefinition;
 ```
 
 `MenuItemActionDefinition`
 
 ```tsx
-export interface MenuItemActionDefinition {
+interface MenuItemActionDefinition {
     kind?: "action";
     label: string;
-    action?: () => void;
+    action: () => void;
     icon?: React.ComponentType<SvgIconProps>;
+    shortcut?: string;
 }
 ```
 
 `MenuItemDividerDefinition`
 
 ```tsx
-export interface MenuItemDividerDefinition {
+interface MenuItemDividerDefinition {
     kind: "divider";
 }
 ```
@@ -157,29 +160,6 @@ export interface MenuItemSubmenuDefinition {
 }
 ```
 
-## Styling and Theming
+## 🗺️ Roadmap
 
-### Custom Styles with `sx`
-
-```tsx
-<MenuStrip
-    config={menuConfig}
-    darkMode={true}
-    sx={{
-        backgroundColor: "#333",
-        color: "#fff",
-    }}
-/>
-```
-
-### Dark Mode
-
-```tsx
-<MenuStrip config={menuConfig} darkMode={true} />
-```
-
-## Accessibility
-
--   **Keyboard Navigation:** Open menus with Enter or Space, navigate with arrow keys.
 -   **ARIA Attributes:** Properly set for screen readers.
--   **Focus Management:** Ensures focus is handled when menus open/close.
