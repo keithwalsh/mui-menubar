@@ -1,8 +1,12 @@
+..REFERENCE/
 node_modules/
 build/
-NOTES.md
-build-storybook.log
-storybook-static/
 test/
 dist/
-*storybook.log
+storybook-static/
+*.log
+.*rules
+.*ignore
+*sheet.md
+tree.py
+github-actions.schema.json

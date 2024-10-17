@@ -1,15 +1,17 @@
 {
-    "name": "react-mui-menustrip-ts",
-    "version": "1.2.3",
-    "description": "A React MenuStrip component using Material-UI.",
+    "name": "mui-menubar",
+    "version": "0.1.1",
+    "description": "A React MenuBar component using Material-UI.",
     "main": "dist/index.js",
     "module": "dist/index.esm.js",
     "types": "dist/index.d.ts",
     "scripts": {
         "prepare": "npm run build",
+        "build": "tsc",
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
-        "chromatic": "npx chromatic --project-token=chpt_195167f3a5e3189"
+        "chromatic": "npx chromatic --project-token=chpt_63d892e309196bb",
+        "release": "commit-and-tag-version"
     },
     "peerDependencies": {
         "@emotion/react": "^11.0.0",
@@ -34,6 +36,7 @@
         "@types/react": "^17.0.0",
         "@types/react-dom": "^17.0.0",
         "chromatic": "^11.12.5",
+        "commit-and-tag-version": "^12.5.0",
         "storybook": "^8.3.5",
         "typescript": "^4.0.0"
     },
@@ -42,7 +45,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/yourusername/react-mui-menustrip-ts.git"
+        "url": "git+https://github.com/keithwalsh/mui-menubar.git"
     },
     "keywords": [
         "react",
@@ -56,7 +59,13 @@
     },
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/yourusername/react-mui-menustrip-ts/issues"
+        "url": "https://github.com/keithwalsh/mui-menubar/issues"
     },
-    "homepage": "https://github.com/yourusername/react-mui-menustrip-ts#readme"
+    "homepage": "https://github.com/keithwalsh/mui-menubar#readme",
+    "dependencies": {
+        "react-hotkeys-hook": "^4.5.1"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
 }
