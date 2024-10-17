@@ -5,11 +5,21 @@
  */
 
 import React, { useState, useCallback } from "react";
-import { AppBar, Toolbar } from "@mui/material";
+import { AppBar, createTheme, CssBaseline, ThemeProvider, Toolbar } from "@mui/material";
 import { MenuBarProps } from "./types";
 import RenderMenuTopLevel from "./RenderMenuTopLevel";
 import { useMenuHotkeys } from "./utils";
 
+const muiDarkTheme = createTheme({
+    palette: {
+        mode: "dark",
+    },
+});
+const muiLightTheme = createTheme({
+    palette: {
+        mode: "light",
+    },
+});
 const MenuBar: React.FC<MenuBarProps> = ({ config = [], colorTheme = "light", sx }) => {
     /** Sets up keyboard shortcuts. */
     useMenuHotkeys(config);
@@ -40,40 +50,43 @@ const MenuBar: React.FC<MenuBarProps> = ({ config = [], colorTheme = "light", sx
     }
 
     return (
-        <AppBar
-            position="static"
-            sx={{
-                ...sx,
-                backgroundColor: "transparent",
-            }}
-            style={{
-                color: colorTheme === "dark" ? "rgb(255, 255, 255)" : "rgba(0, 0, 0, 0.87)",
-            }}
-            elevation={0}
-        >
-            <Toolbar
+        <ThemeProvider theme={colorTheme === "dark" ? muiDarkTheme : muiLightTheme}>
+            <CssBaseline />
+            <AppBar
+                position="static"
                 sx={{
-                    padding: 0,
-                    "&.MuiToolbar-root": {
-                        minHeight: 0,
-                        padding: 0,
-                    },
+                    ...sx,
+                    backgroundColor: "transparent",
                 }}
+                style={{
+                    color: colorTheme === "dark" ? "rgb(255, 255, 255)" : "rgba(0, 0, 0, 0.87)",
+                }}
+                elevation={0}
             >
-                {config.map((menuTopLevel, index) => (
-                    <RenderMenuTopLevel
-                        key={`menu-${index}-${menuTopLevel.label}`}
-                        menuTopLevel={menuTopLevel}
-                        menuTopLevelIndex={index}
-                        openMenu={openMenu}
-                        handleClick={handleClick}
-                        handleKeyDown={handleKeyDown}
-                        handleClose={handleClose}
-                        colorTheme={colorTheme as "light" | "dark"}
-                    />
-                ))}
-            </Toolbar>
-        </AppBar>
+                <Toolbar
+                    sx={{
+                        padding: 0,
+                        "&.MuiToolbar-root": {
+                            minHeight: 0,
+                            padding: 0,
+                        },
+                    }}
+                >
+                    {config.map((menuTopLevel, index) => (
+                        <RenderMenuTopLevel
+                            key={`menu-${index}-${menuTopLevel.label}`}
+                            menuTopLevel={menuTopLevel}
+                            menuTopLevelIndex={index}
+                            openMenu={openMenu}
+                            handleClick={handleClick}
+                            handleKeyDown={handleKeyDown}
+                            handleClose={handleClose}
+                            colorTheme={colorTheme}
+                        />
+                    ))}
+                </Toolbar>
+            </AppBar>
+        </ThemeProvider>
     );
 };
 
