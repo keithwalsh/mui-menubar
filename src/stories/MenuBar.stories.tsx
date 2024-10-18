@@ -25,32 +25,19 @@ const meta: Meta<typeof MenuBar> = {
                     summary: "MenuConfig[]",
                     detail: `
 Array<{
-    /** Label for the top-level menu category. */
     label: string;
-    /** Optional flag to disable the entire menu category. */
     disabled?: boolean;
-    /** Array of menu items within this category. */
     items: Array<{
-               /** Determines the type of menu item: 'action', 'divider', or 'submenu'. */
-               kind: "action" | "divider" | "submenu";
-               /** Text displayed for the menu item (not applicable for dividers). */
-               label?: string;
-               /** Function to be called when an action item is selected. */
-               action?: () => void;
-               /** Optional icon component to be displayed alongside the label. */
-               icon?: React.ComponentType<SvgIconProps>;
-               /** Optional keyboard shortcut displayed for the menu item. */
-               shortcut?: string;
-               /** Whether the menu item is disabled. */
-               disabled?: boolean;
-               /**
-                * For submenu items, an array of nested menu items.
-                * These can have the same structure as top-level items,
-                * allowing for multiple levels of nesting.
-                */
-               items?: Array</* Recursive reference to this item structure */>;
-        }>;
+        kind: "action" | "divider" | "submenu";
+        label?: string;
+        disabled?: boolean;
+        selected?: boolean;
+        action?: () => void;
+        icon?: React.ComponentType<SvgIconProps>;
+        shortcut?: string;
+        items?: Array</* Recursive reference to this item structure */>;
     }>;
+}>;
 `,
                 },
             },
@@ -103,7 +90,7 @@ const sampleConfig: MenuConfig[] = [
     {
         label: "View",
         items: [
-            { kind: "action", label: "Show/Hide Sidebar", action: () => console.log("Toggle Sidebar"), icon: Visibility },
+            { kind: "action", label: "Show/Hide Sidebar", action: () => console.log("Toggle Sidebar"), icon: Visibility, selected: true },
             { kind: "divider" },
             { kind: "action", label: "Zoom In", action: () => console.log("Zoom In"), icon: ZoomIn },
             { kind: "action", label: "Zoom Out", action: () => console.log("Zoom Out"), icon: ZoomOut },

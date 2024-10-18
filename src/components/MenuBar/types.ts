@@ -21,10 +21,11 @@ export interface MenuBarBase {
 export interface MenuBarAction extends MenuBarBase {
     kind: "action";
     label: string;
+    disabled?: boolean;
+    selected?: boolean;
     action: () => void;
     icon?: React.ComponentType<SvgIconProps>;
     shortcut?: string;
-    disabled?: boolean;
 }
 
 /** Interface for divider menu items used to separate groups of items. */
@@ -36,9 +37,10 @@ export interface MenuBarDivider extends MenuBarBase {
 export interface MenuBarSubmenu extends MenuBarBase {
     kind: "submenu";
     label: string;
+    disabled?: boolean;
+    selected?: boolean;
     items: MenuBarItem[];
     icon?: React.ComponentType<SvgIconProps>;
-    disabled?: boolean;
 }
 
 /** Union type for all possible menu item types. */
@@ -47,8 +49,9 @@ export type MenuBarItem = MenuBarAction | MenuBarDivider | MenuBarSubmenu;
 /** Interface for top-level menu configuration. */
 export interface MenuConfig {
     label: string;
-    items: MenuBarItem[];
     disabled?: boolean;
+    selected?: boolean;
+    items: MenuBarItem[];
 }
 
 /** Props interface for the MenuBar component. */

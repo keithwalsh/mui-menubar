@@ -1,10 +1,12 @@
 # Ⓜ ─ mui-menubar ─ 🍫
 
+![Build](https://github.com/keithwalsh/mui-menubar/actions/workflows/build.yml/badge.svg)
+[![Code Climate](https://codeclimate.com/github/keithwalsh/mui-menubar/badges/gpa.svg)](https://codeclimate.com/github/keithwalsh/mui-menubar)
+[![Package Quality](https://packagequality.com/shield/mui-menubar.svg)](https://packagequality.com/#?package=mui-menubar)
 [![NPM Version](https://img.shields.io/npm/v/mui-menubar.svg)](https://www.npmjs.com/package/mui-menubar)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)
-![Build](https://github.com/keithwalsh/mui-menubar/actions/workflows/build.yml/badge.svg)
 
-A React **MenuBar** component built with **Material-UI (MUI)** and **TypeScript**, offering a robust and customizable menu system for React applications, including support for nested submenus and hotkeys.
+A React **MenuBar** component built with **Material-UI (MUI)** and **TypeScript**, offering a robust and customizable menu bar system for React applications, including support for nested submenus and hotkeys.
 
 ## 🚀 Features
 
