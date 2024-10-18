@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## 0.1.3 (2024-10-18)
+
+
+### Features
+
+* add ability to disable menu item with disabled: true in configuration ([1b373c5](https://github.com/keithwalsh/mui-menubar/commit/1b373c5439bd072f8b140569fbd822ae1883d1b2))
+* add ability to set menu items as selected via config ([ae532e2](https://github.com/keithwalsh/mui-menubar/commit/ae532e2f3a8aae7e9293d8f81485440edc0b3325))
+* add active state highlighting ([2e8d2eb](https://github.com/keithwalsh/mui-menubar/commit/2e8d2eba80427d77f69167aa4460525d7501b1c2))
+* add color prop to control MenuBar top level color ([391dce4](https://github.com/keithwalsh/mui-menubar/commit/391dce4fa62c66ca73238cd6b8e5ef947ae8d00d))
+* add MenuBar component and configure TypeScript build ([f5c92d6](https://github.com/keithwalsh/mui-menubar/commit/f5c92d6de821e17c6039838dba53a50be741a3eb))
+* add support for hotkeys ([d9342d0](https://github.com/keithwalsh/mui-menubar/commit/d9342d0d417d3d9a51ba7b4b85471353b7dd568c))
+* add support for nested submenus ([dee8fae](https://github.com/keithwalsh/mui-menubar/commit/dee8fae5d2c057f85c10a3c0a42edf9e7b990ac8))
+* add transitionDuration to MenuConfig ([69df721](https://github.com/keithwalsh/mui-menubar/commit/69df72168eb5a32b5c1b70889f0520894d367e8c))
+* dark theme support ([03f2c18](https://github.com/keithwalsh/mui-menubar/commit/03f2c1838a2fc6f0f1ee09977ad5c64356f7be37))
+
+
+### Bug Fixes
+
+* correctly export MenuConfig types using 'export type' ([b1ea539](https://github.com/keithwalsh/mui-menubar/commit/b1ea53950208480252ec2faa6a05378588657af0))
+* export MenuConfig type from index.ts ([e8ba8d6](https://github.com/keithwalsh/mui-menubar/commit/e8ba8d6252906550115438842be075fb5a17d695))
+* update peerDependencies to support @mui/icons-material v6 ([9c1365e](https://github.com/keithwalsh/mui-menubar/commit/9c1365e31fdb161c0a158172590a56f6f59f502a))
+
 ## 0.1.2 (2024-10-17)
 
 
