@@ -4,7 +4,6 @@
  */
 
 import { SxProps, Theme } from "@mui/material";
-import { SvgIconProps } from "@mui/material/SvgIcon";
 import { AppBarProps } from "@mui/material";
 
 /** Represents the different types of menu items available in the MenuBar. */
@@ -28,7 +27,7 @@ export interface MenuBarAction extends MenuBarBase {
     disabled?: boolean;
     selected?: boolean;
     action: () => void;
-    icon?: React.ComponentType<SvgIconProps>;
+    icon?: React.ReactNode;
     shortcut?: string;
 }
 
@@ -44,7 +43,7 @@ export interface MenuBarSubmenu extends MenuBarBase {
     disabled?: boolean;
     selected?: boolean;
     items: MenuBarItem[];
-    icon?: React.ComponentType<SvgIconProps>;
+    icon?: React.ReactNode;
 }
 
 /** Union type for all possible menu item types. */

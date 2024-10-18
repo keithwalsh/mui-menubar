@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useRef, useEffect, useCallback, memo } from "react";
-import { Menu, MenuItem, ListItemIcon, ListItemText, styled } from "@mui/material";
+import { Menu, MenuItem, ListItemIcon, ListItemText, styled, SxProps, Theme } from "@mui/material";
 import { KeyboardArrowRight } from "@mui/icons-material";
 import { RenderNestedMenuItemProps } from "./types";
 import RenderMenuItems from "./RenderMenuItems";
@@ -56,6 +56,8 @@ const RenderNestedMenuItem: React.FC<RenderNestedMenuItemProps> = memo(({ subMen
         handleClose();
     }, [handleClose]);
 
+    const iconSx: SxProps<Theme> = { minWidth: 24, marginRight: 1 };
+
     return (
         <>
             <StyledMenuItem
@@ -66,11 +68,7 @@ const RenderNestedMenuItem: React.FC<RenderNestedMenuItemProps> = memo(({ subMen
                 disabled={subMenuItem.disabled}
                 selected={isSubMenuOpen}
             >
-                {subMenuItem.icon && (
-                    <ListItemIcon>
-                        <subMenuItem.icon fontSize="small" />
-                    </ListItemIcon>
-                )}
+                {subMenuItem.icon && <ListItemIcon sx={iconSx}>{subMenuItem.icon}</ListItemIcon>}
                 <ListItemText primary={subMenuItem.label} />
                 <KeyboardArrowRight fontSize="small" sx={{ paddingLeft: 3, marginRight: -1 }} />
             </StyledMenuItem>

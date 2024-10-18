@@ -4,7 +4,7 @@
  */
 
 import React, { memo } from "react";
-import { MenuItem, Divider, ListItemIcon, ListItemText, Typography } from "@mui/material";
+import { MenuItem, Divider, ListItemIcon, ListItemText, Typography, SxProps, Theme } from "@mui/material";
 import { MenuBarItem, MenuBarAction, RenderMenuItemsProps } from "./types";
 import { isDivider } from "./utils";
 import RenderNestedMenuItem from "./RenderNestedMenuItem";
@@ -19,7 +19,9 @@ const RenderMenuItems: React.FC<RenderMenuItemsProps> = memo(({ menuItems, handl
             return <RenderNestedMenuItem key={`submenu-${index}`} subMenuItem={menuItem} handleClose={handleClose} colorTheme={colorTheme} />;
         }
 
-        const { label, icon: Icon, shortcut, action, disabled, selected } = menuItem as MenuBarAction;
+        const { label, icon, shortcut, action, disabled, selected } = menuItem as MenuBarAction;
+
+        const iconSx: SxProps<Theme> = { mb: 0.2, fontSize: "small" };
 
         return (
             <MenuItem
@@ -32,9 +34,13 @@ const RenderMenuItems: React.FC<RenderMenuItemsProps> = memo(({ menuItems, handl
                 disabled={disabled}
                 selected={selected}
             >
-                {Icon && (
+                {icon && (
                     <ListItemIcon>
-                        <Icon fontSize="small" sx={{ mb: 0.2 }} />
+                        {React.isValidElement(icon) ? (
+                            React.cloneElement(icon as React.ReactElement<{ sx?: SxProps<Theme> }>, { sx: iconSx })
+                        ) : (
+                            <span style={{ marginBottom: 2 }}>{icon}</span>
+                        )}
                     </ListItemIcon>
                 )}
                 <ListItemText primary={label} />

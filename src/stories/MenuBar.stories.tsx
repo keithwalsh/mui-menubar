@@ -33,7 +33,7 @@ Array<{
         selected?: boolean;
         transitionDuration?: "auto" | number | { appear?: number; enter?: number; exit?: number };
         action?: () => void;
-        icon?: React.ComponentType<SvgIconProps>;
+        icon?: React.ReactNode;
         shortcut?: string;
         items?: Array</* Recursive reference to this item structure */>;
     }>;
@@ -72,26 +72,27 @@ const sampleConfig: MenuConfig[] = [
     {
         label: "File",
         items: [
-            { kind: "action", label: "Hello", action: () => console.log("New file"), icon: FileCopy, shortcut: "Ctrl+S" },
-            { kind: "action", label: "Open", action: () => console.log("Open file action triggered"), icon: FolderOpen, disabled: true },
+            { kind: "action", label: "Hello", action: () => console.log("New file"), icon: <FileCopy />, shortcut: "Ctrl+S" },
+            { kind: "action", label: "Open", action: () => console.log("Open file action triggered"), icon: <FolderOpen />, disabled: true },
             { kind: "divider" },
-            { kind: "action", label: "Save", action: () => console.log("Save file"), icon: Save },
-            { kind: "action", label: "Exit", action: () => console.log("Exit application"), icon: ExitToApp },
+            { kind: "action", label: "Save", action: () => console.log("Save file"), icon: <Save /> },
+            { kind: "action", label: "Exit", action: () => console.log("Exit application"), icon: <ExitToApp /> },
         ],
     },
     {
         label: "Edit",
+        transitionDuration: 0,
         items: [
-            { kind: "action", label: "Undo", action: () => console.log("Undo"), icon: Undo },
-            { kind: "action", label: "Redo", action: () => console.log("Redo"), icon: Redo },
+            { kind: "action", label: "Undo", action: () => console.log("Undo"), icon: <Undo /> },
+            { kind: "action", label: "Redo", action: () => console.log("Redo"), icon: <Redo /> },
             { kind: "divider" },
             {
                 kind: "submenu",
                 label: "Advanced",
                 items: [
-                    { kind: "action", label: "Copy", action: () => console.log("Copy"), icon: ContentCopy },
+                    { kind: "action", label: "Copy", action: () => console.log("Copy"), icon: <ContentCopy /> },
                     { kind: "divider" },
-                    { kind: "action", label: "Paste", action: () => console.log("Paste"), icon: ContentPaste },
+                    { kind: "action", label: "Paste", action: () => console.log("Paste"), icon: <ContentPaste /> },
                 ],
             },
         ],
@@ -99,10 +100,10 @@ const sampleConfig: MenuConfig[] = [
     {
         label: "View",
         items: [
-            { kind: "action", label: "Show/Hide Sidebar", action: () => console.log("Toggle Sidebar"), icon: Visibility, selected: true },
+            { kind: "action", label: "Show/Hide Sidebar", action: () => console.log("Toggle Sidebar"), icon: <Visibility />, selected: true },
             { kind: "divider" },
-            { kind: "action", label: "Zoom In", action: () => console.log("Zoom In"), icon: ZoomIn },
-            { kind: "action", label: "Zoom Out", action: () => console.log("Zoom Out"), icon: ZoomOut },
+            { kind: "action", label: "Zoom In", action: () => console.log("Zoom In"), icon: <ZoomIn /> },
+            { kind: "action", label: "Zoom Out", action: () => console.log("Zoom Out"), icon: <ZoomOut /> },
         ],
     },
 ];
