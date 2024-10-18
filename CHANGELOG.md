@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.7](https://github.com/keithwalsh/mui-menubar/compare/v0.1.4...v0.1.7) (2024-10-18)
+
+
+### Features
+
+* add 'component' type to MenuBarItemKind and support for custom components ([b85b1d3](https://github.com/keithwalsh/mui-menubar/commit/b85b1d3d95ebf7360bbdcb4dc2c44e5f36ac69bc))
+* create defaults.ts for all default configurations, add disableRipple and transitionDuration props to MenuBar ([dca83e3](https://github.com/keithwalsh/mui-menubar/commit/dca83e36a81e6c2b6827f4350fca2f73cd8a8e37))
+
 ## [0.1.4](https://github.com/keithwalsh/mui-menubar/compare/v0.1.3...v0.1.4) (2024-10-18)
 
 
