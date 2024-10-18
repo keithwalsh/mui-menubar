@@ -32,6 +32,7 @@ Array<{
         label?: string;
         disabled?: boolean;
         selected?: boolean;
+        transitionDuration?: "auto" | number | { appear?: number; enter?: number; exit?: number };
         action?: () => void;
         icon?: React.ComponentType<SvgIconProps>;
         shortcut?: string;
@@ -72,6 +73,7 @@ const sampleConfig: MenuConfig[] = [
     },
     {
         label: "Edit",
+        transitionDuration: 0,
         items: [
             { kind: "action", label: "Undo", action: () => console.log("Undo"), icon: Undo },
             { kind: "action", label: "Redo", action: () => console.log("Redo"), icon: Redo },
@@ -104,7 +106,7 @@ export const Default: Story = {
         colorTheme: "light",
     },
     render: (args: MenuBarProps) => (
-        <div style={{ backgroundColor: getBackgroundColor(args.colorTheme), padding: "20px" }}>
+        <div style={{ backgroundColor: getBackgroundColor(args.colorTheme) }}>
             <MenuBar {...args} />
         </div>
     ),
@@ -118,11 +120,6 @@ export const DarkMode: Story = {
 };
 
 DarkMode.parameters = {
-    docs: {
-        source: {
-            type: "code",
-        },
-    },
     backgrounds: {
         default: "dark",
     },

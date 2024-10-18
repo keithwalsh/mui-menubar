@@ -10,7 +10,7 @@ import { MenuBarProps } from "./types";
 import RenderMenuTopLevel from "./RenderMenuTopLevel";
 import { useMenuHotkeys } from "./utils";
 
-const MenuBar: React.FC<MenuBarProps> = ({ config = [], sx }) => {
+const MenuBar: React.FC<MenuBarProps> = ({ config = [], colorTheme, sx }) => {
     /** Sets up keyboard shortcuts. */
     useMenuHotkeys(config);
     /** Tracks the currently open menu and its anchor element. */
@@ -43,22 +43,14 @@ const MenuBar: React.FC<MenuBarProps> = ({ config = [], sx }) => {
     return (
         <AppBar
             position="static"
+            elevation={0}
             sx={{
                 ...sx,
                 backgroundColor: "transparent",
                 color: theme.palette.text.primary,
             }}
-            elevation={0}
         >
-            <Toolbar
-                sx={{
-                    padding: 0,
-                    "&.MuiToolbar-root": {
-                        minHeight: 0,
-                        padding: 0,
-                    },
-                }}
-            >
+            <Toolbar variant="dense" disableGutters={true}>
                 {config.map((menuTopLevel, index) => (
                     <RenderMenuTopLevel
                         key={`menu-${index}-${menuTopLevel.label}`}
@@ -68,6 +60,7 @@ const MenuBar: React.FC<MenuBarProps> = ({ config = [], sx }) => {
                         handleClick={handleClick}
                         handleKeyDown={handleKeyDown}
                         handleClose={handleClose}
+                        colorTheme={colorTheme}
                     />
                 ))}
             </Toolbar>

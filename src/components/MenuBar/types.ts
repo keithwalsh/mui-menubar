@@ -12,6 +12,9 @@ export type MenuBarItemKind = "action" | "divider" | "submenu";
 /** Defines the color theme options for the MenuBar component. */
 export type ColorTheme = "light" | "dark";
 
+/** The length of the transition in ms, or 'auto'. */
+export type TransitionDuration = "auto" | number | { appear?: number; enter?: number; exit?: number };
+
 /** Base interface for all menu item types. */
 export interface MenuBarBase {
     kind: MenuBarItemKind;
@@ -52,6 +55,7 @@ export interface MenuConfig {
     disabled?: boolean;
     selected?: boolean;
     items: MenuBarItem[];
+    transitionDuration?: TransitionDuration;
 }
 
 /** Props interface for the MenuBar component. */

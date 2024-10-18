@@ -44,6 +44,7 @@ const RenderMenuTopLevel: React.FC<RenderMenuTopLevelProps> = ({
                     "aria-labelledby": `menu-button-${menuTopLevelIndex}`,
                     role: "menu",
                 }}
+                transitionDuration={menuTopLevel.transitionDuration}
             >
                 <RenderMenuItems menuItems={menuTopLevel.items} handleClose={handleClose} colorTheme={colorTheme} />
             </Menu>
