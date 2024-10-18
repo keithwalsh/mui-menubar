@@ -18,7 +18,6 @@ const meta: Meta<typeof MenuBar> = {
                 type: "object",
             },
             description: "JSON configuration for the menu structure.",
-            defaultValue: "[]",
             table: {
                 defaultValue: { summary: "[]", detail: "Empty array = no rendering" },
                 type: {
@@ -49,9 +48,18 @@ Array<{
                 options: ["light", "dark"],
             },
             description: "Switch between light and dark mode.",
-            defaultValue: "light",
             table: {
+                defaultValue: { summary: "light" },
                 type: { summary: `"light" | "dark"` },
+            },
+        },
+        color: {
+            options: ["default", "primary", "secondary", "inherit", "transparent"],
+            control: { type: "select" },
+            description: "Color of the menu bar (AppBar colors).",
+            table: {
+                defaultValue: { summary: "transparent" },
+                type: { summary: `"default" | "primary" | "secondary" | "inherit" | "transparent"` },
             },
         },
     },
@@ -104,6 +112,7 @@ export const Default: Story = {
     args: {
         config: sampleConfig,
         colorTheme: "light",
+        color: "transparent",
     },
     render: (args: MenuBarProps) => (
         <div style={{ backgroundColor: getBackgroundColor(args.colorTheme) }}>

@@ -5,6 +5,7 @@
 
 import { SxProps, Theme } from "@mui/material";
 import { SvgIconProps } from "@mui/material/SvgIcon";
+import { AppBarProps } from "@mui/material";
 
 /** Represents the different types of menu items available in the MenuBar. */
 export type MenuBarItemKind = "action" | "divider" | "submenu";
@@ -62,6 +63,7 @@ export interface MenuConfig {
 export interface MenuBarProps {
     config: MenuConfig[];
     colorTheme?: ColorTheme;
+    color?: AppBarProps["color"];
     sx?: SxProps<Theme>;
 }
 

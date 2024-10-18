@@ -5,17 +5,16 @@
  */
 
 import React, { useState, useCallback } from "react";
-import { AppBar, Toolbar, useTheme } from "@mui/material";
+import { AppBar, Toolbar } from "@mui/material";
 import { MenuBarProps } from "./types";
 import RenderMenuTopLevel from "./RenderMenuTopLevel";
 import { useMenuHotkeys } from "./utils";
 
-const MenuBar: React.FC<MenuBarProps> = ({ config = [], colorTheme, sx }) => {
+const MenuBar: React.FC<MenuBarProps> = ({ config = [], colorTheme, color, sx }) => {
     /** Sets up keyboard shortcuts. */
     useMenuHotkeys(config);
     /** Tracks the currently open menu and its anchor element. */
     const [openMenu, setOpenMenu] = useState<{ menuIndex: number; menuAnchor: HTMLElement } | null>(null);
-    const theme = useTheme();
 
     /** Opens the menu at the specified index when clicked. */
     const handleClick = useCallback((mouseEvent: React.MouseEvent<HTMLButtonElement>, menuIndex: number) => {
@@ -41,15 +40,7 @@ const MenuBar: React.FC<MenuBarProps> = ({ config = [], colorTheme, sx }) => {
     }
 
     return (
-        <AppBar
-            position="static"
-            elevation={0}
-            sx={{
-                ...sx,
-                backgroundColor: "transparent",
-                color: theme.palette.text.primary,
-            }}
-        >
+        <AppBar position="static" elevation={0} color={color}>
             <Toolbar variant="dense" disableGutters={true}>
                 {config.map((menuTopLevel, index) => (
                     <RenderMenuTopLevel
