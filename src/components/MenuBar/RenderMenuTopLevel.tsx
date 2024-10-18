@@ -13,6 +13,9 @@ const StyledButton = styled(Button)(({ theme }) => ({
     "&:hover, &.Mui-selected, &.active": {
         backgroundColor: theme.palette.action.hover,
     },
+    "&.Mui-focusVisible": {
+        backgroundColor: theme.palette.action.hover,
+    },
 }));
 
 const RenderMenuTopLevel: React.FC<RenderMenuTopLevelProps> = ({
@@ -39,6 +42,8 @@ const RenderMenuTopLevel: React.FC<RenderMenuTopLevelProps> = ({
                 sx={{ textTransform: "none" }}
                 disabled={menuTopLevel.disabled}
                 className={isOpen ? "active" : ""}
+                disableFocusRipple={true}
+                disableRipple={menuTopLevel.disableRipple}
             >
                 {menuTopLevel.label}
             </StyledButton>

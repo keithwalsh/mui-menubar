@@ -6,9 +6,9 @@
 
 import React, { useState, useCallback } from "react";
 import { AppBar, Toolbar } from "@mui/material";
-import { MenuBarProps } from "./types";
-import RenderMenuTopLevel from "./RenderMenuTopLevel";
+import { MenuBarProps, defaultMenuConfig } from "./types";
 import { useMenuHotkeys } from "./utils";
+import RenderMenuTopLevel from "./RenderMenuTopLevel";
 
 const MenuBar: React.FC<MenuBarProps> = ({ config = [], colorTheme = "light", color = "transparent", sx }) => {
     /** Sets up keyboard shortcuts. */
@@ -44,12 +44,13 @@ const MenuBar: React.FC<MenuBarProps> = ({ config = [], colorTheme = "light", co
      * If not specified, it defaults to 0.
      */
     const processedConfig = config.map((menuItem) => ({
+        ...defaultMenuConfig,
         ...menuItem,
         transitionDuration: menuItem.transitionDuration ?? 0,
     }));
 
     return (
-        <AppBar position="static" elevation={0} color={color}>
+        <AppBar position="static" elevation={0} color={color} sx={sx}>
             <Toolbar variant="dense" disableGutters={true}>
                 {processedConfig.map((menuTopLevel, index) => (
                     <RenderMenuTopLevel

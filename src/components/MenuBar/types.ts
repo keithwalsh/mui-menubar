@@ -56,7 +56,18 @@ export interface MenuConfig {
     selected?: boolean;
     items: MenuBarItem[];
     transitionDuration?: TransitionDuration;
+    disableRipple?: boolean;
 }
+
+/** Default values for MenuConfig */
+export const defaultMenuConfig: Required<MenuConfig> = {
+    label: "",
+    disabled: false,
+    selected: false,
+    items: [],
+    transitionDuration: "auto",
+    disableRipple: true,
+};
 
 /** Props interface for the MenuBar component. */
 export interface MenuBarProps {
