@@ -62,6 +62,31 @@ Array<{
                 type: { summary: `"default" | "primary" | "secondary" | "inherit" | "transparent"` },
             },
         },
+        sx: {
+            control: { type: "object" },
+            description: "Custom styles for the menu bar.",
+            table: {
+                defaultValue: { summary: "{}" },
+                type: { summary: "SxProps<Theme>", detail: "See https://mui.com/material-ui/api/app-bar/#props" },
+            },
+        },
+        disableRipple: {
+            control: { type: "radio" },
+            options: [true, false],
+            description: "Disable ripple effect on menu items.",
+            table: {
+                defaultValue: { summary: "true" },
+                type: { summary: "boolean" },
+            },
+        },
+        transitionDuration: {
+            control: { type: "number" },
+            description: "Transition duration for menu items.",
+            table: {
+                defaultValue: { summary: "0" },
+                type: { summary: "number" },
+            },
+        },
     },
 };
 
@@ -81,7 +106,6 @@ const sampleConfig: MenuConfig[] = [
     },
     {
         label: "Edit",
-        transitionDuration: 0,
         items: [
             { kind: "action", label: "Undo", action: () => console.log("Undo"), icon: <Undo /> },
             { kind: "action", label: "Redo", action: () => console.log("Redo"), icon: <Redo /> },

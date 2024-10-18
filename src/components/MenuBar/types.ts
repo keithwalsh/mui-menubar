@@ -55,26 +55,6 @@ export interface MenuConfig {
     disabled?: boolean;
     selected?: boolean;
     items: MenuBarItem[];
-    transitionDuration?: TransitionDuration;
-    disableRipple?: boolean;
-}
-
-/** Default values for MenuConfig */
-export const defaultMenuConfig: Required<MenuConfig> = {
-    label: "",
-    disabled: false,
-    selected: false,
-    items: [],
-    transitionDuration: "auto",
-    disableRipple: true,
-};
-
-/** Props interface for the MenuBar component. */
-export interface MenuBarProps {
-    config: MenuConfig[];
-    colorTheme?: ColorTheme;
-    color?: AppBarProps["color"];
-    sx?: SxProps<Theme>;
 }
 
 /** Props interface for rendering menu items. */
@@ -82,6 +62,7 @@ export interface RenderMenuItemsProps {
     menuItems: MenuBarItem[];
     colorTheme?: ColorTheme;
     handleClose: () => void;
+    disableRipple?: boolean;
 }
 
 /** Props interface for rendering top-level menu items. */
@@ -93,6 +74,8 @@ export interface RenderMenuTopLevelProps {
     handleClick: (event: React.MouseEvent<HTMLButtonElement>, menuIndex: number) => void;
     handleKeyDown: (event: React.KeyboardEvent<HTMLButtonElement>, menuIndex: number) => void;
     handleClose: () => void;
+    disableRipple?: boolean;
+    transitionDuration?: TransitionDuration;
 }
 
 /** Props interface for rendering nested menu items. */
@@ -100,4 +83,21 @@ export interface RenderNestedMenuItemProps {
     subMenuItem: MenuBarSubmenu;
     colorTheme?: ColorTheme;
     handleClose: () => void;
+    transitionDuration?: TransitionDuration;
+    disableRipple?: boolean;
+}
+
+export interface OpenMenuState {
+    menuIndex: number;
+    menuAnchor: HTMLElement;
+}
+
+/** Props interface for the MenuBar component. */
+export interface MenuBarProps {
+    config: MenuConfig[];
+    colorTheme?: ColorTheme;
+    color?: AppBarProps["color"];
+    sx?: SxProps<Theme>;
+    transitionDuration?: TransitionDuration;
+    disableRipple?: boolean;
 }

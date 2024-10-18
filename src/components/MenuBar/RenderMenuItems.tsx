@@ -9,14 +9,22 @@ import { MenuBarItem, MenuBarAction, RenderMenuItemsProps } from "./types";
 import { isDivider } from "./utils";
 import RenderNestedMenuItem from "./RenderNestedMenuItem";
 
-const RenderMenuItems: React.FC<RenderMenuItemsProps> = memo(({ menuItems, handleClose, colorTheme = "light" }) => {
+const RenderMenuItems: React.FC<RenderMenuItemsProps> = memo(({ menuItems, handleClose, colorTheme = "light", disableRipple = true }) => {
     const renderMenuItem = (menuItem: MenuBarItem, index: number) => {
         if (isDivider(menuItem)) {
             return <Divider key={`divider-${index}`} />;
         }
 
         if (menuItem.kind === "submenu") {
-            return <RenderNestedMenuItem key={`submenu-${index}`} subMenuItem={menuItem} handleClose={handleClose} colorTheme={colorTheme} />;
+            return (
+                <RenderNestedMenuItem
+                    key={`submenu-${index}`}
+                    subMenuItem={menuItem}
+                    handleClose={handleClose}
+                    colorTheme={colorTheme}
+                    disableRipple={disableRipple}
+                />
+            );
         }
 
         const { label, icon, shortcut, action, disabled, selected } = menuItem as MenuBarAction;
@@ -33,6 +41,7 @@ const RenderMenuItems: React.FC<RenderMenuItemsProps> = memo(({ menuItems, handl
                 }}
                 disabled={disabled}
                 selected={selected}
+                disableRipple={disableRipple}
             >
                 {icon && (
                     <ListItemIcon>

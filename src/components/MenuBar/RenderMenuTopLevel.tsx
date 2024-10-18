@@ -8,6 +8,7 @@ import { Button, Menu, styled } from "@mui/material";
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { RenderMenuTopLevelProps } from "./types";
 import RenderMenuItems from "./RenderMenuItems";
+import { DEFAULT_RENDER_MENU_TOP_LEVEL_PROPS } from "./defaults";
 
 const StyledButton = styled(Button)(({ theme }) => ({
     "&:hover, &.Mui-selected, &.active": {
@@ -26,6 +27,8 @@ const RenderMenuTopLevel: React.FC<RenderMenuTopLevelProps> = ({
     handleKeyDown,
     handleClose,
     colorTheme,
+    disableRipple = DEFAULT_RENDER_MENU_TOP_LEVEL_PROPS.disableRipple,
+    transitionDuration = DEFAULT_RENDER_MENU_TOP_LEVEL_PROPS.transitionDuration,
 }) => {
     const isOpen = openMenu?.menuIndex === menuTopLevelIndex;
 
@@ -43,7 +46,7 @@ const RenderMenuTopLevel: React.FC<RenderMenuTopLevelProps> = ({
                 disabled={menuTopLevel.disabled}
                 className={isOpen ? "active" : ""}
                 disableFocusRipple={true}
-                disableRipple={menuTopLevel.disableRipple}
+                disableRipple={disableRipple}
             >
                 {menuTopLevel.label}
             </StyledButton>
@@ -56,9 +59,9 @@ const RenderMenuTopLevel: React.FC<RenderMenuTopLevelProps> = ({
                     "aria-labelledby": `menu-button-${menuTopLevelIndex}`,
                     role: "menu",
                 }}
-                transitionDuration={menuTopLevel.transitionDuration}
+                transitionDuration={transitionDuration}
             >
-                <RenderMenuItems menuItems={menuTopLevel.items} handleClose={handleClose} colorTheme={colorTheme} />
+                <RenderMenuItems menuItems={menuTopLevel.items} handleClose={handleClose} colorTheme={colorTheme} disableRipple={disableRipple} />
             </Menu>
         </React.Fragment>
     );
