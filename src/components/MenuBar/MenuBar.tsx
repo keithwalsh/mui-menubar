@@ -8,15 +8,22 @@ import { AppBar, Toolbar } from "@mui/material";
 import { MenuBarProps, OpenMenuState } from "./types";
 import { useMenuHotkeys } from "./utils";
 import RenderMenuTopLevel from "./RenderMenuTopLevel";
-import { DEFAULT_MENU_CONFIG } from "./defaults";
+import { DEFAULT_MENU_CONFIG, DEFAULT_MENU_BAR_PROPS } from "./defaults";
 
-const MenuBar: React.FC<MenuBarProps> = ({ config = [], colorTheme = "light", color = "transparent", sx, transitionDuration = 0, disableRipple = true }) => {
-    /** Sets up keyboard shortcuts. */
+const MenuBar: React.FC<MenuBarProps> = ({
+    config = [],
+    colorTheme = DEFAULT_MENU_BAR_PROPS.colorTheme,
+    color = DEFAULT_MENU_BAR_PROPS.color,
+    sx,
+    transitionDuration = DEFAULT_MENU_BAR_PROPS.transitionDuration,
+    disableRipple = DEFAULT_MENU_BAR_PROPS.disableRipple,
+}) => {
+    // Sets up keyboard shortcuts.
     useMenuHotkeys(config);
-    /** Tracks the currently open menu and its anchor element. */
+    // Tracks the currently open menu and its anchor element.
     const [openMenu, setOpenMenu] = useState<OpenMenuState | null>(null);
 
-    /** Opens the menu at the specified index when clicked. */
+    // Opens the menu at the specified index when clicked.
     const handleClick = useCallback(
         (mouseEvent: React.MouseEvent<HTMLButtonElement>, menuIndex: number) => {
             setOpenMenu({ menuIndex: menuIndex, menuAnchor: mouseEvent.currentTarget });
@@ -24,12 +31,12 @@ const MenuBar: React.FC<MenuBarProps> = ({ config = [], colorTheme = "light", co
         [setOpenMenu]
     );
 
-    /** Sets openMenu to null, preventing submenus from rendering. */
+    // Closes the open menu. Sets openMenu to null, preventing submenus from rendering.
     const handleClose = useCallback(() => {
         setOpenMenu(null);
     }, [setOpenMenu]);
 
-    /** Prevents default for Enter/Space/ArrowDown, then sets open menu state with current index and target. */
+    // Handles keyboard events for opening the menu.
     const handleKeyDown = useCallback(
         (keyBoardEvent: React.KeyboardEvent<HTMLButtonElement>, menuIndex: number) => {
             if (["Enter", " ", "ArrowDown"].includes(keyBoardEvent.key)) {
@@ -40,21 +47,21 @@ const MenuBar: React.FC<MenuBarProps> = ({ config = [], colorTheme = "light", co
         [setOpenMenu]
     );
 
-    /** Prevents rendering an empty menu bar when no configuration is provided. */
+    // If no config is provided, the menu bar will be rendered with a transparent color and no elevation.
     if (config.length === 0) {
-        return null;
+        return (
+            <AppBar position="static" elevation={0} color={color} sx={sx}>
+                <Toolbar variant="dense" disableGutters={true} />
+            </AppBar>
+        );
     }
 
-    /**
-     * Processes the config array to ensure each menu item has a transitionDuration.
-     * If not specified, it defaults to 0.
-     */
+    // Memoize processed config with default values for each menu item
     const processedConfig = useMemo(
         () =>
             config.map((menuItem) => ({
                 ...DEFAULT_MENU_CONFIG,
                 ...menuItem,
-                transitionDuration: transitionDuration ?? 0,
             })),
         [config]
     );

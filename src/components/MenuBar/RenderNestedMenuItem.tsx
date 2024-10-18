@@ -8,6 +8,7 @@ import { Menu, MenuItem, ListItemIcon, ListItemText, styled, SxProps, Theme } fr
 import { KeyboardArrowRight } from "@mui/icons-material";
 import { RenderNestedMenuItemProps } from "./types";
 import RenderMenuItems from "./RenderMenuItems";
+import { DEFAULT_RENDER_NESTED_MENU_ITEM_PROPS } from "./defaults";
 
 /** Styled MenuItem component with enhanced visual feedback for active state */
 const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
@@ -17,7 +18,13 @@ const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
 }));
 
 const RenderNestedMenuItem: React.FC<RenderNestedMenuItemProps> = memo(
-    ({ subMenuItem, handleClose, colorTheme = "light", transitionDuration = 0, disableRipple = true }) => {
+    ({
+        subMenuItem,
+        handleClose,
+        colorTheme = DEFAULT_RENDER_NESTED_MENU_ITEM_PROPS.colorTheme,
+        transitionDuration = DEFAULT_RENDER_NESTED_MENU_ITEM_PROPS.transitionDuration,
+        disableRipple = DEFAULT_RENDER_NESTED_MENU_ITEM_PROPS.disableRipple,
+    }) => {
         /** Stores the reference to the anchor element for the submenu */
         const [anchorRef, setAnchorRef] = useState<null | HTMLElement>(null);
         /** Tracks whether the submenu is currently open */
@@ -95,6 +102,7 @@ const RenderNestedMenuItem: React.FC<RenderNestedMenuItemProps> = memo(
                     sx={{
                         pointerEvents: "none",
                     }}
+                    transitionDuration={transitionDuration}
                 >
                     <div style={{ pointerEvents: "auto" }}>
                         <RenderMenuItems menuItems={subMenuItem.items} handleClose={handleItemClick} colorTheme={colorTheme} disableRipple={disableRipple} />

@@ -7,7 +7,7 @@ import { SxProps, Theme } from "@mui/material";
 import { AppBarProps } from "@mui/material";
 
 /** Represents the different types of menu items available in the MenuBar. */
-export type MenuBarItemKind = "action" | "divider" | "submenu";
+export type MenuBarItemKind = "action" | "divider" | "submenu" | "component";
 
 /** Defines the color theme options for the MenuBar component. */
 export type ColorTheme = "light" | "dark";
@@ -46,8 +46,16 @@ export interface MenuBarSubmenu extends MenuBarBase {
     icon?: React.ReactNode;
 }
 
+/** Interface for component menu items that render custom React components. */
+export interface MenuBarComponent extends MenuBarBase {
+    kind: "component";
+    component: React.ReactNode;
+    label?: string;
+    disabled?: boolean;
+}
+
 /** Union type for all possible menu item types. */
-export type MenuBarItem = MenuBarAction | MenuBarDivider | MenuBarSubmenu;
+export type MenuBarItem = MenuBarAction | MenuBarDivider | MenuBarSubmenu | MenuBarComponent;
 
 /** Interface for top-level menu configuration. */
 export interface MenuConfig {
