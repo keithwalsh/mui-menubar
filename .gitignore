@@ -11,3 +11,4 @@ storybook-static/
 tree.py
 github-actions.schema.json
 IDEAS.md
+.versionrc

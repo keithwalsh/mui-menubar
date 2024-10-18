@@ -1,6 +1,6 @@
 {
     "name": "mui-menubar",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "description": "A React MenuBar component using Material-UI.",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -13,7 +13,44 @@
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
         "chromatic": "npx chromatic --project-token=chpt_63d892e309196bb",
-        "release": "commit-and-tag-version"
+        "release": "commit-and-tag-version --first-parent"
+    },
+    "commit-and-tag-version": {
+        "types": [
+            {
+                "type": "feat",
+                "section": "Features"
+            },
+            {
+                "type": "fix",
+                "section": "Bug Fixes"
+            },
+            {
+                "type": "docs",
+                "section": "Documentation"
+            },
+            {
+                "type": "chore",
+                "hidden": true
+            },
+            {
+                "type": "style",
+                "hidden": true
+            },
+            {
+                "type": "refactor",
+                "hidden": true
+            },
+            {
+                "type": "perf",
+                "hidden": true
+            },
+            {
+                "type": "test",
+                "hidden": true
+            }
+        ],
+        "ignoreCommitPattern": "^WIP|^wip|^feat: add Storybook and initial story"
     },
     "peerDependencies": {
         "@emotion/react": "^11.0.0",
