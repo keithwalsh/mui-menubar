@@ -10,7 +10,7 @@ import { MenuBarProps } from "./types";
 import RenderMenuTopLevel from "./RenderMenuTopLevel";
 import { useMenuHotkeys } from "./utils";
 
-const MenuBar: React.FC<MenuBarProps> = ({ config = [], colorTheme, color, sx }) => {
+const MenuBar: React.FC<MenuBarProps> = ({ config = [], colorTheme = "light", color = "transparent", sx }) => {
     /** Sets up keyboard shortcuts. */
     useMenuHotkeys(config);
     /** Tracks the currently open menu and its anchor element. */
@@ -39,10 +39,19 @@ const MenuBar: React.FC<MenuBarProps> = ({ config = [], colorTheme, color, sx })
         return null;
     }
 
+    /**
+     * Processes the config array to ensure each menu item has a transitionDuration.
+     * If not specified, it defaults to 0.
+     */
+    const processedConfig = config.map((menuItem) => ({
+        ...menuItem,
+        transitionDuration: menuItem.transitionDuration ?? 0,
+    }));
+
     return (
         <AppBar position="static" elevation={0} color={color}>
             <Toolbar variant="dense" disableGutters={true}>
-                {config.map((menuTopLevel, index) => (
+                {processedConfig.map((menuTopLevel, index) => (
                     <RenderMenuTopLevel
                         key={`menu-${index}-${menuTopLevel.label}`}
                         menuTopLevel={menuTopLevel}

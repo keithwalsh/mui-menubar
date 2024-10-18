@@ -4,10 +4,17 @@
  */
 
 import React, { useState, useRef, useEffect, useCallback, memo } from "react";
-import { Menu, MenuItem, ListItemIcon, ListItemText } from "@mui/material";
+import { Menu, MenuItem, ListItemIcon, ListItemText, styled } from "@mui/material";
 import { KeyboardArrowRight } from "@mui/icons-material";
 import { RenderNestedMenuItemProps } from "./types";
 import RenderMenuItems from "./RenderMenuItems";
+
+/** Styled MenuItem component with enhanced visual feedback for active state */
+const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
+    "&:hover, &.Mui-selected, &.Mui-selected:hover": {
+        backgroundColor: theme.palette.action.hover,
+    },
+}));
 
 const RenderNestedMenuItem: React.FC<RenderNestedMenuItemProps> = memo(({ subMenuItem, handleClose, colorTheme = "light" }) => {
     /** Stores the reference to the anchor element for the submenu */
@@ -51,13 +58,13 @@ const RenderNestedMenuItem: React.FC<RenderNestedMenuItemProps> = memo(({ subMen
 
     return (
         <>
-            <MenuItem
+            <StyledMenuItem
                 ref={menuItemRef}
                 dense
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 disabled={subMenuItem.disabled}
-                selected={subMenuItem.selected}
+                selected={isSubMenuOpen}
             >
                 {subMenuItem.icon && (
                     <ListItemIcon>
@@ -66,7 +73,7 @@ const RenderNestedMenuItem: React.FC<RenderNestedMenuItemProps> = memo(({ subMen
                 )}
                 <ListItemText primary={subMenuItem.label} />
                 <KeyboardArrowRight fontSize="small" sx={{ paddingLeft: 3, marginRight: -1 }} />
-            </MenuItem>
+            </StyledMenuItem>
             <Menu
                 anchorEl={anchorRef}
                 open={isSubMenuOpen && !subMenuItem.disabled}

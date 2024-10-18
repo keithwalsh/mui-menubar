@@ -81,7 +81,6 @@ const sampleConfig: MenuConfig[] = [
     },
     {
         label: "Edit",
-        transitionDuration: 0,
         items: [
             { kind: "action", label: "Undo", action: () => console.log("Undo"), icon: Undo },
             { kind: "action", label: "Redo", action: () => console.log("Redo"), icon: Redo },

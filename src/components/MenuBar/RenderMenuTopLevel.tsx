@@ -4,10 +4,16 @@
  */
 
 import React from "react";
-import { Button, Menu } from "@mui/material";
+import { Button, Menu, styled } from "@mui/material";
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { RenderMenuTopLevelProps } from "./types";
 import RenderMenuItems from "./RenderMenuItems";
+
+const StyledButton = styled(Button)(({ theme }) => ({
+    "&:hover, &.Mui-selected, &.active": {
+        backgroundColor: theme.palette.action.hover,
+    },
+}));
 
 const RenderMenuTopLevel: React.FC<RenderMenuTopLevelProps> = ({
     menuTopLevel,
@@ -22,7 +28,7 @@ const RenderMenuTopLevel: React.FC<RenderMenuTopLevelProps> = ({
 
     return (
         <React.Fragment key={`menu-${menuTopLevelIndex}-${menuTopLevel.label}`}>
-            <Button
+            <StyledButton
                 endIcon={<KeyboardArrowDown sx={{ marginLeft: -0.8 }} />}
                 aria-controls={isOpen ? `menu-${menuTopLevelIndex}` : undefined}
                 aria-haspopup="true"
@@ -32,9 +38,10 @@ const RenderMenuTopLevel: React.FC<RenderMenuTopLevelProps> = ({
                 color="inherit"
                 sx={{ textTransform: "none" }}
                 disabled={menuTopLevel.disabled}
+                className={isOpen ? "active" : ""}
             >
                 {menuTopLevel.label}
-            </Button>
+            </StyledButton>
             <Menu
                 id={`menu-${menuTopLevelIndex}`}
                 anchorEl={isOpen ? openMenu.menuAnchor : null}
