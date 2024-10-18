@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.4](https://github.com/keithwalsh/mui-menubar/compare/v0.1.3...v0.1.4) (2024-10-18)
+
+
+### Features
+
+* add disableRipple option with default true, disable focus ripple on top-level buttons ([0078924](https://github.com/keithwalsh/mui-menubar/commit/00789247a13fcb9dc960a59103fdbe0e663f1d98))
+
 ## 0.1.3 (2024-10-18)
 
 
