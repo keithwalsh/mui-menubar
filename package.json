@@ -1,13 +1,15 @@
 {
     "name": "mui-menubar",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "A React MenuBar component using Material-UI.",
-    "main": "dist/index.js",
-    "module": "dist/index.esm.js",
-    "types": "dist/index.d.ts",
+    "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
+    "types": "dist/esm/index.d.ts",
     "scripts": {
         "prepare": "npm run build",
-        "build": "tsc",
+        "build": "npm run build:esm && npm run build:cjs",
+        "build:esm": "tsc",
+        "build:cjs": "tsc --module commonjs --outDir dist/cjs",
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
         "chromatic": "npx chromatic --project-token=chpt_63d892e309196bb",
@@ -69,5 +71,11 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "import": "./dist/esm/index.js",
+            "require": "./dist/cjs/index.js"
+        }
     }
 }
