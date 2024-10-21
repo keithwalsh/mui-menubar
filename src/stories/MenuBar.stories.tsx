@@ -99,7 +99,7 @@ const sampleConfig: MenuConfig[] = [
         items: [
             { kind: "action", label: "Hello", action: () => console.log("New file"), icon: <FileCopy />, shortcut: "Ctrl+S" },
             { kind: "action", label: "Open", action: () => console.log("Open file action triggered"), icon: <FolderOpen />, disabled: true },
-            { kind: "divider" },
+            { kind: "divider" }, // { divider: true },
             { kind: "action", label: "Save", action: () => console.log("Save file"), icon: <Save /> },
             { kind: "action", label: "Exit", action: () => console.log("Exit application"), icon: <ExitToApp /> },
         ],

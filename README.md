@@ -6,7 +6,7 @@
 [![NPM Version](https://img.shields.io/npm/v/mui-menubar.svg)](https://www.npmjs.com/package/mui-menubar)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)
 
-A React **MenuBar** component built with **Material-UI (MUI)** and **TypeScript**, offering a robust and customizable menu bar system for React applications, including support for nested submenus and hotkeys.
+A React **MenuBar** component built with **Material-UI (MUI)** and **TypeScript**. A menu bar is common in desktop applications and provides quick access to a consistent set of commands (e.g. File, Edit, View).
 
 ## 🚀 Features
 

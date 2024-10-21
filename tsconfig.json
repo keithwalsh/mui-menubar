@@ -13,7 +13,10 @@
         "strict": true,
         "skipLibCheck": true,
         "baseUrl": "./",
-        "rootDir": "src"
+        "rootDir": "src",
+        // Add these lines
+        "types": [],
+        "forceConsistentCasingInFileNames": true
     },
     "include": ["src/**/*"],
     "exclude": ["dist", "node_modules", "**/*.test.ts", "**/*.stories.tsx"]
