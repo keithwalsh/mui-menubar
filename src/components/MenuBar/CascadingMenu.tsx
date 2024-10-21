@@ -3,28 +3,20 @@
  */
 
 import React, { useContext, useMemo } from "react";
-import { styled } from "@mui/material/styles";
 import HoverMenuImport from "material-ui-popup-state/HoverMenu";
-import MenuItem from "@mui/material/MenuItem";
+import { MenuItems, MenuItemSubmenu, CascadingMenuProps } from "./types";
+import { MenuItem, Divider, ListItemText, ListItemIcon, MenuList, Typography } from "@mui/material";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import { usePopupState, bindHover, bindFocus, bindMenu, PopupState } from "material-ui-popup-state/hooks";
-import { MenuBarItem, CascadingSubmenuProps, CascadingMenuItemProps, CascadingMenuProps } from "./types";
 import { SxProps, Theme } from "@mui/material/styles";
+import { ColorTheme, TransitionDuration } from "./types";
+import { SvgIconProps } from "@mui/material/SvgIcon";
+import { styled } from "@mui/material/styles";
 
 // Cast HoverMenu to any to bypass type checking
 const HoverMenu = HoverMenuImport as any;
 
-const StyledSubmenu = styled("div")(({ theme }) => ({
-    marginTop: -theme.spacing(1),
-}));
-
-const StyledTitle = styled("span")({
-    flexGrow: 1,
-});
-
-const StyledMoreArrow = styled(ChevronRight)(({ theme }) => ({
-    marginRight: -theme.spacing(1),
-}));
+const iconSx: SxProps<Theme> = { mb: 0.2, fontSize: "small" };
 
 interface CascadingContextType {
     parentPopupState: PopupState | null;
@@ -36,21 +28,51 @@ const CascadingContext = React.createContext<CascadingContextType>({
     rootPopupState: null,
 });
 
-const CascadingMenuItem: React.FC<CascadingMenuItemProps> = ({ onClick, ...props }) => {
+const CascadingMenuItem: React.FC<MenuItems> = (item) => {
     const { rootPopupState } = useContext(CascadingContext);
     if (!rootPopupState) throw new Error("must be used inside a CascadingMenu");
+
     const handleClick = React.useCallback(
         (event: React.MouseEvent<HTMLLIElement>) => {
             rootPopupState.close(event);
-            if (onClick) onClick();
+            if (item.kind === "action") item.action();
         },
-        [rootPopupState, onClick]
+        [rootPopupState, item]
     );
 
-    return <MenuItem {...props} onClick={handleClick} />;
+    if (item.kind === "divider") {
+        return <Divider />;
+    }
+
+    return (
+        <MenuList dense sx={{ px: 0, py: 0.5 }}>
+            <MenuItem dense onClick={handleClick} disabled={item.disabled} selected={item.selected}>
+                {item.icon && (
+                    <ListItemIcon>
+                        {React.isValidElement(item.icon) ? React.cloneElement(item.icon as React.ReactElement<SvgIconProps>, { sx: iconSx }) : item.icon}
+                    </ListItemIcon>
+                )}
+                <ListItemText>{item.label}</ListItemText>
+                {item.kind === "action" && item.shortcut && (
+                    <Typography variant="body2" sx={{ ml: 4, color: "text.secondary" }}>
+                        {item.shortcut}
+                    </Typography>
+                )}
+            </MenuItem>
+        </MenuList>
+    );
 };
 
-const CascadingSubmenu: React.FC<CascadingSubmenuProps> = ({ item, popupId, colorTheme, disableRipple }) => {
+const CascadingSubmenu: React.FC<
+    MenuItemSubmenu & {
+        popupId: string;
+        colorTheme?: ColorTheme;
+        disableRipple?: boolean;
+        transitionDuration?: TransitionDuration;
+        dense?: boolean;
+        disablePadding?: boolean;
+    }
+> = ({ label, items, icon, popupId, colorTheme, disableRipple, transitionDuration }) => {
     const { parentPopupState } = useContext(CascadingContext);
     const popupState = usePopupState({
         popupId,
@@ -59,24 +81,42 @@ const CascadingSubmenu: React.FC<CascadingSubmenuProps> = ({ item, popupId, colo
     });
     return (
         <React.Fragment>
-            <MenuItem {...bindHover(popupState)} {...bindFocus(popupState)}>
-                <StyledTitle>{item.label}</StyledTitle>
-                <StyledMoreArrow />
-            </MenuItem>
+            <MenuList sx={{ px: 0, py: 0.5 }}>
+                <MenuItem dense {...bindHover(popupState)} {...bindFocus(popupState)}>
+                    {icon && (
+                        <ListItemIcon>
+                            {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<SvgIconProps>, { sx: iconSx }) : icon}
+                        </ListItemIcon>
+                    )}
+                    <ListItemText inset sx={{ px: 0 }}>
+                        {label}
+                    </ListItemText>
+                    <ChevronRight sx={{ ml: 4 }} />
+                </MenuItem>
+            </MenuList>
             <CascadingMenu
-                menuItems={item.items}
+                menuItems={items}
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}
                 transformOrigin={{ vertical: "top", horizontal: "left" }}
                 popupState={popupState}
-                colorTheme={colorTheme || "light"}
-                disableRipple={disableRipple || false}
+                colorTheme={colorTheme}
+                disableRipple={disableRipple}
+                transitionDuration={transitionDuration}
                 isSubmenu={true}
             />
         </React.Fragment>
     );
 };
 
-const CascadingMenu: React.FC<CascadingMenuProps> = ({ menuItems, popupState, colorTheme, disableRipple, isSubmenu = false, ...props }) => {
+// Create a styled version of Menu with custom styles
+const StyledMenu = styled(HoverMenu)(() => ({
+    "& .MuiList-padding": {
+        paddingTop: 1,
+        paddingBottom: 1,
+    },
+}));
+
+const CascadingMenu: React.FC<CascadingMenuProps> = ({ menuItems, popupState, colorTheme, disableRipple, transitionDuration, isSubmenu = false, ...props }) => {
     const { rootPopupState } = useContext(CascadingContext);
     const context = useMemo(
         () => ({
@@ -89,7 +129,6 @@ const CascadingMenu: React.FC<CascadingMenuProps> = ({ menuItems, popupState, co
     const paperSx: SxProps<Theme> = useMemo(
         () => ({
             backgroundColor: isSubmenu ? "background.paper" : "transparent",
-            // Ensure submenus are opaque
             ...(isSubmenu && {
                 "& .MuiPaper-root": {
                     backgroundColor: "background.paper",
@@ -101,31 +140,37 @@ const CascadingMenu: React.FC<CascadingMenuProps> = ({ menuItems, popupState, co
 
     return (
         <CascadingContext.Provider value={context}>
-            <HoverMenu
+            <StyledMenu
+                dense
                 {...props}
                 {...bindMenu(popupState)}
                 PaperProps={{
                     ...props.PaperProps,
-                    component: StyledSubmenu,
                     sx: paperSx,
+                    component: MenuItem,
+                }}
+                TransitionProps={{
+                    ...props.TransitionProps,
+                    transitionDuration: transitionDuration,
                 }}
             >
-                {menuItems.map((item: MenuBarItem, index: number) =>
+                {menuItems.map((item: MenuItems, index: number) =>
                     item.kind === "submenu" ? (
                         <CascadingSubmenu
+                            dense
+                            disablePadding
                             key={`submenu-${index}`}
-                            item={item}
+                            {...item}
                             popupId={`submenu-${index}`}
-                            colorTheme={colorTheme || "light"}
-                            disableRipple={disableRipple || false}
+                            colorTheme={colorTheme}
+                            disableRipple={disableRipple}
+                            transitionDuration={transitionDuration}
                         />
                     ) : (
-                        <CascadingMenuItem key={`item-${index}`} onClick={item.kind === "action" ? item.onClick : undefined} disabled={item.disabled}>
-                            {item.label}
-                        </CascadingMenuItem>
+                        <CascadingMenuItem key={`item-${index}`} {...item} />
                     )
                 )}
-            </HoverMenu>
+            </StyledMenu>
         </CascadingContext.Provider>
     );
 };

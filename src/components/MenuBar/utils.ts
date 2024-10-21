@@ -4,22 +4,15 @@
  */
 
 import { useHotkeys } from "react-hotkeys-hook";
-import { MenuConfig, MenuBarDivider, MenuBarAction, MenuBarItem } from "./types";
+import { MenuConfig, MenuItemDivider, MenuItemAction, MenuItems } from "./types";
 
 /**
- * Type guard to check if a MenuBarItem is an action item with both a shortcut and an action.
- * @param {MenuBarItem} item - The menu item to check.
+ * Type guard to check if a MenuItem is an action item with both a shortcut and an action.
+ * @param {MenuItem} item - The menu item to check.
  * @returns {boolean} True if the item is an action item with both a shortcut and an action, false otherwise.
  */
-function hasShortcutAndAction(item: MenuBarItem): item is MenuBarAction & { shortcut: string; action: () => void } {
-    return (
-        item.kind !== "divider" &&
-        item.kind !== "submenu" &&
-        "action" in item &&
-        typeof item.action === "function" &&
-        "shortcut" in item &&
-        typeof item.shortcut === "string"
-    );
+function hasShortcutAndAction(item: MenuItems): item is MenuItemAction & { shortcut: string } {
+    return item.kind === "action" && "action" in item && typeof item.action === "function" && "shortcut" in item && typeof item.shortcut === "string";
 }
 
 /**
@@ -47,10 +40,10 @@ export const useMenuHotkeys = (config: MenuConfig[]) => {
 };
 
 /**
- * Type guard to check if a MenuBarItem is a divider.
- * @param {MenuBarItem} menuItem - The menu item to check.
+ * Type guard to check if a MenuItem is a divider.
+ * @param {MenuItem} menuItem - The menu item to check.
  * @returns {boolean} True if the item is a divider, false otherwise.
  */
-export const isDivider = (menuItem: MenuBarItem): menuItem is MenuBarDivider => {
+export const isDivider = (menuItem: MenuItems): menuItem is MenuItemDivider => {
     return menuItem.kind === "divider";
 };

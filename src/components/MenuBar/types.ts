@@ -5,109 +5,75 @@
 
 import { SxProps, Theme } from "@mui/material";
 import { AppBarProps } from "@mui/material";
+import React from "react";
 import { PopupState } from "material-ui-popup-state/hooks";
-import { MenuProps } from "@mui/material/Menu";
 
-/** Represents the different types of menu items available in the MenuBar. */
-export type MenuBarItemKind = "action" | "divider" | "submenu" | "component";
-
-/** Defines the color theme options for the MenuBar component. */
 export type ColorTheme = "light" | "dark";
 
-/** The length of the transition in ms, or 'auto'. */
 export type TransitionDuration = "auto" | number | { appear?: number; enter?: number; exit?: number };
 
-/** Base interface for all menu item types. */
-export interface MenuBarBase {
-    kind: MenuBarItemKind;
+export type MenuItemKind = "action" | "divider" | "submenu";
+
+interface MenuItemBase {
+    kind: MenuItemKind;
     label?: string;
     disabled?: boolean;
+    selected?: boolean;
+    transitionDuration?: TransitionDuration;
 }
 
-/** Interface for action menu items that can be clicked. */
-export interface MenuBarAction extends MenuBarBase {
+export interface MenuItemAction extends MenuItemBase {
     kind: "action";
     label: string;
-    onClick: () => void;
+    action: () => void;
     icon?: React.ReactNode;
     shortcut?: string;
 }
 
-/** Interface for divider menu items used to separate groups of items. */
-export interface MenuBarDivider extends MenuBarBase {
+export interface MenuItemDivider extends MenuItemBase {
     kind: "divider";
 }
 
-/** Interface for submenu items that contain nested menu items. */
-export interface MenuBarSubmenu extends MenuBarBase {
+export interface MenuItemSubmenu extends MenuItemBase {
     kind: "submenu";
     label: string;
-    items: MenuBarItem[];
+    items: MenuItems[];
     icon?: React.ReactNode;
 }
 
-/** Interface for component menu items that render custom React components. */
-export interface MenuBarComponent extends MenuBarBase {
-    kind: "component";
-    component: React.ReactNode;
-}
+export type MenuItems = MenuItemAction | MenuItemDivider | MenuItemSubmenu;
 
-/** Union type for all possible menu item types. */
-export type MenuBarItem = MenuBarAction | MenuBarDivider | MenuBarSubmenu | MenuBarComponent;
-
-/** Interface for top-level menu configuration. */
 export interface MenuConfig {
     label: string;
     disabled?: boolean;
-    items: MenuBarItem[];
+    items: MenuItems[];
 }
 
-/** Props interface for the MenuBar component. */
 export interface MenuBarProps {
     config: MenuConfig[];
     colorTheme?: ColorTheme;
     color?: AppBarProps["color"];
     sx?: SxProps<Theme>;
-    transitionDuration?: TransitionDuration;
-    disableRipple?: boolean;
-}
-
-/** Props interface for the RenderMenuTopLevel component. */
-export interface RenderMenuTopLevelProps {
-    menuTopLevel: MenuConfig;
-    menuTopLevelIndex: number;
-    openMenu?: {
-        menuIndex: number;
-        menuAnchor: HTMLElement | null;
-    };
-    handleClick: (event: React.MouseEvent<HTMLElement>, index: number) => void;
-    handleKeyDown: (event: React.KeyboardEvent<HTMLElement>, index: number) => void;
-    handleClose: () => void;
-    colorTheme?: ColorTheme;
     disableRipple?: boolean;
     transitionDuration?: TransitionDuration;
 }
 
-/** Props interface for the CascadingMenu component. */
-export interface CascadingMenuProps extends Omit<MenuProps, "open"> {
-    menuItems: MenuBarItem[];
+export interface CascadingMenuProps {
+    menuItems: MenuItems[];
     popupState: PopupState;
     colorTheme?: ColorTheme;
     disableRipple?: boolean;
+    transitionDuration?: TransitionDuration;
     isSubmenu?: boolean;
-}
-
-/** Props interface for the CascadingSubmenu component. */
-export interface CascadingSubmenuProps {
-    item: MenuBarSubmenu;
-    popupId: string;
-    colorTheme?: ColorTheme;
-    disableRipple?: boolean;
-}
-
-/** Props interface for the CascadingMenuItem component. */
-export interface CascadingMenuItemProps {
-    onClick?: () => void;
-    disabled?: boolean;
-    children: React.ReactNode;
+    variant?: "menu" | "popover";
+    anchorOrigin?: {
+        vertical: "top" | "center" | "bottom";
+        horizontal: "left" | "center" | "right";
+    };
+    transformOrigin?: {
+        vertical: "top" | "center" | "bottom";
+        horizontal: "left" | "center" | "right";
+    };
+    PaperProps?: any;
+    TransitionProps?: any;
 }

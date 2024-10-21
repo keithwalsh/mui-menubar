@@ -22,8 +22,8 @@ const MenuBar: React.FC<MenuBarProps> = ({
     colorTheme = DEFAULT_MENU_BAR_PROPS.colorTheme,
     color = DEFAULT_MENU_BAR_PROPS.color,
     sx,
-    transitionDuration = DEFAULT_MENU_BAR_PROPS.transitionDuration,
     disableRipple = DEFAULT_MENU_BAR_PROPS.disableRipple,
+    transitionDuration = DEFAULT_MENU_BAR_PROPS.transitionDuration,
 }) => {
     const classes = useStyles();
 
@@ -56,11 +56,12 @@ const MenuBar: React.FC<MenuBarProps> = ({
                                 {menuTopLevel.label}
                             </Button>
                             <CascadingMenu
+                                variant="menu"
                                 menuItems={menuTopLevel.items}
                                 popupState={popupState}
                                 colorTheme={colorTheme}
-                                transitionDuration={transitionDuration}
                                 disableRipple={disableRipple}
+                                transitionDuration={transitionDuration}
                             />
                         </React.Fragment>
                     );
