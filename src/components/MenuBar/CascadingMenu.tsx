@@ -4,12 +4,11 @@
 
 import React, { useContext, useMemo } from "react";
 import HoverMenuImport from "material-ui-popup-state/HoverMenu";
-import { MenuItems, MenuItemSubmenu, CascadingMenuProps } from "./types";
+import { MenuItems, MenuItemSubmenu, CascadingMenuProps, CascadingContextType, ColorTheme, TransitionDuration } from "./types";
 import { MenuItem, Divider, ListItemText, ListItemIcon, MenuList, Typography } from "@mui/material";
 import ChevronRight from "@mui/icons-material/ChevronRight";
-import { usePopupState, bindHover, bindFocus, bindMenu, PopupState } from "material-ui-popup-state/hooks";
+import { usePopupState, bindHover, bindFocus, bindMenu } from "material-ui-popup-state/hooks";
 import { SxProps, Theme } from "@mui/material/styles";
-import { ColorTheme, TransitionDuration } from "./types";
 import { SvgIconProps } from "@mui/material/SvgIcon";
 import { styled } from "@mui/material/styles";
 
@@ -17,11 +16,6 @@ import { styled } from "@mui/material/styles";
 const HoverMenu = HoverMenuImport as any;
 
 const iconSx: SxProps<Theme> = { mb: 0.2, fontSize: "small" };
-
-interface CascadingContextType {
-    parentPopupState: PopupState | null;
-    rootPopupState: PopupState | null;
-}
 
 const CascadingContext = React.createContext<CascadingContextType>({
     parentPopupState: null,

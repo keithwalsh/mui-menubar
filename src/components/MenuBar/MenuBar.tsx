@@ -1,33 +1,27 @@
 /**
- * @fileoverview Main component for rendering a customizable menu bar with
- * nested submenus and various item types using material-ui-popup-state.
+ * @fileoverview Implements the main MenuBar component, rendering a customizable
+ * menu bar using Material-UI components and popup state management.
  */
 
 import React from "react";
 import { AppBar, Toolbar, Button } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import { usePopupState, bindHover, bindFocus } from "material-ui-popup-state/hooks";
-import { MenuBarProps } from "./types";
-import { DEFAULT_MENU_BAR_PROPS } from "./defaults";
+import { usePopupState, bindHover, bindTrigger } from "material-ui-popup-state/hooks";
 import CascadingMenu from "./CascadingMenu";
+import { MenuBarProps, MenuConfig } from "./types";
+import { DEFAULT_MENU_BAR_PROPS, DEFAULT_MENU_CONFIG } from "./defaults";
 
-const useStyles = makeStyles(() => ({
-    button: {
-        textTransform: "none",
-    },
-}));
-
-const MenuBar: React.FC<MenuBarProps> = ({
-    config = [],
+export const MenuBar: React.FC<MenuBarProps> = ({
+    config = DEFAULT_MENU_CONFIG,
     colorTheme = DEFAULT_MENU_BAR_PROPS.colorTheme,
     color = DEFAULT_MENU_BAR_PROPS.color,
     sx,
     disableRipple = DEFAULT_MENU_BAR_PROPS.disableRipple,
     transitionDuration = DEFAULT_MENU_BAR_PROPS.transitionDuration,
 }) => {
-    const classes = useStyles();
+    const useHover = true;
+    const menuConfig = Array.isArray(config) ? config : [config];
 
-    if (config.length === 0) {
+    if (menuConfig.length === 0) {
         return (
             <AppBar position="static" elevation={0} color={color} sx={sx}>
                 <Toolbar variant="dense" disableGutters={true} />
@@ -38,26 +32,32 @@ const MenuBar: React.FC<MenuBarProps> = ({
     return (
         <AppBar position="static" elevation={0} color={color} sx={sx}>
             <Toolbar variant="dense" disableGutters={true}>
-                {config.map((menuTopLevel, index) => {
+                {menuConfig.map((menu: MenuConfig, index: number) => {
                     const popupState = usePopupState({
-                        popupId: `menu-${index}`,
                         variant: "popover",
+                        popupId: `menu-${index}`,
                     });
+
+                    const bindMenu = useHover ? bindHover : bindTrigger;
+
                     return (
-                        <React.Fragment key={`menu-${index}-${menuTopLevel.label}`}>
+                        <React.Fragment key={index}>
                             <Button
-                                {...bindHover(popupState)}
-                                {...bindFocus(popupState)}
+                                {...bindMenu(popupState)}
+                                onClick={() => {
+                                    if (!useHover) {
+                                        popupState.toggle();
+                                    }
+                                }}
                                 color="inherit"
-                                className={classes.button}
-                                disabled={menuTopLevel.disabled}
+                                sx={{ textTransform: "none" }}
+                                disabled={menu.disabled}
                                 disableRipple={disableRipple}
                             >
-                                {menuTopLevel.label}
+                                {menu.label}
                             </Button>
                             <CascadingMenu
-                                variant="menu"
-                                menuItems={menuTopLevel.items}
+                                menuItems={menu.items}
                                 popupState={popupState}
                                 colorTheme={colorTheme}
                                 disableRipple={disableRipple}

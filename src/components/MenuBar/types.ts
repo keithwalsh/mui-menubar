@@ -50,7 +50,7 @@ export interface MenuConfig {
 }
 
 export interface MenuBarProps {
-    config: MenuConfig[];
+    config?: MenuConfig[];
     colorTheme?: ColorTheme;
     color?: AppBarProps["color"];
     sx?: SxProps<Theme>;
@@ -76,4 +76,10 @@ export interface CascadingMenuProps {
     };
     PaperProps?: any;
     TransitionProps?: any;
+    useHover?: boolean;
+}
+
+export interface CascadingContextType {
+    parentPopupState: PopupState | null;
+    rootPopupState: PopupState | null;
 }
