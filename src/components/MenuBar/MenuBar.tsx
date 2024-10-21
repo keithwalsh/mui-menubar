@@ -1,14 +1,21 @@
 /**
  * @fileoverview Main component for rendering a customizable menu bar with
- * nested submenus and various item types.
+ * nested submenus and various item types using material-ui-popup-state.
  */
 
-import React, { useState, useCallback, useMemo } from "react";
-import { AppBar, Toolbar } from "@mui/material";
-import { MenuBarProps, OpenMenuState } from "./types";
-import { useMenuHotkeys } from "./utils";
-import RenderMenuTopLevel from "./RenderMenuTopLevel";
-import { DEFAULT_MENU_CONFIG, DEFAULT_MENU_BAR_PROPS } from "./defaults";
+import React from "react";
+import { AppBar, Toolbar, Button } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import { usePopupState, bindHover, bindFocus } from "material-ui-popup-state/hooks";
+import { MenuBarProps } from "./types";
+import { DEFAULT_MENU_BAR_PROPS } from "./defaults";
+import CascadingMenu from "./CascadingMenu";
+
+const useStyles = makeStyles(() => ({
+    button: {
+        textTransform: "none",
+    },
+}));
 
 const MenuBar: React.FC<MenuBarProps> = ({
     config = [],
@@ -18,36 +25,8 @@ const MenuBar: React.FC<MenuBarProps> = ({
     transitionDuration = DEFAULT_MENU_BAR_PROPS.transitionDuration,
     disableRipple = DEFAULT_MENU_BAR_PROPS.disableRipple,
 }) => {
-    // Sets up keyboard shortcuts.
-    useMenuHotkeys(config);
-    // Tracks the currently open menu and its anchor element.
-    const [openMenu, setOpenMenu] = useState<OpenMenuState | null>(null);
+    const classes = useStyles();
 
-    // Opens the menu at the specified index when clicked.
-    const handleClick = useCallback(
-        (mouseEvent: React.MouseEvent<HTMLButtonElement>, menuIndex: number) => {
-            setOpenMenu({ menuIndex: menuIndex, menuAnchor: mouseEvent.currentTarget });
-        },
-        [setOpenMenu]
-    );
-
-    // Closes the open menu. Sets openMenu to null, preventing submenus from rendering.
-    const handleClose = useCallback(() => {
-        setOpenMenu(null);
-    }, [setOpenMenu]);
-
-    // Handles keyboard events for opening the menu.
-    const handleKeyDown = useCallback(
-        (keyBoardEvent: React.KeyboardEvent<HTMLButtonElement>, menuIndex: number) => {
-            if (["Enter", " ", "ArrowDown"].includes(keyBoardEvent.key)) {
-                keyBoardEvent.preventDefault();
-                setOpenMenu({ menuIndex: menuIndex, menuAnchor: keyBoardEvent.currentTarget });
-            }
-        },
-        [setOpenMenu]
-    );
-
-    // If no config is provided, the menu bar will be rendered with a transparent color and no elevation.
     if (config.length === 0) {
         return (
             <AppBar position="static" elevation={0} color={color} sx={sx}>
@@ -56,33 +35,36 @@ const MenuBar: React.FC<MenuBarProps> = ({
         );
     }
 
-    // Memoize processed config with default values for each menu item
-    const processedConfig = useMemo(
-        () =>
-            config.map((menuItem) => ({
-                ...DEFAULT_MENU_CONFIG,
-                ...menuItem,
-            })),
-        [config]
-    );
-
     return (
         <AppBar position="static" elevation={0} color={color} sx={sx}>
             <Toolbar variant="dense" disableGutters={true}>
-                {processedConfig.map((menuTopLevel, index) => (
-                    <RenderMenuTopLevel
-                        key={`menu-${index}-${menuTopLevel.label}`}
-                        menuTopLevel={menuTopLevel}
-                        menuTopLevelIndex={index}
-                        openMenu={openMenu}
-                        handleClick={handleClick}
-                        handleKeyDown={handleKeyDown}
-                        handleClose={handleClose}
-                        colorTheme={colorTheme}
-                        transitionDuration={transitionDuration}
-                        disableRipple={disableRipple}
-                    />
-                ))}
+                {config.map((menuTopLevel, index) => {
+                    const popupState = usePopupState({
+                        popupId: `menu-${index}`,
+                        variant: "popover",
+                    });
+                    return (
+                        <React.Fragment key={`menu-${index}-${menuTopLevel.label}`}>
+                            <Button
+                                {...bindHover(popupState)}
+                                {...bindFocus(popupState)}
+                                color="inherit"
+                                className={classes.button}
+                                disabled={menuTopLevel.disabled}
+                                disableRipple={disableRipple}
+                            >
+                                {menuTopLevel.label}
+                            </Button>
+                            <CascadingMenu
+                                menuItems={menuTopLevel.items}
+                                popupState={popupState}
+                                colorTheme={colorTheme}
+                                transitionDuration={transitionDuration}
+                                disableRipple={disableRipple}
+                            />
+                        </React.Fragment>
+                    );
+                })}
             </Toolbar>
         </AppBar>
     );

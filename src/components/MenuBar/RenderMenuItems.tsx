@@ -5,10 +5,17 @@
 
 import React, { memo } from "react";
 import { MenuItem, Divider, ListItemIcon, ListItemText, Typography, SxProps, Theme } from "@mui/material";
-import { MenuBarItem, MenuBarAction, RenderMenuItemsProps, MenuBarSubmenu, MenuBarComponent } from "./types";
+import { MenuBarItem, MenuBarAction, MenuBarSubmenu, MenuBarComponent } from "./types";
 import { isDivider } from "./utils";
 import RenderNestedMenuItem from "./RenderNestedMenuItem";
 import { DEFAULT_RENDER_MENU_ITEMS_PROPS } from "./defaults";
+
+interface RenderMenuItemsProps {
+    menuItems: MenuBarItem[];
+    handleClose: () => void;
+    colorTheme?: string;
+    disableRipple?: boolean;
+}
 
 const RenderMenuItems: React.FC<RenderMenuItemsProps> = memo(
     ({ menuItems, handleClose, colorTheme = DEFAULT_RENDER_MENU_ITEMS_PROPS.colorTheme, disableRipple = DEFAULT_RENDER_MENU_ITEMS_PROPS.disableRipple }) => {
@@ -45,7 +52,7 @@ const RenderMenuItems: React.FC<RenderMenuItemsProps> = memo(
         );
 
         const renderActionItem = (menuItem: MenuBarAction, index: number) => {
-            const { label, icon, shortcut, action, disabled, selected } = menuItem;
+            const { label, icon, shortcut, onClick, disabled } = menuItem;
             const iconSx: SxProps<Theme> = { mb: 0.2, fontSize: "small" };
 
             return (
@@ -53,11 +60,10 @@ const RenderMenuItems: React.FC<RenderMenuItemsProps> = memo(
                     dense
                     key={`item-${index}`}
                     onClick={() => {
-                        action?.();
+                        onClick?.();
                         handleClose();
                     }}
                     disabled={disabled}
-                    selected={selected}
                     disableRipple={disableRipple}
                 >
                     {renderIcon(icon, iconSx)}

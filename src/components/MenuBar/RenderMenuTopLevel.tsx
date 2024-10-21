@@ -1,10 +1,10 @@
 /**
  * @fileoverview Renders the top-level menu buttons and their associated
- * dropdown menus for the MenuBar component.
+ * dropdown menus for the MenuBar component using Popper for better positioning control.
  */
 
-import React from "react";
-import { Button, Menu, styled } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Button, Popper, Paper, ClickAwayListener, styled } from "@mui/material";
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { RenderMenuTopLevelProps } from "./types";
 import RenderMenuItems from "./RenderMenuItems";
@@ -31,10 +31,24 @@ const RenderMenuTopLevel: React.FC<RenderMenuTopLevelProps> = ({
     transitionDuration = DEFAULT_RENDER_MENU_TOP_LEVEL_PROPS.transitionDuration,
 }) => {
     const isOpen = openMenu?.menuIndex === menuTopLevelIndex;
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+    useEffect(() => {
+        if (isOpen && openMenu?.menuAnchor) {
+            setAnchorEl(openMenu.menuAnchor);
+        } else {
+            setAnchorEl(null);
+        }
+    }, [isOpen, openMenu]);
 
     return (
         <React.Fragment key={`menu-${menuTopLevelIndex}-${menuTopLevel.label}`}>
             <StyledButton
+                ref={(node) => {
+                    if (node && isOpen) {
+                        setAnchorEl(node);
+                    }
+                }}
                 endIcon={<KeyboardArrowDown sx={{ marginLeft: -0.8 }} />}
                 aria-controls={isOpen ? `menu-${menuTopLevelIndex}` : undefined}
                 aria-haspopup="true"
@@ -50,19 +64,21 @@ const RenderMenuTopLevel: React.FC<RenderMenuTopLevelProps> = ({
             >
                 {menuTopLevel.label}
             </StyledButton>
-            <Menu
-                id={`menu-${menuTopLevelIndex}`}
-                anchorEl={isOpen ? openMenu.menuAnchor : null}
-                open={isOpen}
-                onClose={handleClose}
-                MenuListProps={{
-                    "aria-labelledby": `menu-button-${menuTopLevelIndex}`,
-                    role: "menu",
-                }}
-                transitionDuration={transitionDuration}
-            >
-                <RenderMenuItems menuItems={menuTopLevel.items} handleClose={handleClose} colorTheme={colorTheme} disableRipple={disableRipple} />
-            </Menu>
+            <Popper id={`menu-${menuTopLevelIndex}`} open={isOpen} anchorEl={anchorEl} placement="bottom-start" transition disablePortal>
+                {({ TransitionProps }) => (
+                    <ClickAwayListener onClickAway={() => handleClose()}>
+                        <Paper
+                            {...TransitionProps}
+                            sx={{
+                                transformOrigin: "0 0 0",
+                                visibility: isOpen ? "visible" : "hidden",
+                            }}
+                        >
+                            <RenderMenuItems menuItems={menuTopLevel.items} handleClose={handleClose} colorTheme={colorTheme} disableRipple={disableRipple} />
+                        </Paper>
+                    </ClickAwayListener>
+                )}
+            </Popper>
         </React.Fragment>
     );
 };

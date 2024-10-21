@@ -78,7 +78,7 @@
         "chromatic": "^11.12.5",
         "commit-and-tag-version": "^12.5.0",
         "storybook": "^8.3.5",
-        "typescript": "^4.0.0"
+        "typescript": "^5.6.3"
     },
     "files": [
         "dist"
@@ -103,6 +103,8 @@
     },
     "homepage": "https://github.com/keithwalsh/mui-menubar#readme",
     "dependencies": {
+        "@mui/styles": "^6.1.4",
+        "material-ui-popup-state": "^5.3.1",
         "react-hotkeys-hook": "^4.5.1"
     },
     "publishConfig": {

@@ -1,10 +1,11 @@
 /**
  * @fileoverview Defines types and interfaces used throughout the MenuBar
- * component and its subcomponents.
+ * component and its subcomponents, including new types for material-ui-popup-state.
  */
 
 import { SxProps, Theme } from "@mui/material";
 import { AppBarProps } from "@mui/material";
+import { PopupState } from "material-ui-popup-state/hooks";
 
 /** Represents the different types of menu items available in the MenuBar. */
 export type MenuBarItemKind = "action" | "divider" | "submenu" | "component";
@@ -18,15 +19,15 @@ export type TransitionDuration = "auto" | number | { appear?: number; enter?: nu
 /** Base interface for all menu item types. */
 export interface MenuBarBase {
     kind: MenuBarItemKind;
+    label?: string;
+    disabled?: boolean;
 }
 
 /** Interface for action menu items that can be clicked. */
 export interface MenuBarAction extends MenuBarBase {
     kind: "action";
     label: string;
-    disabled?: boolean;
-    selected?: boolean;
-    action: () => void;
+    onClick: () => void;
     icon?: React.ReactNode;
     shortcut?: string;
 }
@@ -40,8 +41,6 @@ export interface MenuBarDivider extends MenuBarBase {
 export interface MenuBarSubmenu extends MenuBarBase {
     kind: "submenu";
     label: string;
-    disabled?: boolean;
-    selected?: boolean;
     items: MenuBarItem[];
     icon?: React.ReactNode;
 }
@@ -50,8 +49,6 @@ export interface MenuBarSubmenu extends MenuBarBase {
 export interface MenuBarComponent extends MenuBarBase {
     kind: "component";
     component: React.ReactNode;
-    label?: string;
-    disabled?: boolean;
 }
 
 /** Union type for all possible menu item types. */
@@ -61,43 +58,7 @@ export type MenuBarItem = MenuBarAction | MenuBarDivider | MenuBarSubmenu | Menu
 export interface MenuConfig {
     label: string;
     disabled?: boolean;
-    selected?: boolean;
     items: MenuBarItem[];
-}
-
-/** Props interface for rendering menu items. */
-export interface RenderMenuItemsProps {
-    menuItems: MenuBarItem[];
-    colorTheme?: ColorTheme;
-    handleClose: () => void;
-    disableRipple?: boolean;
-}
-
-/** Props interface for rendering top-level menu items. */
-export interface RenderMenuTopLevelProps {
-    menuTopLevel: MenuConfig;
-    colorTheme?: ColorTheme;
-    menuTopLevelIndex: number;
-    openMenu: { menuIndex: number; menuAnchor: HTMLElement } | null;
-    handleClick: (event: React.MouseEvent<HTMLButtonElement>, menuIndex: number) => void;
-    handleKeyDown: (event: React.KeyboardEvent<HTMLButtonElement>, menuIndex: number) => void;
-    handleClose: () => void;
-    disableRipple?: boolean;
-    transitionDuration?: TransitionDuration;
-}
-
-/** Props interface for rendering nested menu items. */
-export interface RenderNestedMenuItemProps {
-    subMenuItem: MenuBarSubmenu;
-    colorTheme?: ColorTheme;
-    handleClose: () => void;
-    transitionDuration?: TransitionDuration;
-    disableRipple?: boolean;
-}
-
-export interface OpenMenuState {
-    menuIndex: number;
-    menuAnchor: HTMLElement;
 }
 
 /** Props interface for the MenuBar component. */
@@ -108,4 +69,56 @@ export interface MenuBarProps {
     sx?: SxProps<Theme>;
     transitionDuration?: TransitionDuration;
     disableRipple?: boolean;
+}
+
+/** Props interface for the RenderMenuTopLevel component. */
+export interface RenderMenuTopLevelProps {
+    menuTopLevel: MenuConfig;
+    menuTopLevelIndex: number;
+    openMenu?: {
+        menuIndex: number;
+        menuAnchor: HTMLElement | null;
+    };
+    handleClick: (event: React.MouseEvent<HTMLElement>, index: number) => void;
+    handleKeyDown: (event: React.KeyboardEvent<HTMLElement>, index: number) => void;
+    handleClose: () => void;
+    colorTheme?: ColorTheme;
+    disableRipple?: boolean;
+    transitionDuration?: TransitionDuration;
+}
+
+/** Props interface for the CascadingMenu component. */
+export interface CascadingMenuProps {
+    menuItems: MenuBarItem[];
+    popupState: PopupState;
+    colorTheme?: ColorTheme;
+    disableRipple?: boolean;
+    componentsProps?: {
+        paper: {
+            component: React.ElementType;
+        };
+    };
+    anchorOrigin?: {
+        vertical: "top" | "bottom";
+        horizontal: "left" | "right";
+    };
+    transformOrigin?: {
+        vertical: "top" | "bottom";
+        horizontal: "left" | "right";
+    };
+}
+
+/** Props interface for the CascadingSubmenu component. */
+export interface CascadingSubmenuProps {
+    item: MenuBarSubmenu;
+    popupId: string;
+    colorTheme?: ColorTheme;
+    disableRipple?: boolean;
+}
+
+/** Props interface for the CascadingMenuItem component. */
+export interface CascadingMenuItemProps {
+    onClick?: () => void;
+    disabled?: boolean;
+    children: React.ReactNode;
 }
