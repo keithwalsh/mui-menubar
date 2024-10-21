@@ -4,11 +4,15 @@
 
 import React, { useContext, useMemo } from "react";
 import { styled } from "@mui/material/styles";
-import HoverMenu from "material-ui-popup-state/HoverMenu";
+import HoverMenuImport from "material-ui-popup-state/HoverMenu";
 import MenuItem from "@mui/material/MenuItem";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import { usePopupState, bindHover, bindFocus, bindMenu, PopupState } from "material-ui-popup-state/hooks";
-import { MenuBarItem, CascadingMenuProps, CascadingSubmenuProps, CascadingMenuItemProps } from "./types";
+import { MenuBarItem, CascadingSubmenuProps, CascadingMenuItemProps, CascadingMenuProps } from "./types";
+import { SxProps, Theme } from "@mui/material/styles";
+
+// Cast HoverMenu to any to bypass type checking
+const HoverMenu = HoverMenuImport as any;
 
 const StyledSubmenu = styled("div")(({ theme }) => ({
     marginTop: -theme.spacing(1),
@@ -61,18 +65,18 @@ const CascadingSubmenu: React.FC<CascadingSubmenuProps> = ({ item, popupId, colo
             </MenuItem>
             <CascadingMenu
                 menuItems={item.items}
-                componentsProps={{ paper: { component: StyledSubmenu } }}
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}
                 transformOrigin={{ vertical: "top", horizontal: "left" }}
                 popupState={popupState}
                 colorTheme={colorTheme || "light"}
                 disableRipple={disableRipple || false}
+                isSubmenu={true}
             />
         </React.Fragment>
     );
 };
 
-const CascadingMenu: React.FC<CascadingMenuProps> = ({ menuItems, popupState, colorTheme, disableRipple, ...props }) => {
+const CascadingMenu: React.FC<CascadingMenuProps> = ({ menuItems, popupState, colorTheme, disableRipple, isSubmenu = false, ...props }) => {
     const { rootPopupState } = useContext(CascadingContext);
     const context = useMemo(
         () => ({
@@ -82,9 +86,30 @@ const CascadingMenu: React.FC<CascadingMenuProps> = ({ menuItems, popupState, co
         [rootPopupState, popupState]
     );
 
+    const paperSx: SxProps<Theme> = useMemo(
+        () => ({
+            backgroundColor: isSubmenu ? "background.paper" : "transparent",
+            // Ensure submenus are opaque
+            ...(isSubmenu && {
+                "& .MuiPaper-root": {
+                    backgroundColor: "background.paper",
+                },
+            }),
+        }),
+        [isSubmenu]
+    );
+
     return (
         <CascadingContext.Provider value={context}>
-            <HoverMenu {...props} {...bindMenu(popupState)}>
+            <HoverMenu
+                {...props}
+                {...bindMenu(popupState)}
+                PaperProps={{
+                    ...props.PaperProps,
+                    component: StyledSubmenu,
+                    sx: paperSx,
+                }}
+            >
                 {menuItems.map((item: MenuBarItem, index: number) =>
                     item.kind === "submenu" ? (
                         <CascadingSubmenu

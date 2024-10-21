@@ -6,6 +6,7 @@
 import { SxProps, Theme } from "@mui/material";
 import { AppBarProps } from "@mui/material";
 import { PopupState } from "material-ui-popup-state/hooks";
+import { MenuProps } from "@mui/material/Menu";
 
 /** Represents the different types of menu items available in the MenuBar. */
 export type MenuBarItemKind = "action" | "divider" | "submenu" | "component";
@@ -88,24 +89,12 @@ export interface RenderMenuTopLevelProps {
 }
 
 /** Props interface for the CascadingMenu component. */
-export interface CascadingMenuProps {
+export interface CascadingMenuProps extends Omit<MenuProps, "open"> {
     menuItems: MenuBarItem[];
     popupState: PopupState;
     colorTheme?: ColorTheme;
     disableRipple?: boolean;
-    componentsProps?: {
-        paper: {
-            component: React.ElementType;
-        };
-    };
-    anchorOrigin?: {
-        vertical: "top" | "bottom";
-        horizontal: "left" | "right";
-    };
-    transformOrigin?: {
-        vertical: "top" | "bottom";
-        horizontal: "left" | "right";
-    };
+    isSubmenu?: boolean;
 }
 
 /** Props interface for the CascadingSubmenu component. */
