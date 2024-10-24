@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.8](https://github.com/keithwalsh/mui-menubar/compare/v0.1.7...v0.1.8) (2024-10-24)
+
+
+### Features
+
+* add initial implementation of material-ui-popup-state ([ccfb481](https://github.com/keithwalsh/mui-menubar/commit/ccfb481c102f1e39cf4f9c20ab137ee1bc0d7b73))
+* add useMenuHotkeys ([31cf13c](https://github.com/keithwalsh/mui-menubar/commit/31cf13c7be229686e8d3637941010c11fc8208ba))
+
+
+### Bug Fixes
+
+* correct export type names ([1cc3ca5](https://github.com/keithwalsh/mui-menubar/commit/1cc3ca5f6e642cd6e554fc929dee08cc5ea89495))
+* multiple menus opening when using click ([e20282f](https://github.com/keithwalsh/mui-menubar/commit/e20282fdc25ce5f34ad789d7a12306a1ff4e6ca3))
+
 ## [0.1.7](https://github.com/keithwalsh/mui-menubar/compare/v0.1.4...v0.1.7) (2024-10-18)
 
 
