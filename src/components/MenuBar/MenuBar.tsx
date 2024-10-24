@@ -9,6 +9,7 @@ import { usePopupState, bindHover, bindTrigger } from "material-ui-popup-state/h
 import CascadingMenu from "./CascadingMenu";
 import { MenuBarProps, MenuConfig } from "./types";
 import { DEFAULT_MENU_BAR_PROPS, DEFAULT_MENU_CONFIG } from "./defaults";
+import { useMenuHotkeys } from "./utils";
 
 export const MenuBar: React.FC<MenuBarProps> = ({
     config = DEFAULT_MENU_CONFIG,
@@ -20,6 +21,9 @@ export const MenuBar: React.FC<MenuBarProps> = ({
 }) => {
     const useHover = true;
     const menuConfig = Array.isArray(config) ? config : [config];
+
+    // Set up hotkeys for the menu items
+    useMenuHotkeys(menuConfig);
 
     if (menuConfig.length === 0) {
         return (
