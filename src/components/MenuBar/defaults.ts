@@ -5,6 +5,8 @@
 
 import { MenuConfig, MenuBarProps } from "./types";
 import { FileCopy, FolderOpen, Save, ExitToApp, Undo, Redo, ContentCopy, ContentPaste, Visibility, ZoomIn, ZoomOut } from "@mui/icons-material";
+import TableSizeChooser from "../TableSizeChooser";
+import React from 'react';
 
 /** Default values for MenuConfig */
 export const DEFAULT_MENU_CONFIG: Required<MenuConfig> = {
@@ -24,32 +26,21 @@ export const DEFAULT_MENU_CONFIG: Required<MenuConfig> = {
         },
         {
             kind: "submenu",
-            label: "Edit",
+            label: "Table",
             items: [
-                { kind: "action", label: "Undo", action: () => console.log("Undo"), icon: Undo },
-                { kind: "action", label: "Redo", action: () => console.log("Redo"), icon: Redo },
-                { kind: "divider" },
                 {
-                    kind: "submenu",
-                    label: "Advanced",
-                    items: [
-                        { kind: "action", label: "Copy", action: () => console.log("Copy"), icon: ContentCopy },
-                        { kind: "divider" },
-                        { kind: "action", label: "Paste", action: () => console.log("Paste"), icon: ContentPaste },
-                    ],
-                },
-            ],
-        },
-        {
-            kind: "submenu",
-            label: "View",
-            items: [
-                { kind: "action", label: "Show/Hide Sidebar", action: () => console.log("Toggle Sidebar"), icon: Visibility, selected: true },
-                { kind: "divider" },
-                { kind: "action", label: "Zoom In", action: () => console.log("Zoom In"), icon: ZoomIn },
-                { kind: "action", label: "Zoom Out", action: () => console.log("Zoom Out"), icon: ZoomOut },
-            ],
-        },
+                    kind: "component" as const,
+                    component: React.createElement(TableSizeChooser, {
+                        maxRows: 10,
+                        maxCols: 10,
+                        currentRows: 3,
+                        currentCols: 3,
+                        onSizeSelect: (rows: number, cols: number) => 
+                            console.log(`Selected size: ${rows}x${cols}`)
+                    })
+                }
+            ]
+        }
     ],
 };
 

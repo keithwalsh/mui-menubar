@@ -5,7 +5,7 @@
 import React, { useContext, useMemo } from "react";
 import HoverMenuImport from "material-ui-popup-state/HoverMenu";
 import { MenuItems, MenuItemSubmenu, CascadingMenuProps, CascadingContextType, ColorTheme, TransitionDuration } from "./types";
-import { MenuItem, Divider, ListItemText, ListItemIcon, MenuList, Typography } from "@mui/material";
+import { MenuItem, Divider, ListItemText, ListItemIcon, MenuList, Typography, Box } from "@mui/material";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import { usePopupState, bindHover, bindFocus, bindMenu } from "material-ui-popup-state/hooks";
 import { SxProps, Theme } from "@mui/material/styles";
@@ -28,6 +28,7 @@ const CascadingMenuItem: React.FC<MenuItems> = (item) => {
 
     const handleClick = React.useCallback(
         (event: React.MouseEvent<HTMLLIElement>) => {
+            if (item.kind === "component") return; // Don't close menu for components
             rootPopupState.close(event);
             if (item.kind === "action") item.action();
         },
@@ -38,8 +39,12 @@ const CascadingMenuItem: React.FC<MenuItems> = (item) => {
         return <Divider />;
     }
 
-    return (
-        <MenuList dense sx={{ px: 0, py: 0.5 }}>
+    if (item.kind === "component") {
+        return <Box sx={{ minWidth: 200 }}>{item.component}</Box>;
+    }
+
+    if (item.kind === "action") {
+        return (
             <MenuItem dense onClick={handleClick} disabled={item.disabled} selected={item.selected}>
                 {item.icon && (
                     <ListItemIcon>
@@ -47,13 +52,26 @@ const CascadingMenuItem: React.FC<MenuItems> = (item) => {
                     </ListItemIcon>
                 )}
                 <ListItemText>{item.label}</ListItemText>
-                {item.kind === "action" && item.shortcut && (
+                {item.shortcut && (
                     <Typography variant="body2" sx={{ ml: 4, color: "text.secondary" }}>
                         {item.shortcut}
                     </Typography>
                 )}
             </MenuItem>
-        </MenuList>
+        );
+    }
+
+    // Must be submenu at this point
+    return (
+        <MenuItem dense disabled={item.disabled} selected={item.selected}>
+            {item.icon && (
+                <ListItemIcon sx={{ minWidth: '24px', mr: 1 }}>
+                    {React.isValidElement(item.icon) ? React.cloneElement(item.icon as React.ReactElement<SvgIconProps>, { sx: iconSx }) : item.icon}
+                </ListItemIcon>
+            )}
+            <ListItemText primary={item.label} sx={{ m: 0 }} />
+            <ChevronRight sx={{ ml: 'auto' }} />
+        </MenuItem>
     );
 };
 
@@ -78,7 +96,7 @@ const CascadingSubmenu: React.FC<
             <MenuList sx={{ px: 0, py: 0.5 }}>
                 <MenuItem dense {...bindHover(popupState)} {...bindFocus(popupState)}>
                     {icon && (
-                        <ListItemIcon>
+                        <ListItemIcon sx={{ mr: -4.5 }}>
                             {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<SvgIconProps>, { sx: iconSx }) : icon}
                         </ListItemIcon>
                     )}

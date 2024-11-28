@@ -8,6 +8,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 import MenuBar, { MenuBarProps, MenuConfig } from "../components/MenuBar";
 import { FileCopy, FolderOpen, Save, ExitToApp, Undo, Redo, ContentCopy, ContentPaste, Visibility, ZoomIn, ZoomOut } from "@mui/icons-material";
 import { action } from "@storybook/addon-actions";
+import TableSizeChooser from "../components/TableSizeChooser";
+import TableChart from '@mui/icons-material/TableChart';
 
 const meta: Meta<typeof MenuBar> = {
     title: "MenuBar",
@@ -101,6 +103,25 @@ const sampleConfig: MenuConfig[] = [
             { kind: "action", label: "Hello", action: action("New file"), icon: <FileCopy />, shortcut: "Ctrl+S" },
             { kind: "action", label: "Open", action: action("Open file action triggered"), icon: <FolderOpen />, disabled: true },
             { kind: "divider" },
+            {
+                kind: "submenu",
+                label: "Table Size",
+                icon: <TableChart />,
+                items: [
+                    {
+                        kind: "component" as const,
+                        component: (
+                            <TableSizeChooser
+                                maxRows={10}
+                                maxCols={10}
+                                currentRows={3}
+                                currentCols={3}
+                                onSizeSelect={(rows, cols) => action("Size Selected")(`${rows}x${cols}`)}
+                            />
+                        )
+                    }
+                ]
+            },
             { kind: "action", label: "Save", action: action("Save file"), icon: <Save /> },
             { kind: "action", label: "Exit", action: action("Exit application"), icon: <ExitToApp /> },
         ],

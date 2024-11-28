@@ -55,49 +55,13 @@ import { Home, Settings, Help } from "@mui/icons-material";
             },
             { kind: "divider" },
             {
-              kind: "action",
-              label: "Save",
-              action: () => console.log("Saving..."),
-              icon: <Save />,
-              shortcut: "Ctrl+S"
-            }
-          ]
-        },
-        {
-          label: "Edit",
-          items: [
-            {
-              kind: "action",
-              label: "Undo",
-              action: () => console.log("Undo"),
-              icon: <Undo />,
-              shortcut: "Ctrl+Z"
-            },
-            {
-              kind: "action",
-              label: "Redo",
-              action: () => console.log("Redo"),
-              icon: <Redo />,
-              shortcut: "Ctrl+Y"
-            },
-            { kind: "divider"},
-            {
               kind: "submenu",
-              label: "Clipboard",
+              label: "Advanced",
+              icon: <Settings />,
               items: [
                 {
-                  kind: "action",
-                  label: "Copy",
-                  action: () => console.log("Copy"),
-                  icon: <ContentCopy />,
-                  shortcut: "Ctrl+C"
-                },
-                {
-                  kind: "action",
-                  label: "Paste",
-                  action: () => console.log("Paste"),
-                  icon: <ContentPaste />,
-                  shortcut: "Ctrl+V"
+                  kind: "component",
+                  component: <CustomComponent />  // Any React component
                 }
               ]
             }
@@ -106,105 +70,56 @@ import { Home, Settings, Help } from "@mui/icons-material";
     ]
 ```
 
-### Example Integration
+### Type Definitions
+
+`MenuItemComponentDefinition`
 
 ```tsx
-import { MenuBar, MenuConfig } from "mui-menubar";
-import { 
-    Save, 
-    FolderOpen, 
-    ContentCopy, 
-    ContentPaste,
-    Undo,
-    Redo 
-  } from '@mui/icons-material';
-
-const menuConfig: MenuConfig[] = [
-    /* ... as defined above ... */
-];
-
-const App: React.FC = () => (
-    <MenuBar 
-        config={menuConfig}
-        colorTheme="light"
-        color="transparent"
-        disableRipple={true}
-        transitionDuration={200}
-        sx={{ 
-          borderBottom: '1px solid #eee',
-          boxShadow: 'none'
-        }}
-    />
-);
-
-export default App;
+interface MenuItemComponentDefinition {
+    kind: "component";
+    component: React.ReactNode;
+}
 ```
-### Key Implementation Notes:
-- Each top-level menu item must have a `label` and `items` array
-- Menu items can be actions, dividers, or submenus
-- Action items require `label` and `action` properties
-- Shortcuts and icons are optional for action items
-- Use MUI's sx prop for custom styling
-- The component supports both light and dark themes
 
-## 🔧 API Reference
+### Menu Item Types
 
-### `MenuStrip` Props
+The MenuBar supports four types of menu items:
+
+1. **Action Items** (`kind: "action"`): Clickable menu items that trigger a function
+2. **Divider Items** (`kind: "divider"`): Visual separators between menu items
+3. **Submenu Items** (`kind: "submenu"`): Nested menus that contain additional menu items
+4. **Component Items** (`kind: "component"`): Custom React components rendered within the menu
+
+Example of a component menu item:
+```tsx
+{
+    kind: "submenu",
+    label: "Table",
+    icon: <TableChart />,
+    items: [
+        {
+            kind: "component",
+            component: (
+                <TableSizeChooser
+                    maxRows={10}
+                    maxCols={10}
+                    currentRows={3}
+                    currentCols={3}
+                    onSizeSelect={(rows, cols) => 
+                        console.log(`Selected: ${rows}x${cols}`)}
+                />
+            )
+        }
+    ]
+}
+```
+
+## API Reference
+
+### MenuBar Props
 
 | Prop         | Type             | Description                                  | Default |
 | ------------ | ---------------- | -------------------------------------------- | ------- |
 | `config`     | `MenuConfig[]`   | Required. Array defining the menu structure. | -       |
 | `colorTheme` | `string`         | Changes color styles (e.g. "light" / "dark") | `light` |
 | `sx`         | `SxProps<Theme>` | Custom styles for the `AppBar` component.    | -       |
-
-### Type Definitions
-
-`MenuConfig`
-
-```tsx
-interface MenuConfig {
-    label: string;
-    items: MenuItemDefinitionUnion[];
-}
-```
-
-`MenuItemDefinitionUnion`
-
-```tsx
-type MenuItemDefinitionUnion = MenuItemActionDefinition | MenuItemDividerDefinition | MenuItemSubmenuDefinition;
-```
-
-`MenuItemActionDefinition`
-
-```tsx
-interface MenuItemActionDefinition {
-    kind?: "action";
-    label: string;
-    action: () => void;
-    icon?: React.ComponentType<SvgIconProps>;
-    shortcut?: string;
-}
-```
-
-`MenuItemDividerDefinition`
-
-```tsx
-interface MenuItemDividerDefinition {
-    kind: "divider";
-}
-```
-
-`MenuItemSubmenuDefinition`
-
-```tsx
-export interface MenuItemSubmenuDefinition {
-    kind: "submenu";
-    label: string;
-    items: MenuItemDefinitionUnion[];
-    icon?: React.ComponentType<SvgIconProps>;
-}
-```
-
-## 🗺️ Roadmap
-
--   **ARIA Attributes:** Properly set for screen readers.
