@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.12](https://github.com/keithwalsh/mui-menubar/compare/v0.1.8...v0.1.12) (2024-11-28)
+
+
+### Documentation
+
+* update README ([7636ee0](https://github.com/keithwalsh/mui-menubar/commit/7636ee0d035c0e9e96ce0a8a6c70aeef4e6686d5))
+
 ## [0.1.8](https://github.com/keithwalsh/mui-menubar/compare/v0.1.7...v0.1.8) (2024-10-24)
 
 
