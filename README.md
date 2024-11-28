@@ -6,7 +6,7 @@
 [![NPM Version](https://img.shields.io/npm/v/mui-menubar.svg)](https://www.npmjs.com/package/mui-menubar)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)
 
-A React **MenuBar** component built with **Material-UI (MUI)** and **TypeScript**. A menu bar is common in desktop applications and provides quick access to a consistent set of commands (e.g. File, Edit, View).
+A React **MenuBar** component package that provides a **Material-UI (MUI)** based menu bar implementation. A menu bar is common in desktop applications and provides quick access to a consistent set of commands (e.g. File, Edit, View). The core functionality is in the `MenuBar` component which supports nested menus, keyboard shortcuts, and theming.
 
 ## 🚀 Features
 
@@ -42,67 +42,110 @@ import { Home, Settings, Help } from "@mui/icons-material";
 ### Define the Menu Configuration
 
 ```tsx
-const menuConfig: MenuConfig[] = [
-    {
-        label: "File",
-        items: [
-            { label: "New", action: () => console.log("New clicked"), icon: Home },
-            { label: "Open", action: () => console.log("Open clicked") },
+    const menuConfig: MenuConfig[] = [
+        {
+          label: "File",
+          items: [
+            {
+              kind: "action",
+              label: "Open",
+              action: () => console.log("Opening..."),
+              icon: <FolderOpen />,
+              shortcut: "Ctrl+O"
+            },
             { kind: "divider" },
             {
-                kind: "submenu",
-                label: "Recent",
-                items: [
-                    { label: "Document 1", action: () => console.log("Document 1 clicked") },
-                    { label: "Document 2", action: () => console.log("Document 2 clicked") },
-                ],
+              kind: "action",
+              label: "Save",
+              action: () => console.log("Saving..."),
+              icon: <Save />,
+              shortcut: "Ctrl+S"
+            }
+          ]
+        },
+        {
+          label: "Edit",
+          items: [
+            {
+              kind: "action",
+              label: "Undo",
+              action: () => console.log("Undo"),
+              icon: <Undo />,
+              shortcut: "Ctrl+Z"
             },
-            { label: "Exit", action: () => console.log("Exit clicked") },
-        ],
-    },
-    {
-        label: "Edit",
-        items: [
-            { label: "Undo", action: () => console.log("Undo clicked"), icon: Settings },
-            { label: "Redo", action: () => console.log("Redo clicked") },
-        ],
-    },
-    {
-        label: "Help",
-        items: [
-            { label: "Documentation", action: () => console.log("Documentation clicked"), icon: Help },
-            { label: "About", action: () => console.log("About clicked") },
-        ],
-    },
-];
+            {
+              kind: "action",
+              label: "Redo",
+              action: () => console.log("Redo"),
+              icon: <Redo />,
+              shortcut: "Ctrl+Y"
+            },
+            { kind: "divider"},
+            {
+              kind: "submenu",
+              label: "Clipboard",
+              items: [
+                {
+                  kind: "action",
+                  label: "Copy",
+                  action: () => console.log("Copy"),
+                  icon: <ContentCopy />,
+                  shortcut: "Ctrl+C"
+                },
+                {
+                  kind: "action",
+                  label: "Paste",
+                  action: () => console.log("Paste"),
+                  icon: <ContentPaste />,
+                  shortcut: "Ctrl+V"
+                }
+              ]
+            }
+          ]
+        }
+    ]
 ```
 
 ### Example Integration
 
 ```tsx
-import React from "react";
 import { MenuBar, MenuConfig } from "mui-menubar";
-import { Home, Settings, Help } from "@mui/icons-material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { 
+    Save, 
+    FolderOpen, 
+    ContentCopy, 
+    ContentPaste,
+    Undo,
+    Redo 
+  } from '@mui/icons-material';
 
 const menuConfig: MenuConfig[] = [
     /* ... as defined above ... */
 ];
 
-const theme = createTheme({
-    palette: {
-        mode: "light", // Change to 'dark' for dark mode
-    },
-});
-
 const App: React.FC = () => (
-    <ThemeProvider theme={theme}>
-        <MenuBar config={menuConfig} darkMode={false} />
-    </ThemeProvider>
+    <MenuBar 
+        config={menuConfig}
+        colorTheme="light"
+        color="transparent"
+        disableRipple={true}
+        transitionDuration={200}
+        sx={{ 
+          borderBottom: '1px solid #eee',
+          boxShadow: 'none'
+        }}
+    />
 );
 
 export default App;
 ```
+### Key Implementation Notes:
+- Each top-level menu item must have a `label` and `items` array
+- Menu items can be actions, dividers, or submenus
+- Action items require `label` and `action` properties
+- Shortcuts and icons are optional for action items
+- Use MUI's sx prop for custom styling
+- The component supports both light and dark themes
 
 ## 🔧 API Reference
 
