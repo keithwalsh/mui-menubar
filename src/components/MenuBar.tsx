@@ -46,7 +46,13 @@ export const MenuBar: React.FC<MenuBarProps> = ({
                             <Button
                                 {...bindTrigger(popupState)}
                                 color="inherit"
-                                sx={{ textTransform: "none" }}
+                                sx={{
+                                    textTransform: "none",
+                                    backgroundColor: popupState.isOpen ? 'action.selected' : 'transparent',
+                                    '&:hover': {
+                                        backgroundColor: popupState.isOpen ? 'action.selected' : 'action.hover',
+                                    }
+                                }}
                                 disabled={menu.disabled}
                                 disableRipple={disableRipple}
                             >
