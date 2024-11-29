@@ -12,7 +12,7 @@ export type TransitionDuration = "auto" | number | {
     enter?: number;
     exit?: number;
 };
-export type MenuItemKind = "action" | "divider" | "submenu";
+export type MenuItemKind = "action" | "divider" | "submenu" | "component";
 interface MenuItemBase {
     kind: MenuItemKind;
     label?: string;
@@ -36,7 +36,11 @@ export interface MenuItemSubmenu extends MenuItemBase {
     items: MenuItems[];
     icon?: React.ReactNode;
 }
-export type MenuItems = MenuItemAction | MenuItemDivider | MenuItemSubmenu;
+export interface MenuItemComponent extends MenuItemBase {
+    kind: "component";
+    component: React.ReactNode;
+}
+export type MenuItems = MenuItemAction | MenuItemDivider | MenuItemSubmenu | MenuItemComponent;
 export interface MenuConfig {
     label: string;
     disabled?: boolean;
