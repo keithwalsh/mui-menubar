@@ -34,7 +34,14 @@ export const MenuBar: React.FC<MenuBarProps> = ({
     }
 
     return (
-        <AppBar position="static" elevation={0} color={color} sx={sx}>
+        <AppBar position="static" elevation={0} color={color} sx={{ 
+            px: 0,
+            minHeight: 0,
+            '& .MuiToolbar-root': {
+                minHeight: 0
+            },
+            ...sx 
+        }}>
             <Toolbar variant="dense" disableGutters={true}>
                 {menuConfig.map((menu: MenuConfig, index: number) => {
                     const popupState = usePopupState({

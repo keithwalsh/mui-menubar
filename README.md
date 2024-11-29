@@ -237,19 +237,15 @@ const menuConfig = [{
 
 ## Common Customization Patterns
 
-1. **Changing Menu Activation**
-   - Default: Hover activation
-   - Can be modified in MenuBar component source
-
-2. **Custom Transitions**
+1. **Custom Transitions**
    - Configurable via transitionDuration prop
    - Supports auto, number, or object configuration
 
-3. **Dynamic Menu Items**
+2. **Dynamic Menu Items**
    - Config can be updated dynamically
    - Useful for context-sensitive menus
 
-4. **Theme Integration**
+3. **Theme Integration**
    - Automatically integrates with Material-UI theme
    - Can be overridden with sx prop
 
