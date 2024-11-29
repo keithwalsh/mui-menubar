@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.14](https://github.com/keithwalsh/mui-menubar/compare/v0.1.8...v0.1.14) (2024-11-29)
+
+
+### Features
+
+* add component kind and support for components on the menu ([391f0a8](https://github.com/keithwalsh/mui-menubar/commit/391f0a8541784bf0f87b5992024a42dd48408148))
+
+
+### Documentation
+
+* update README ([7636ee0](https://github.com/keithwalsh/mui-menubar/commit/7636ee0d035c0e9e96ce0a8a6c70aeef4e6686d5))
+
 ## [0.1.8](https://github.com/keithwalsh/mui-menubar/compare/v0.1.7...v0.1.8) (2024-10-24)
 
 

@@ -1,7 +1,7 @@
 {
     "name": "mui-menubar",
     "type": "module",
-    "version": "0.1.13",
+    "version": "0.1.14",
     "description": "A React MenuBar component using Material-UI.",
     "main": "./dist/index.js",
     "module": "./dist/index.js",
