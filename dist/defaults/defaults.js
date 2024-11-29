@@ -3,8 +3,6 @@
  * subcomponents.
  */
 import { FileCopy, FolderOpen, Save, ExitToApp } from "@mui/icons-material";
-import TableSizeChooser from "../TableSizeChooser";
-import React from 'react';
 /** Default values for MenuConfig */
 export const DEFAULT_MENU_CONFIG = {
     label: "Root",
@@ -21,22 +19,6 @@ export const DEFAULT_MENU_CONFIG = {
                 { kind: "action", label: "Exit", action: () => console.log("Exit application"), icon: ExitToApp },
             ],
         },
-        {
-            kind: "submenu",
-            label: "Table",
-            items: [
-                {
-                    kind: "component",
-                    component: React.createElement(TableSizeChooser, {
-                        maxRows: 10,
-                        maxCols: 10,
-                        currentRows: 3,
-                        currentCols: 3,
-                        onSizeSelect: (rows, cols) => console.log(`Selected size: ${rows}x${cols}`)
-                    })
-                }
-            ]
-        }
     ],
 };
 /** Default values for MenuBar props */

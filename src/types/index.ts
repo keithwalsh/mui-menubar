@@ -5,7 +5,7 @@ export type {
     MenuItemAction,
     MenuItemDivider,
     MenuItemSubmenu,
-    MenuItemComponent,
+    MenuItemCustom,
     MenuItems,
     MenuConfig,
     MenuBarProps,

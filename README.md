@@ -18,15 +18,16 @@ A React **MenuBar** component package that provides a **Material-UI (MUI)** base
 - Material-UI icons integration
 
 ## 📦 Basic Implementation
-1. First, install the package and its peer dependencies:
+### Installation
+1. Install the menu bar package
 ```
-# Install the menu bar package
 npm install @your-scope/menubar-component
-
-# Install peer dependencies (if not already in your project)
+```
+2. Install peer dependencies (if not already in your project)
+```
 npm install @mui/material @mui/icons-material @emotion/react @emotion/styled material-ui-popup-state react-hotkeys-hook
 ```
-2. Basic usage example:
+### Basic usage example:
 ```tsx
 import { MenuBar, MenuConfig } from 'mui-menubar';
 import { FileCopy, Save } from '@mui/icons-material';

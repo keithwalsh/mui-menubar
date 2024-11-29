@@ -31,8 +31,8 @@ const CascadingMenuItem = (item) => {
     if (!rootPopupState)
         throw new Error("must be used inside a CascadingMenu");
     const handleClick = React.useCallback((event) => {
-        if (item.kind === "component")
-            return; // Don't close menu for components
+        if (item.kind === "custom")
+            return; // Don't close menu for custom components
         rootPopupState.close(event);
         if (item.kind === "action")
             item.action();
@@ -40,7 +40,7 @@ const CascadingMenuItem = (item) => {
     if (item.kind === "divider") {
         return _jsx(Divider, {});
     }
-    if (item.kind === "component") {
+    if (item.kind === "custom") {
         return _jsx(Box, { sx: { minWidth: 200 }, children: item.component });
     }
     if (item.kind === "action") {

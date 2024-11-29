@@ -5,7 +5,7 @@
 
 import React from "react";
 import { AppBar, Toolbar, Button } from "@mui/material";
-import { usePopupState, bindHover, bindTrigger } from "material-ui-popup-state/hooks";
+import { usePopupState, bindTrigger, bindPopover } from "material-ui-popup-state/hooks";
 import CascadingMenu from "./CascadingMenu";
 import { MenuBarProps, MenuConfig } from "../types";
 import { DEFAULT_MENU_BAR_PROPS, DEFAULT_MENU_CONFIG } from "../defaults";
@@ -19,7 +19,6 @@ export const MenuBar: React.FC<MenuBarProps> = ({
     disableRipple = DEFAULT_MENU_BAR_PROPS.disableRipple,
     transitionDuration = DEFAULT_MENU_BAR_PROPS.transitionDuration,
 }) => {
-    const useHover = true;
     const menuConfig = Array.isArray(config) ? config : [config];
 
     // Set up hotkeys for the menu items
@@ -38,21 +37,14 @@ export const MenuBar: React.FC<MenuBarProps> = ({
             <Toolbar variant="dense" disableGutters={true}>
                 {menuConfig.map((menu: MenuConfig, index: number) => {
                     const popupState = usePopupState({
-                        variant: "popover",
+                        variant: "popover" as const,
                         popupId: `menu-${index}`,
                     });
-
-                    const bindMenu = useHover ? bindHover : bindTrigger;
 
                     return (
                         <React.Fragment key={index}>
                             <Button
-                                {...bindMenu(popupState)}
-                                onClick={() => {
-                                    if (!useHover) {
-                                        popupState.toggle();
-                                    }
-                                }}
+                                {...bindTrigger(popupState)}
                                 color="inherit"
                                 sx={{ textTransform: "none" }}
                                 disabled={menu.disabled}
@@ -61,11 +53,13 @@ export const MenuBar: React.FC<MenuBarProps> = ({
                                 {menu.label}
                             </Button>
                             <CascadingMenu
+                                {...bindPopover(popupState)}
                                 menuItems={menu.items}
                                 popupState={popupState}
                                 colorTheme={colorTheme}
                                 disableRipple={disableRipple}
                                 transitionDuration={transitionDuration}
+                                useHover={true}
                             />
                         </React.Fragment>
                     );

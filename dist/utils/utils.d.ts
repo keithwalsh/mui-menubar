@@ -2,7 +2,7 @@
  * @fileoverview Utility functions for the MenuBar component. Includes hooks for
  * handling menu hotkeys and type guards for menu item types.
  */
-import { MenuConfig, MenuItemDivider, MenuItems } from "./types";
+import { MenuConfig, MenuItemDivider, MenuItems } from "../types/types";
 /**
  * Custom hook to set up hotkeys for menu items with shortcuts.
  * Uses the useHotkeys hook from react-hotkeys-hook for keyboard shortcut handling.

@@ -7,8 +7,8 @@ import React from "react";
 import { AppBar, Toolbar, Button } from "@mui/material";
 import { usePopupState, bindHover, bindTrigger } from "material-ui-popup-state/hooks";
 import CascadingMenu from "./CascadingMenu";
-import { DEFAULT_MENU_BAR_PROPS, DEFAULT_MENU_CONFIG } from "./defaults";
-import { useMenuHotkeys } from "./utils";
+import { DEFAULT_MENU_BAR_PROPS, DEFAULT_MENU_CONFIG } from "../defaults";
+import { useMenuHotkeys } from "../utils";
 export const MenuBar = ({ config = DEFAULT_MENU_CONFIG, colorTheme = DEFAULT_MENU_BAR_PROPS.colorTheme, color = DEFAULT_MENU_BAR_PROPS.color, sx, disableRipple = DEFAULT_MENU_BAR_PROPS.disableRipple, transitionDuration = DEFAULT_MENU_BAR_PROPS.transitionDuration, }) => {
     const useHover = true;
     const menuConfig = Array.isArray(config) ? config : [config];

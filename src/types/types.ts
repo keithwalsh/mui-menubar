@@ -82,6 +82,7 @@ export interface CascadingMenuProps {
     PaperProps?: any;
     TransitionProps?: any;
     useHover?: boolean;
+    onClickAway?: () => void;
 }
 
 export interface CascadingContextType {

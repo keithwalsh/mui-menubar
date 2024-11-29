@@ -31,7 +31,7 @@ Array<{
     label: string;
     disabled?: boolean;
     items: Array<{
-        kind: "action" | "divider" | "submenu";
+        kind: "action" | "divider" | "submenu" | "custom";
         label?: string;
         disabled?: boolean;
         selected?: boolean;
@@ -162,26 +162,6 @@ export const Default: Story = {
         color: "transparent",
     },
     render: (args: MenuBarProps) => (
-        <div style={{ backgroundColor: getBackgroundColor(args.colorTheme) }}>
             <MenuBar {...args} />
-        </div>
     ),
 };
-
-export const DarkMode: Story = {
-    args: {
-        config: sampleConfig,
-        colorTheme: "dark",
-    },
-};
-
-DarkMode.parameters = {
-    backgrounds: {
-        default: "dark",
-    },
-};
-
-// Helper function to get background color
-function getBackgroundColor(colorTheme: string | undefined): string {
-    return colorTheme === "dark" ? "#333333" : "transparent";
-}
