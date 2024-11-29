@@ -8,17 +8,16 @@ import { AppBar, Toolbar, Button } from "@mui/material";
 import { usePopupState, bindTrigger, bindPopover } from "material-ui-popup-state/hooks";
 import CascadingMenu from "./CascadingMenu";
 import { MenuBarProps, MenuConfig } from "../types";
-import { DEFAULT_MENU_BAR_PROPS, DEFAULT_MENU_CONFIG } from "../defaults";
 import { useMenuHotkeys } from "../utils";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 export const MenuBar: React.FC<MenuBarProps> = ({
-    config = DEFAULT_MENU_CONFIG,
-    colorTheme = DEFAULT_MENU_BAR_PROPS.colorTheme,
-    color = DEFAULT_MENU_BAR_PROPS.color,
+    config = [],
+    colorTheme,
+    color,
     sx,
-    disableRipple = DEFAULT_MENU_BAR_PROPS.disableRipple,
-    transitionDuration = DEFAULT_MENU_BAR_PROPS.transitionDuration,
+    disableRipple,
+    transitionDuration
 }) => {
     const menuConfig = Array.isArray(config) ? config : [config];
 
