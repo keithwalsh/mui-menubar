@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.15](https://github.com/keithwalsh/mui-menubar/compare/v0.1.14...v0.1.15) (2024-11-29)
+
+
+### Features
+
+* add backgroundColor styling that changes based on popupState.isOpen ([a1855dc](https://github.com/keithwalsh/mui-menubar/commit/a1855dcb979e8e2ee740a3198ea1df013f7517b9))
+* implement click activation for root-level menus and maintain hover activation for submenus ([e025abd](https://github.com/keithwalsh/mui-menubar/commit/e025abd9642345c8bb85e6c57700053fea67896d))
+
+
+### Bug Fixes
+
+* ensure consistent ripple effect behavior across all menu item types ([21aaafe](https://github.com/keithwalsh/mui-menubar/commit/21aaafe6601c73a80ff34dd94acd438d035a6dbe))
+* primary menu padding ([9f317d5](https://github.com/keithwalsh/mui-menubar/commit/9f317d51de61985cabd483f807b2960352811fef))
+
+
+### Documentation
+
+* update README ([ffe2a9f](https://github.com/keithwalsh/mui-menubar/commit/ffe2a9f35e45b8f05294c781a7e0ad52059ef8e2))
+* update README ([79c5a75](https://github.com/keithwalsh/mui-menubar/commit/79c5a7509f118f576046e276a9b8585ef219e2fb))
+
 ## [0.1.14](https://github.com/keithwalsh/mui-menubar/compare/v0.1.8...v0.1.14) (2024-11-29)
 
 
