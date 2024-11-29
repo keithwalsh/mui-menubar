@@ -4,7 +4,7 @@
 
 import React, { useContext, useMemo } from "react";
 import HoverMenuImport from "material-ui-popup-state/HoverMenu";
-import { MenuItems, MenuItemSubmenu, CascadingMenuProps, CascadingContextType, ColorTheme, TransitionDuration } from "./types";
+import { MenuItems, MenuItemSubmenu, CascadingMenuProps, CascadingContextType, ColorTheme, TransitionDuration } from "../types";
 import { MenuItem, Divider, ListItemText, ListItemIcon, MenuList, Typography, Box } from "@mui/material";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import { usePopupState, bindHover, bindFocus, bindMenu } from "material-ui-popup-state/hooks";

@@ -5,10 +5,10 @@
 
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import MenuBar, { MenuBarProps, MenuConfig } from "../components/MenuBar";
+import MenuBar, { MenuBarProps, MenuConfig } from "../components";
 import { FileCopy, FolderOpen, Save, ExitToApp, Undo, Redo, ContentCopy, ContentPaste, Visibility, ZoomIn, ZoomOut } from "@mui/icons-material";
 import { action } from "@storybook/addon-actions";
-import TableSizeChooser from "../components/TableSizeChooser";
+import TableSizeChooser from "./TableSizeChooser";
 import TableChart from '@mui/icons-material/TableChart';
 
 const meta: Meta<typeof MenuBar> = {
@@ -25,6 +25,7 @@ const meta: Meta<typeof MenuBar> = {
                 defaultValue: { summary: "[]", detail: "Empty array = no rendering" },
                 type: {
                     summary: "MenuConfig[]",
+                    // Note: The string "Array<{" starts at the very beginning of the next line to ensure correct formatting in the Storybook UI display.
                     detail: `
 Array<{
     label: string;
@@ -41,7 +42,7 @@ Array<{
         items?: Array</* Recursive reference to this item structure */>;
     }>;
 }>;
-`,
+                    `,
                 },
             },
         },
@@ -109,7 +110,7 @@ const sampleConfig: MenuConfig[] = [
                 icon: <TableChart />,
                 items: [
                     {
-                        kind: "component" as const,
+                        kind: "custom",
                         component: (
                             <TableSizeChooser
                                 maxRows={10}

@@ -7,4 +7,4 @@
 export { default as MenuBar } from "./components/MenuBar";
 
 // Export types using 'export type'
-export type { MenuConfig, MenuItems, MenuItemAction, MenuItemDivider, MenuItemSubmenu } from "./components/MenuBar";
+export type { MenuConfig, MenuItems, MenuItemAction, MenuItemDivider, MenuItemSubmenu } from "./components";

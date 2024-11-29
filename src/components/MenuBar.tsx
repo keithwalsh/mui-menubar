@@ -7,9 +7,9 @@ import React from "react";
 import { AppBar, Toolbar, Button } from "@mui/material";
 import { usePopupState, bindHover, bindTrigger } from "material-ui-popup-state/hooks";
 import CascadingMenu from "./CascadingMenu";
-import { MenuBarProps, MenuConfig } from "./types";
-import { DEFAULT_MENU_BAR_PROPS, DEFAULT_MENU_CONFIG } from "./defaults";
-import { useMenuHotkeys } from "./utils";
+import { MenuBarProps, MenuConfig } from "../types";
+import { DEFAULT_MENU_BAR_PROPS, DEFAULT_MENU_CONFIG } from "../defaults";
+import { useMenuHotkeys } from "../utils";
 
 export const MenuBar: React.FC<MenuBarProps> = ({
     config = DEFAULT_MENU_CONFIG,

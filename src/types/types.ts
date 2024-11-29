@@ -12,7 +12,7 @@ export type ColorTheme = "light" | "dark";
 
 export type TransitionDuration = "auto" | number | { appear?: number; enter?: number; exit?: number };
 
-export type MenuItemKind = "action" | "divider" | "submenu" | "component";
+export type MenuItemKind = "action" | "divider" | "submenu" | "custom";
 
 interface MenuItemBase {
     kind: MenuItemKind;
@@ -41,12 +41,12 @@ export interface MenuItemSubmenu extends MenuItemBase {
     icon?: React.ReactNode;
 }
 
-export interface MenuItemComponent extends MenuItemBase {
-    kind: "component";
+export interface MenuItemCustom extends MenuItemBase {
+    kind: "custom";
     component: React.ReactNode;
 }
 
-export type MenuItems = MenuItemAction | MenuItemDivider | MenuItemSubmenu | MenuItemComponent;
+export type MenuItems = MenuItemAction | MenuItemDivider | MenuItemSubmenu | MenuItemCustom;
 
 export interface MenuConfig {
     label: string;

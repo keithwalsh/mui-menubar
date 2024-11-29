@@ -4,7 +4,7 @@
  */
 
 import { useHotkeys } from "react-hotkeys-hook";
-import { MenuConfig, MenuItemDivider, MenuItemAction, MenuItems } from "./types";
+import { MenuConfig, MenuItemDivider, MenuItemAction, MenuItems } from "../types/types";
 
 /**
  * Type guard to check if a MenuItem is an action item with both a shortcut and an action.

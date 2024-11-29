@@ -4,4 +4,4 @@
  */
 
 export { default } from "./MenuBar";
-export * from "./types";
+export * from "../types";
