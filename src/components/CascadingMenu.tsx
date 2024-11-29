@@ -22,7 +22,7 @@ const CascadingContext = React.createContext<CascadingContextType>({
     rootPopupState: null,
 });
 
-const CascadingMenuItem: React.FC<MenuItems> = (item) => {
+const CascadingMenuItem: React.FC<MenuItems & { disableRipple?: boolean }> = ({ disableRipple, ...item }) => {
     const { rootPopupState } = useContext(CascadingContext);
     if (!rootPopupState) throw new Error("must be used inside a CascadingMenu");
 
@@ -40,12 +40,30 @@ const CascadingMenuItem: React.FC<MenuItems> = (item) => {
     }
 
     if (item.kind === "custom") {
-        return <Box sx={{ minWidth: 200 }}>{item.component}</Box>;
+        return (
+            <MenuItem 
+                dense 
+                disableRipple={disableRipple}
+                sx={{ 
+                    '&:hover': { 
+                        backgroundColor: 'transparent' 
+                    } 
+                }}
+            >
+                <Box sx={{ minWidth: 200 }}>{item.component}</Box>
+            </MenuItem>
+        );
     }
 
     if (item.kind === "action") {
         return (
-            <MenuItem dense onClick={handleClick} disabled={item.disabled} selected={item.selected}>
+            <MenuItem 
+                dense 
+                onClick={handleClick} 
+                disabled={item.disabled} 
+                selected={item.selected}
+                disableRipple={disableRipple}
+            >
                 {item.icon && (
                     <ListItemIcon>
                         {React.isValidElement(item.icon) ? React.cloneElement(item.icon as React.ReactElement<SvgIconProps>, { sx: iconSx }) : item.icon}
@@ -63,8 +81,20 @@ const CascadingMenuItem: React.FC<MenuItems> = (item) => {
 
     // Must be submenu at this point
     if (item.kind === "submenu") {
+        const submenuPopupState = usePopupState({
+            variant: "popover",
+            popupId: `submenu-${item.label}`,
+        });
+
         return (
-            <MenuItem dense disabled={item.disabled} selected={item.selected}>
+            <MenuItem 
+                dense 
+                disabled={item.disabled} 
+                selected={item.selected}
+                disableRipple={disableRipple}
+                {...bindHover(submenuPopupState)}
+                {...bindFocus(submenuPopupState)}
+            >
                 {item.icon && (
                     <ListItemIcon sx={{ minWidth: '24px', mr: 1 }}>
                         {React.isValidElement(item.icon) ? React.cloneElement(item.icon as React.ReactElement<SvgIconProps>, { sx: iconSx }) : item.icon}
@@ -98,12 +128,17 @@ const CascadingSubmenu: React.FC<
     });
 
     // Use bindHover if useHover is true, otherwise use bindTrigger
-    const bindMenu = useHover ? bindHover : bindTrigger;
+    const bindMenuProps = useHover ? bindHover : bindTrigger;
 
     return (
         <React.Fragment>
             <MenuList sx={{ px: 0, py: 0.5 }}>
-                <MenuItem dense {...bindMenu(popupState)} {...bindFocus(popupState)}>
+                <MenuItem 
+                    dense 
+                    {...bindMenuProps(popupState)} 
+                    {...bindFocus(popupState)}
+                    disableRipple={disableRipple}
+                >
                     {icon && (
                         <ListItemIcon sx={{ mr: -4.5 }}>
                             {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<SvgIconProps>, { sx: iconSx }) : icon}
@@ -190,7 +225,11 @@ const CascadingMenu: React.FC<CascadingMenuProps> = ({
                             useHover={useHover}
                         />
                     ) : (
-                        <CascadingMenuItem key={`item-${index}`} {...item} />
+                        <CascadingMenuItem 
+                            key={`item-${index}`} 
+                            {...item} 
+                            disableRipple={disableRipple}
+                        />
                     )
                 )}
             </MenuList>

@@ -10,6 +10,7 @@ import CascadingMenu from "./CascadingMenu";
 import { MenuBarProps, MenuConfig } from "../types";
 import { DEFAULT_MENU_BAR_PROPS, DEFAULT_MENU_CONFIG } from "../defaults";
 import { useMenuHotkeys } from "../utils";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 export const MenuBar: React.FC<MenuBarProps> = ({
     config = DEFAULT_MENU_CONFIG,
@@ -51,10 +52,16 @@ export const MenuBar: React.FC<MenuBarProps> = ({
                                     backgroundColor: popupState.isOpen ? 'action.selected' : 'transparent',
                                     '&:hover': {
                                         backgroundColor: popupState.isOpen ? 'action.selected' : 'action.hover',
-                                    }
+                                    },
+                                    '& .MuiButton-endIcon': {
+                                        marginLeft: '2px'
+                                    },
+                                    px: 1,
+                                    py: 0.25
                                 }}
                                 disabled={menu.disabled}
                                 disableRipple={disableRipple}
+                                endIcon={<KeyboardArrowDownIcon />}
                             >
                                 {menu.label}
                             </Button>
