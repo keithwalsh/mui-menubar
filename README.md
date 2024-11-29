@@ -18,44 +18,51 @@ A React **MenuBar** component package that provides a **Material-UI (MUI)** base
 - Material-UI icons integration
 
 ## 📦 Basic Implementation
-
-```tsx
-import MenuBar from './components/MenuBar';
-const config = [
-    {
-        label: "File",
-        items: [
-            {
-                kind: "action",
-                label: "Save",
-                action: () => console.log("Save clicked"),
-                shortcut: "Ctrl+S"
-            },
-            { kind: "divider" },
-            {
-                kind: "action",
-                label: "Exit",
-                action: () => console.log("Exit clicked")
-            }
-        ]
-    }
-];
-function App() {
-    return <MenuBar config={config} />;
-}
+1. First, install the package and its peer dependencies:
 ```
+# Install the menu bar package
+npm install @your-scope/menubar-component
 
-1. Ensure your project meets the peer dependencies before installing.
+# Install peer dependencies (if not already in your project)
+npm install @mui/material @mui/icons-material @emotion/react @emotion/styled material-ui-popup-state react-hotkeys-hook
+```
+2. Basic usage example:
+```tsx
+import { MenuBar, MenuConfig } from 'mui-menubar';
+import { FileCopy, Save } from '@mui/icons-material';
 
-    ```
-    npm install react react-dom @mui/material@^5.0.0 @mui/icons-material@^5.0.0 @emotion/react @emotion/styled
-    ```
+const App = () => {
+  const menuConfig = [
+    {
+      label: "File",
+      items: [
+        {
+          kind: "action",
+          label: "New",
+          action: () => console.log("New file"),
+          icon: <FileCopy />,
+          shortcut: "Ctrl+N"
+        },
+        {
+          kind: "action",
+          label: "Save",
+          action: () => console.log("Save file"),
+          icon: <Save />,
+          shortcut: "Ctrl+S"
+        }
+      ]
+    }
+  ];
 
-2. Install `mui-menubar`
-
-    ```
-    npm install mui-menubar
-    ```
+  return (
+    <MenuBar 
+      config={menuConfig}
+      colorTheme="light"
+      color="transparent"
+    />
+  );
+};
+```
 
 ## 🎮 Usage
 
