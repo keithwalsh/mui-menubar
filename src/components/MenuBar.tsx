@@ -13,7 +13,6 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 export const MenuBar: React.FC<MenuBarProps> = ({
     config = [],
-    colorTheme,
     color,
     sx,
     disableRipple,
@@ -75,7 +74,6 @@ export const MenuBar: React.FC<MenuBarProps> = ({
                                 {...bindPopover(popupState)}
                                 menuItems={menu.items}
                                 popupState={popupState}
-                                colorTheme={colorTheme}
                                 disableRipple={disableRipple}
                                 transitionDuration={transitionDuration}
                                 useHover={true}

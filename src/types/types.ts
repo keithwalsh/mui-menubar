@@ -8,8 +8,6 @@ import { AppBarProps } from "@mui/material";
 import React from "react";
 import { PopupState } from "material-ui-popup-state/hooks";
 
-export type ColorTheme = "light" | "dark";
-
 export type TransitionDuration = "auto" | number | { appear?: number; enter?: number; exit?: number };
 
 export type MenuItemKind = "action" | "divider" | "submenu" | "custom";
@@ -56,7 +54,6 @@ export interface MenuConfig {
 
 export interface MenuBarProps {
     config?: MenuConfig[];
-    colorTheme?: ColorTheme;
     color?: AppBarProps["color"];
     sx?: SxProps<Theme>;
     disableRipple?: boolean;
@@ -66,7 +63,6 @@ export interface MenuBarProps {
 export interface CascadingMenuProps {
     menuItems: MenuItems[];
     popupState: PopupState;
-    colorTheme?: ColorTheme;
     disableRipple?: boolean;
     transitionDuration?: TransitionDuration;
     isSubmenu?: boolean;

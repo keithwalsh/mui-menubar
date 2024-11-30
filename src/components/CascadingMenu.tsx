@@ -4,7 +4,7 @@
 
 import React, { useContext, useMemo } from "react";
 import HoverMenuImport from "material-ui-popup-state/HoverMenu";
-import { MenuItems, MenuItemSubmenu, CascadingMenuProps, CascadingContextType, ColorTheme, TransitionDuration } from "../types";
+import { MenuItems, MenuItemSubmenu, CascadingMenuProps, CascadingContextType, TransitionDuration } from "../types";
 import { MenuItem, Divider, ListItemText, ListItemIcon, MenuList, Typography, Box, ClickAwayListener, Popover } from "@mui/material";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import { usePopupState, bindHover, bindFocus, bindMenu, bindTrigger } from "material-ui-popup-state/hooks";
@@ -112,14 +112,13 @@ const CascadingMenuItem: React.FC<MenuItems & { disableRipple?: boolean }> = ({ 
 const CascadingSubmenu: React.FC<
     MenuItemSubmenu & {
         popupId: string;
-        colorTheme?: ColorTheme;
         disableRipple?: boolean;
         transitionDuration?: TransitionDuration;
         dense?: boolean;
         disablePadding?: boolean;
         useHover?: boolean;
     }
-> = ({ label, items, icon, popupId, colorTheme, disableRipple, transitionDuration, useHover = true }) => {
+> = ({ label, items, icon, popupId, disableRipple, transitionDuration, useHover = true }) => {
     const { parentPopupState } = useContext(CascadingContext);
     const popupState = usePopupState({
         popupId,
@@ -155,7 +154,6 @@ const CascadingSubmenu: React.FC<
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}
                 transformOrigin={{ vertical: "top", horizontal: "left" }}
                 popupState={popupState}
-                colorTheme={colorTheme}
                 disableRipple={disableRipple}
                 transitionDuration={transitionDuration}
                 isSubmenu={true}
@@ -176,7 +174,6 @@ const StyledMenu = styled(HoverMenu)(() => ({
 const CascadingMenu: React.FC<CascadingMenuProps> = ({ 
     menuItems, 
     popupState, 
-    colorTheme, 
     disableRipple, 
     transitionDuration = 0,
     isSubmenu = false,
@@ -219,7 +216,6 @@ const CascadingMenu: React.FC<CascadingMenuProps> = ({
                             key={`submenu-${index}`}
                             {...item}
                             popupId={`submenu-${index}`}
-                            colorTheme={colorTheme}
                             disableRipple={disableRipple}
                             transitionDuration={transitionDuration}
                             useHover={useHover}

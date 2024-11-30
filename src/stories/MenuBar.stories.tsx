@@ -46,17 +46,6 @@ Array<{
                 },
             },
         },
-        colorTheme: {
-            control: {
-                type: "radio",
-                options: ["light", "dark"],
-            },
-            description: "Switch between light and dark mode.",
-            table: {
-                defaultValue: { summary: "light" },
-                type: { summary: `"light" | "dark"` },
-            },
-        },
         color: {
             options: ["default", "primary", "secondary", "inherit", "transparent"],
             control: { type: "select" },
@@ -158,7 +147,6 @@ const sampleConfig: MenuConfig[] = [
 export const Default: Story = {
     args: {
         config: sampleConfig,
-        colorTheme: "light",
         color: "transparent",
     },
     render: (args: MenuBarProps) => (
