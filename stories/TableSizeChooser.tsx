@@ -95,28 +95,25 @@ const TableSizeChooser: React.FC<TableSizeChooserProps> = ({ maxRows = 20, maxCo
         }
     };
 
+    const inputs = [
+        { label: 'Rows', value: inputRows, type: 'rows' as const, max: maxRows },
+        { label: 'Columns', value: inputCols, type: 'cols' as const, max: maxCols }
+    ]
+
     return (
         <Box sx={{ padding: 2, width: "auto" }}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
-                <SizeInput
-                    label="Rows"
-                    value={inputRows}
-                    type="rows"
-                    max={maxRows}
-                    onChange={handleInputChange}
-                    onBlur={handleInputBlur}
-                    onFocus={handleInputFocus}
-                />
-                <Typography variant="h6">x</Typography>
-                <SizeInput
-                    label="Columns"
-                    value={inputCols}
-                    type="cols"
-                    max={maxCols}
-                    onChange={handleInputChange}
-                    onBlur={handleInputBlur}
-                    onFocus={handleInputFocus}
-                />
+                {inputs.map((input, index) => (
+                    <React.Fragment key={input.type}>
+                        <SizeInput
+                            {...input}
+                            onChange={handleInputChange}
+                            onBlur={handleInputBlur}
+                            onFocus={handleInputFocus}
+                        />
+                        {index === 0 && <Typography variant="h6">x</Typography>}
+                    </React.Fragment>
+                ))}
             </Box>
             <Box
                 sx={{
