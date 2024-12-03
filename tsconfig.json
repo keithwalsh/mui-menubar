@@ -20,6 +20,6 @@
         "isolatedModules": true,
         "noEmit": false
     },
-    "include": ["src/**/*"],
-    "exclude": ["dist", "node_modules", "**/*.test.ts", "**/*.stories.tsx"]
+    "include": ["src/**/*", "stories"],
+    "exclude": ["dist", "node_modules", "stories","**/*.test.ts", "**/*.stories.tsx"]
 }
