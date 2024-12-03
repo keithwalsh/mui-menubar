@@ -11,6 +11,7 @@ import { usePopupState, bindHover, bindFocus, bindMenu, bindTrigger } from "mate
 import { SxProps, Theme } from "@mui/material/styles";
 import { SvgIconProps } from "@mui/material/SvgIcon";
 import { styled } from "@mui/material/styles";
+import { SubmenuRenderer } from "./SubmenuRenderer";
 
 // Cast HoverMenu to any to bypass type checking
 const HoverMenu = HoverMenuImport as any;
@@ -23,7 +24,7 @@ const CascadingContext = React.createContext<CascadingContextType>({
 });
 
 // Helper function to render ListItemIcon
-function renderListItemIcon(icon: React.ReactNode, sx?: SxProps<Theme>) {
+export function renderListItemIcon(icon: React.ReactNode, sx?: SxProps<Theme>) {
     return (
         <ListItemIcon sx={sx}>
             {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<SvgIconProps>, { sx: iconSx }) : icon}
@@ -86,25 +87,7 @@ const CascadingMenuItem: React.FC<MenuItems & { disableRipple?: boolean }> = ({ 
 
     // Must be submenu at this point
     if (item.kind === "submenu") {
-        const submenuPopupState = usePopupState({
-            variant: "popover",
-            popupId: `submenu-${item.label}`,
-        });
-
-        return (
-            <MenuItem 
-                dense 
-                disabled={item.disabled} 
-                selected={item.selected}
-                disableRipple={disableRipple}
-                {...bindHover(submenuPopupState)}
-                {...bindFocus(submenuPopupState)}
-            >
-                {item.icon && renderListItemIcon(item.icon, { minWidth: '24px', mr: 1 })}
-                <ListItemText primary={item.label} sx={{ m: 0 }} />
-                <ChevronRight sx={{ ml: 'auto' }} />
-            </MenuItem>
-        );
+        return <SubmenuRenderer item={item} disableRipple={disableRipple} />;
     }
 
     return null; // TypeScript exhaustiveness check

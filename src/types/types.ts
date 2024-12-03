@@ -83,3 +83,13 @@ export interface CascadingContextType {
     parentPopupState: PopupState | null;
     rootPopupState: PopupState | null;
 }
+
+export interface SubmenuRendererProps {
+    item: MenuItemSubmenu;
+    disableRipple?: boolean;
+}
+
+export interface MainMenuRendererProps {
+    menuConfig: MenuConfig[];
+    disableRipple?: boolean;
+}

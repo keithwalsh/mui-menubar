@@ -1,5 +1,4 @@
 export type {
-    ColorTheme,
     TransitionDuration,
     MenuItemKind,
     MenuItemAction,
@@ -10,5 +9,7 @@ export type {
     MenuConfig,
     MenuBarProps,
     CascadingMenuProps,
-    CascadingContextType
+    CascadingContextType,
+    SubmenuRendererProps,
+    MainMenuRendererProps
 } from './types'; 

@@ -4,12 +4,13 @@
  */
 
 import React from "react";
-import { AppBar, Toolbar, Button } from "@mui/material";
+import { AppBar, Toolbar } from "@mui/material";
 import { usePopupState, bindTrigger, bindPopover } from "material-ui-popup-state/hooks";
 import CascadingMenu from "./CascadingMenu";
 import { MenuBarProps, MenuConfig } from "../types";
 import { useMenuHotkeys } from "../utils";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import { MainMenuRenderer } from "./MainMenuRenderer";
 
 export const MenuBar: React.FC<MenuBarProps> = ({
     config = [],
@@ -40,45 +41,7 @@ export const MenuBar: React.FC<MenuBarProps> = ({
             ...sx 
         }}>
             <Toolbar variant="dense" disableGutters={true}>
-                {menuConfig.map((menu: MenuConfig, index: number) => {
-                    const popupState = usePopupState({
-                        variant: "popover" as const,
-                        popupId: `menu-${index}`,
-                    });
-
-                    return (
-                        <React.Fragment key={index}>
-                            <Button
-                                {...bindTrigger(popupState)}
-                                color="inherit"
-                                sx={{
-                                    textTransform: "none",
-                                    backgroundColor: popupState.isOpen ? 'action.selected' : 'transparent',
-                                    '&:hover': {
-                                        backgroundColor: popupState.isOpen ? 'action.selected' : 'action.hover',
-                                    },
-                                    '& .MuiButton-endIcon': {
-                                        marginLeft: '2px'
-                                    },
-                                    px: 1,
-                                    py: 0.25
-                                }}
-                                disabled={menu.disabled}
-                                disableRipple={disableRipple}
-                                endIcon={<KeyboardArrowDownIcon />}
-                            >
-                                {menu.label}
-                            </Button>
-                            <CascadingMenu
-                                {...bindPopover(popupState)}
-                                menuItems={menu.items}
-                                popupState={popupState}
-                                disableRipple={disableRipple}
-                                useHover={true}
-                            />
-                        </React.Fragment>
-                    );
-                })}
+                <MainMenuRenderer menuConfig={menuConfig} disableRipple={disableRipple} />
             </Toolbar>
         </AppBar>
     );
