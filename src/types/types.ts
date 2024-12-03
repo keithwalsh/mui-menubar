@@ -57,14 +57,12 @@ export interface MenuBarProps {
     color?: AppBarProps["color"];
     sx?: SxProps<Theme>;
     disableRipple?: boolean;
-    transitionDuration?: TransitionDuration;
 }
 
 export interface CascadingMenuProps {
     menuItems: MenuItems[];
     popupState: PopupState;
     disableRipple?: boolean;
-    transitionDuration?: TransitionDuration;
     isSubmenu?: boolean;
     variant?: "menu" | "popover";
     anchorOrigin?: {

@@ -5,7 +5,7 @@
 
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import MenuBar, { MenuBarProps, MenuConfig } from "../components";
+import MenuBar, { MenuBarProps, MenuConfig } from "../src/components";
 import { FileCopy, FolderOpen, Save, ExitToApp, Undo, Redo, ContentCopy, ContentPaste, Visibility, ZoomIn, ZoomOut } from "@mui/icons-material";
 import { action } from "@storybook/addon-actions";
 import TableSizeChooser from "./TableSizeChooser";
@@ -70,14 +70,6 @@ Array<{
             table: {
                 defaultValue: { summary: "true" },
                 type: { summary: "boolean" },
-            },
-        },
-        transitionDuration: {
-            control: { type: "number" },
-            description: "Transition duration for menu items.",
-            table: {
-                defaultValue: { summary: "0" },
-                type: { summary: "number" },
             },
         },
     },
@@ -148,6 +140,7 @@ export const Default: Story = {
     args: {
         config: sampleConfig,
         color: "transparent",
+        disableRipple: true,
     },
     render: (args: MenuBarProps) => (
             <MenuBar {...args} />

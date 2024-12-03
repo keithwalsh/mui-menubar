@@ -1,6 +1,7 @@
 ..REFERENCE/
 node_modules/
 build/
+dist/
 storybook-static/
 *.log
 .*rules

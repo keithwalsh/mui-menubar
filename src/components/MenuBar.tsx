@@ -16,7 +16,6 @@ export const MenuBar: React.FC<MenuBarProps> = ({
     color,
     sx,
     disableRipple,
-    transitionDuration
 }) => {
     const menuConfig = Array.isArray(config) ? config : [config];
 
@@ -75,7 +74,6 @@ export const MenuBar: React.FC<MenuBarProps> = ({
                                 menuItems={menu.items}
                                 popupState={popupState}
                                 disableRipple={disableRipple}
-                                transitionDuration={transitionDuration}
                                 useHover={true}
                             />
                         </React.Fragment>

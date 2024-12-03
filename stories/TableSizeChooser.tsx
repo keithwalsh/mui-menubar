@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Example custom component for use by MenuBar.stories.tsx.
+ */
+
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Box, Typography, TextField } from "@mui/material";
 

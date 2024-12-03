@@ -113,12 +113,11 @@ const CascadingSubmenu: React.FC<
     MenuItemSubmenu & {
         popupId: string;
         disableRipple?: boolean;
-        transitionDuration?: TransitionDuration;
         dense?: boolean;
         disablePadding?: boolean;
         useHover?: boolean;
     }
-> = ({ label, items, icon, popupId, disableRipple, transitionDuration, useHover = true }) => {
+> = ({ label, items, icon, popupId, disableRipple, useHover = true }) => {
     const { parentPopupState } = useContext(CascadingContext);
     const popupState = usePopupState({
         popupId,
@@ -155,7 +154,6 @@ const CascadingSubmenu: React.FC<
                 transformOrigin={{ vertical: "top", horizontal: "left" }}
                 popupState={popupState}
                 disableRipple={disableRipple}
-                transitionDuration={transitionDuration}
                 isSubmenu={true}
                 useHover={useHover}
             />
@@ -175,7 +173,6 @@ const CascadingMenu: React.FC<CascadingMenuProps> = ({
     menuItems, 
     popupState, 
     disableRipple, 
-    transitionDuration = 0,
     isSubmenu = false,
     useHover = true,
     ...props 
@@ -217,7 +214,6 @@ const CascadingMenu: React.FC<CascadingMenuProps> = ({
                             {...item}
                             popupId={`submenu-${index}`}
                             disableRipple={disableRipple}
-                            transitionDuration={transitionDuration}
                             useHover={useHover}
                         />
                     ) : (
@@ -244,7 +240,7 @@ const CascadingMenu: React.FC<CascadingMenuProps> = ({
             }}
             TransitionProps={{
                 ...props.TransitionProps,
-                timeout: typeof transitionDuration === 'number' ? transitionDuration : 0
+                timeout: 0
             }}
         >
             {menuContent}
@@ -267,7 +263,7 @@ const CascadingMenu: React.FC<CascadingMenuProps> = ({
                 sx: paperSx
             }}
             TransitionProps={{
-                timeout: typeof transitionDuration === 'number' ? transitionDuration : 0
+                timeout: 0
             }}
         >
             {menuContent}
