@@ -13,6 +13,31 @@ export interface TableSizeChooserProps {
     onSizeSelect: (rows: number, cols: number) => void;
 }
 
+interface SizeInputProps {
+    label: string
+    value: string
+    type: "rows" | "cols"
+    max: number
+    onChange: (type: "rows" | "cols", value: string) => void
+    onBlur: () => void
+    onFocus: () => void
+}
+
+function SizeInput({ label, value, type, max, onChange, onBlur, onFocus }: SizeInputProps) {
+    return (
+        <TextField
+            label={label}
+            value={value}
+            onChange={(e) => onChange(type, e.target.value)}
+            onBlur={onBlur}
+            onFocus={onFocus}
+            type="number"
+            InputProps={{ inputProps: { min: 1, max } }}
+            size="small"
+        />
+    )
+}
+
 const TableSizeChooser: React.FC<TableSizeChooserProps> = ({ maxRows = 20, maxCols = 20, currentRows, currentCols, onSizeSelect }) => {
     const [hoveredRow, setHoveredRow] = useState(0);
     const [hoveredCol, setHoveredCol] = useState(0);
@@ -73,26 +98,24 @@ const TableSizeChooser: React.FC<TableSizeChooserProps> = ({ maxRows = 20, maxCo
     return (
         <Box sx={{ padding: 2, width: "auto" }}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
-                <TextField
+                <SizeInput
                     label="Rows"
                     value={inputRows}
-                    onChange={(e) => handleInputChange("rows", e.target.value)}
+                    type="rows"
+                    max={maxRows}
+                    onChange={handleInputChange}
                     onBlur={handleInputBlur}
                     onFocus={handleInputFocus}
-                    type="number"
-                    InputProps={{ inputProps: { min: 1, max: maxRows } }}
-                    size="small"
                 />
                 <Typography variant="h6">x</Typography>
-                <TextField
+                <SizeInput
                     label="Columns"
                     value={inputCols}
-                    onChange={(e) => handleInputChange("cols", e.target.value)}
+                    type="cols"
+                    max={maxCols}
+                    onChange={handleInputChange}
                     onBlur={handleInputBlur}
                     onFocus={handleInputFocus}
-                    type="number"
-                    InputProps={{ inputProps: { min: 1, max: maxCols } }}
-                    size="small"
                 />
             </Box>
             <Box

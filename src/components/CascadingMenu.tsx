@@ -22,6 +22,15 @@ const CascadingContext = React.createContext<CascadingContextType>({
     rootPopupState: null,
 });
 
+// Helper function to render ListItemIcon
+function renderListItemIcon(icon: React.ReactNode, sx?: SxProps<Theme>) {
+    return (
+        <ListItemIcon sx={sx}>
+            {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<SvgIconProps>, { sx: iconSx }) : icon}
+        </ListItemIcon>
+    )
+}
+
 const CascadingMenuItem: React.FC<MenuItems & { disableRipple?: boolean }> = ({ disableRipple, ...item }) => {
     const { rootPopupState } = useContext(CascadingContext);
     if (!rootPopupState) throw new Error("must be used inside a CascadingMenu");
@@ -64,11 +73,7 @@ const CascadingMenuItem: React.FC<MenuItems & { disableRipple?: boolean }> = ({ 
                 selected={item.selected}
                 disableRipple={disableRipple}
             >
-                {item.icon && (
-                    <ListItemIcon>
-                        {React.isValidElement(item.icon) ? React.cloneElement(item.icon as React.ReactElement<SvgIconProps>, { sx: iconSx }) : item.icon}
-                    </ListItemIcon>
-                )}
+                {item.icon && renderListItemIcon(item.icon)}
                 <ListItemText>{item.label}</ListItemText>
                 {item.shortcut && (
                     <Typography variant="body2" sx={{ ml: 4, color: "text.secondary" }}>
@@ -95,11 +100,7 @@ const CascadingMenuItem: React.FC<MenuItems & { disableRipple?: boolean }> = ({ 
                 {...bindHover(submenuPopupState)}
                 {...bindFocus(submenuPopupState)}
             >
-                {item.icon && (
-                    <ListItemIcon sx={{ minWidth: '24px', mr: 1 }}>
-                        {React.isValidElement(item.icon) ? React.cloneElement(item.icon as React.ReactElement<SvgIconProps>, { sx: iconSx }) : item.icon}
-                    </ListItemIcon>
-                )}
+                {item.icon && renderListItemIcon(item.icon, { minWidth: '24px', mr: 1 })}
                 <ListItemText primary={item.label} sx={{ m: 0 }} />
                 <ChevronRight sx={{ ml: 'auto' }} />
             </MenuItem>
@@ -137,11 +138,7 @@ const CascadingSubmenu: React.FC<
                     {...bindFocus(popupState)}
                     disableRipple={disableRipple}
                 >
-                    {icon && (
-                        <ListItemIcon sx={{ mr: -4.5 }}>
-                            {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<SvgIconProps>, { sx: iconSx }) : icon}
-                        </ListItemIcon>
-                    )}
+                    {icon && renderListItemIcon(icon, { mr: -4.5 })}
                     <ListItemText inset sx={{ px: 0 }}>
                         {label}
                     </ListItemText>
