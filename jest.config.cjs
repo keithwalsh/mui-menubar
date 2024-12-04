@@ -14,6 +14,14 @@ const config = {
   testPathIgnorePatterns: [
     '<rootDir>/dist/'
   ],
+  testEnvironmentOptions: {
+    url: 'http://localhost'
+  },
+  maxWorkers: process.env.CI ? 2 : '50%',
+  ci: process.env.CI === 'true',
+  verbose: true,
+  detectOpenHandles: true,
+  forceExit: true,
   coverageThreshold: {
     global: {
       branches: 80,
