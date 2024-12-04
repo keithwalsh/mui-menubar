@@ -14,7 +14,7 @@
         "skipLibCheck": true,
         "baseUrl": "./",
         "rootDir": "src",
-        "types": ["react", "node"],
+        "types": ["react", "node","jest"],
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
