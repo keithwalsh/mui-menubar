@@ -1,7 +1,7 @@
 {
     "name": "mui-menubar",
     "type": "module",
-    "version": "0.1.15",
+    "version": "0.2.0",
     "description": "A React MenuBar component using Material-UI.",
     "main": "./dist/index.js",
     "module": "./dist/index.js",
@@ -13,7 +13,7 @@
         "build-storybook": "storybook build",
         "chromatic": "npx chromatic --project-token=chpt_63d892e309196bb",
         "release": "commit-and-tag-version --first-parent",
-        "test": "jest",
+        "test": "jest --coverage",
         "test:watch": "jest --watch",
         "test:coverage": "jest --coverage"
     },
@@ -90,7 +90,8 @@
         "jest-environment-jsdom": "^29.x",
         "storybook": "^8.3.5",
         "ts-jest": "^29.x",
-        "typescript": "^5.6.3"
+        "typescript": "^5.6.3",
+        "vitest": "^2.1.8"
     },
     "files": [
         "dist",
@@ -118,10 +119,10 @@
     },
     "homepage": "https://github.com/keithwalsh/mui-menubar#readme",
     "dependencies": {
-        "@emotion/react": "^11.13.5",
-        "@emotion/styled": "^11.13.5",
-        "@mui/icons-material": "^6.1.10",
-        "@mui/material": "^6.1.10",
+        "@emotion/react": "^11.0.0",
+        "@emotion/styled": "^11.0.0",
+        "@mui/icons-material": "^5.0.0 || ^6.0.0",
+        "@mui/material": "^5.0.0 || ^6.0.0",
         "@mui/styles": "^6.1.4",
         "material-ui-popup-state": "^5.3.1",
         "react-hotkeys-hook": "^4.5.1"

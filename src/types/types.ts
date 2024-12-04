@@ -3,7 +3,7 @@
  * component and its subcomponents, including new types for material-ui-popup-state.
  */
 
-import { SxProps, Theme } from "@mui/material";
+import { SxProps, Theme, PopoverProps } from "@mui/material";
 import { AppBarProps } from "@mui/material";
 import React from "react";
 import { PopupState } from "material-ui-popup-state/hooks";
@@ -64,19 +64,24 @@ export interface CascadingMenuProps {
     popupState: PopupState;
     disableRipple?: boolean;
     isSubmenu?: boolean;
-    variant?: "menu" | "popover";
-    anchorOrigin?: {
-        vertical: "top" | "center" | "bottom";
-        horizontal: "left" | "center" | "right";
-    };
-    transformOrigin?: {
-        vertical: "top" | "center" | "bottom";
-        horizontal: "left" | "center" | "right";
-    };
-    PaperProps?: any;
-    TransitionProps?: any;
     useHover?: boolean;
-    onClickAway?: () => void;
+    PopoverProps?: {
+        PaperProps?: {
+            className?: string;
+            [key: string]: any;
+        };
+        anchorOrigin?: {
+            vertical: "top" | "center" | "bottom";
+            horizontal: "left" | "center" | "right";
+        };
+        transformOrigin?: {
+            vertical: "top" | "center" | "bottom";
+            horizontal: "left" | "center" | "right";
+        };
+        TransitionProps?: any;
+        [key: string]: any;
+    };
+    [key: string]: any;
 }
 
 export interface CascadingContextType {
@@ -87,6 +92,7 @@ export interface CascadingContextType {
 export interface SubmenuRendererProps {
     item: MenuItemSubmenu;
     disableRipple?: boolean;
+    parentPopupState: PopupState;
 }
 
 export interface MainMenuRendererProps {

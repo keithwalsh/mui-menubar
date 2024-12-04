@@ -3,15 +3,16 @@
  */
 
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, Toolbar } from "@mui/material";
 import { usePopupState, bindTrigger, bindPopover } from "material-ui-popup-state/hooks";
 import CascadingMenu from "./CascadingMenu";
 import { MenuConfig, MainMenuRendererProps } from "../types";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
+
 export const MainMenuRenderer: React.FC<MainMenuRendererProps> = ({ menuConfig, disableRipple }) => {
     return (
-        <>
+        <Toolbar data-testid="menu-toolbar">
             {menuConfig.map((menu, index) => {
                 const popupState = usePopupState({
                     variant: "popover" as const,
@@ -51,6 +52,6 @@ export const MainMenuRenderer: React.FC<MainMenuRendererProps> = ({ menuConfig, 
                     </React.Fragment>
                 );
             })}
-        </>
+        </Toolbar>
     );
 }; 

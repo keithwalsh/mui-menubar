@@ -18,7 +18,7 @@ const HoverMenu = HoverMenuImport as any;
 
 const iconSx: SxProps<Theme> = { mb: 0.2, fontSize: "small" };
 
-const CascadingContext = React.createContext<CascadingContextType>({
+export const CascadingContext = React.createContext<CascadingContextType>({
     parentPopupState: null,
     rootPopupState: null,
 });
@@ -32,9 +32,10 @@ export function renderListItemIcon(icon: React.ReactNode, sx?: SxProps<Theme>) {
     )
 }
 
-const CascadingMenuItem: React.FC<MenuItems & { disableRipple?: boolean }> = ({ disableRipple, ...item }) => {
-    const { rootPopupState } = useContext(CascadingContext);
+export const CascadingMenuItem: React.FC<MenuItems & { disableRipple?: boolean }> = ({ disableRipple, ...item }) => {
+    const { rootPopupState, parentPopupState } = useContext(CascadingContext);
     if (!rootPopupState) throw new Error("must be used inside a CascadingMenu");
+    if (!parentPopupState) throw new Error("must have a parent popup state for submenu");
 
     const handleClick = React.useCallback(
         (event: React.MouseEvent<HTMLLIElement>) => {
@@ -52,7 +53,6 @@ const CascadingMenuItem: React.FC<MenuItems & { disableRipple?: boolean }> = ({ 
     if (item.kind === "custom") {
         return (
             <MenuItem 
-                dense 
                 disableRipple={disableRipple}
                 sx={{ 
                     '&:hover': { 
@@ -68,7 +68,6 @@ const CascadingMenuItem: React.FC<MenuItems & { disableRipple?: boolean }> = ({ 
     if (item.kind === "action") {
         return (
             <MenuItem 
-                dense 
                 onClick={handleClick} 
                 disabled={item.disabled} 
                 selected={item.selected}
@@ -87,7 +86,11 @@ const CascadingMenuItem: React.FC<MenuItems & { disableRipple?: boolean }> = ({ 
 
     // Must be submenu at this point
     if (item.kind === "submenu") {
-        return <SubmenuRenderer item={item} disableRipple={disableRipple} />;
+        return <SubmenuRenderer 
+            item={item} 
+            disableRipple={disableRipple} 
+            parentPopupState={parentPopupState}
+        />;
     }
 
     return null; // TypeScript exhaustiveness check
@@ -97,7 +100,6 @@ const CascadingSubmenu: React.FC<
     MenuItemSubmenu & {
         popupId: string;
         disableRipple?: boolean;
-        dense?: boolean;
         disablePadding?: boolean;
         useHover?: boolean;
     }
@@ -114,9 +116,8 @@ const CascadingSubmenu: React.FC<
 
     return (
         <React.Fragment>
-            <MenuList sx={{ px: 0, py: 0.5 }}>
+            <MenuList dense sx={{ px: 0, py: 0.5 }}>
                 <MenuItem 
-                    dense 
                     {...bindMenuProps(popupState)} 
                     {...bindFocus(popupState)}
                     disableRipple={disableRipple}
@@ -149,12 +150,13 @@ const StyledMenu = styled(HoverMenu)(() => ({
     },
 }));
 
-const CascadingMenu: React.FC<CascadingMenuProps> = ({ 
+export const CascadingMenu: React.FC<CascadingMenuProps> = ({ 
     menuItems, 
     popupState, 
     disableRipple, 
     isSubmenu = false,
     useHover = true,
+    PopoverProps = {},
     ...props 
 }) => {
     const { rootPopupState } = useContext(CascadingContext)
@@ -172,8 +174,9 @@ const CascadingMenu: React.FC<CascadingMenuProps> = ({
             "& .MuiPaper-root": {
                 backgroundColor: "background.paper",
             },
+            ...PopoverProps?.PaperProps?.sx
         }),
-        []
+        [PopoverProps?.PaperProps?.sx]
     )
 
     const handleClose = (_: {}, reason: "backdropClick" | "escapeKeyDown") => {
@@ -184,11 +187,10 @@ const CascadingMenu: React.FC<CascadingMenuProps> = ({
 
     const menuContent = (
         <CascadingContext.Provider value={context}>
-            <MenuList>
+            <MenuList dense>
                 {menuItems.map((item: MenuItems, index: number) =>
                     item.kind === "submenu" ? (
                         <CascadingSubmenu
-                            dense
                             disablePadding
                             key={`submenu-${index}`}
                             {...item}
@@ -210,11 +212,10 @@ const CascadingMenu: React.FC<CascadingMenuProps> = ({
 
     return isSubmenu ? (
         <StyledMenu
-            dense
             {...props}
             {...bindMenu(popupState)}
             PaperProps={{
-                ...props.PaperProps,
+                ...PopoverProps?.PaperProps,
                 sx: paperSx,
                 component: MenuItem,
             }}
@@ -228,22 +229,27 @@ const CascadingMenu: React.FC<CascadingMenuProps> = ({
     ) : (
         <Popover
             {...props}
+            {...PopoverProps}
             open={popupState.isOpen}
             anchorEl={popupState.anchorEl}
             onClose={handleClose}
             anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'left',
+                ...PopoverProps?.anchorOrigin
             }}
             transformOrigin={{
                 vertical: 'top',
                 horizontal: 'left',
+                ...PopoverProps?.transformOrigin
             }}
             PaperProps={{
+                ...PopoverProps?.PaperProps,
                 sx: paperSx
             }}
             TransitionProps={{
-                timeout: 0
+                timeout: 0,
+                ...PopoverProps?.TransitionProps
             }}
         >
             {menuContent}

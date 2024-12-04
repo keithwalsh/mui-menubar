@@ -4,12 +4,9 @@
  */
 
 import React from "react";
-import { AppBar, Toolbar } from "@mui/material";
-import { usePopupState, bindTrigger, bindPopover } from "material-ui-popup-state/hooks";
-import CascadingMenu from "./CascadingMenu";
-import { MenuBarProps, MenuConfig } from "../types";
+import { AppBar, Toolbar, Divider } from "@mui/material";
+import { MenuBarProps } from "../types";
 import { useMenuHotkeys } from "../utils";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { MainMenuRenderer } from "./MainMenuRenderer";
 
 export const MenuBar: React.FC<MenuBarProps> = ({
@@ -26,13 +23,13 @@ export const MenuBar: React.FC<MenuBarProps> = ({
     if (menuConfig.length === 0) {
         return (
             <AppBar position="static" elevation={0} color={color} sx={sx}>
-                <Toolbar variant="dense" disableGutters={true} />
+                <Toolbar variant="dense" disableGutters={true} role="toolbar" />
             </AppBar>
         );
     }
 
     return (
-        <AppBar position="static" elevation={0} color={color} sx={{ 
+        <AppBar position="static" elevation={0} data-testid="menu-bar-root" color={color} sx={{ 
             px: 0,
             minHeight: 0,
             '& .MuiToolbar-root': {
@@ -43,6 +40,10 @@ export const MenuBar: React.FC<MenuBarProps> = ({
             <Toolbar variant="dense" disableGutters={true}>
                 <MainMenuRenderer menuConfig={menuConfig} disableRipple={disableRipple} />
             </Toolbar>
+            <Divider 
+                data-testid="menu-divider" 
+                sx={{ display: 'none' }} 
+            />
         </AppBar>
     );
 };
