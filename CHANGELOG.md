@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.1.0](https://github.com/keithwalsh/mui-menubar/compare/v0.1.15...v1.1.0) (2024-12-05)
+
+
+### Features
+
+* **MenuBar:** remove transitionDuration prop ([c2bc312](https://github.com/keithwalsh/mui-menubar/commit/c2bc312d39bdaf1822192152da53f5f7b6d2d711))
+* remove colorTheme prop ([124ff18](https://github.com/keithwalsh/mui-menubar/commit/124ff18ff83e8652b9b53937b8cdb9abe70bad17))
+* remove default config ([6ad6c8c](https://github.com/keithwalsh/mui-menubar/commit/6ad6c8c3fcfcbe8027dd545a4142c867da8eb381))
+
+
+### Documentation
+
+* update README ([fa9c33a](https://github.com/keithwalsh/mui-menubar/commit/fa9c33a57de581fc584c5b000df3bf215b7bf641))
+
 ## [0.1.15](https://github.com/keithwalsh/mui-menubar/compare/v0.1.14...v0.1.15) (2024-11-29)
 
 
