@@ -1,20 +1,19 @@
 # Ⓜ ─ mui-menubar ─ 🍫
 
 ![Build](https://github.com/keithwalsh/mui-menubar/actions/workflows/build.yml/badge.svg)
+[![codecov](https://codecov.io/gh/keithwalsh/mui-menubar/branch/main/graph/badge.svg)](https://codecov.io/gh/keithwalsh/mui-menubar)
 [![Code Climate](https://codeclimate.com/github/keithwalsh/mui-menubar/badges/gpa.svg)](https://codeclimate.com/github/keithwalsh/mui-menubar)
-[![Package Quality](https://packagequality.com/shield/mui-menubar.svg)](https://packagequality.com/#?package=mui-menubar)
 [![NPM Version](https://img.shields.io/npm/v/mui-menubar.svg)](https://www.npmjs.com/package/mui-menubar)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)
 
-A React **MenuBar** component package that provides a **Material-UI (MUI)** based menu bar implementation. A menu bar is common in desktop applications and provides quick access to a consistent set of commands (e.g. File, Edit, View). The core functionality is in the `MenuBar` component which supports nested menus, keyboard shortcuts, and theming.
+A React **MenuBar** component built with **Material-UI (MUI)**, providing a customizable and accessible menu bar implementation for applications. A menu bar is common in desktop applications and provides quick access to a consistent set of commands (e.g. File, Edit, View).
 
 ## 🚀 Features
 
 - Cascading menus with unlimited nesting
 - Light and dark theme support
 - Keyboard shortcuts
-- Custom menu items
-- Hover or click activation
+- Support for integrating components as a custom menu item
 - Material-UI icons integration
 
 ## 📦 Basic Implementation
@@ -65,48 +64,7 @@ const App = () => {
 };
 ```
 
-## 🎮 Usage
-
-### Import the Component
-
-```tsx
-import React from "react";
-import { MenuStrip, MenuConfig } from "react-mui-menustrip-ts";
-import { Home, Settings, Help } from "@mui/icons-material";
-```
-
-### Define the Menu Configuration
-
-```tsx
-    const menuConfig: MenuConfig[] = [
-        {
-          label: "File",
-          items: [
-            {
-              kind: "action",
-              label: "Open",
-              action: () => console.log("Opening..."),
-              icon: <FolderOpen />,
-              shortcut: "Ctrl+O"
-            },
-            { kind: "divider" },
-            {
-              kind: "submenu",
-              label: "Advanced",
-              icon: <Settings />,
-              items: [
-                {
-                  kind: "component",
-                  component: <CustomComponent />  // Any React component
-                }
-              ]
-            }
-          ]
-        }
-    ]
-```
-
-## API Reference
+## ⚙️ API Reference
 
 ### MenuBar Interface
 ```tsx
@@ -119,7 +77,7 @@ interface MenuBarProps {
     transitionDuration?: TransitionDuration;
 }
 ```
-## Menu Configuration
+## 📚 Menu Configuration
 ### Menu Item Types
 
 The MenuBar supports four types of menu items:
@@ -158,7 +116,7 @@ The MenuBar supports four types of menu items:
 }
 ```
 
-## Advanced Usage Examples
+## ⏩ Advanced Usage Examples
 
 ### Theme Configuration
 
@@ -213,7 +171,7 @@ const menuConfig = [{
 }
 ```
 
-## Important Notes for Implementation
+## 🚨 Important Notes for Implementation
 
 1. **Icon Integration**
    - Requires @mui/icons-material package
@@ -235,7 +193,7 @@ const menuConfig = [{
    - Supports keyboard navigation
    - ARIA attributes automatically handled
 
-## Common Customization Patterns
+## 🎨 Common Customization Patterns
 
 1. **Custom Transitions**
    - Configurable via transitionDuration prop
@@ -249,7 +207,60 @@ const menuConfig = [{
    - Automatically integrates with Material-UI theme
    - Can be overridden with sx prop
 
-## Error Handling
+## 🚫 Error Handling
 - Invalid config structures will be safely ignored
 - Disabled items prevent user interaction
 - Type checking ensures proper prop usage
+
+## 🛠️ Development
+
+### Project Structure
+
+```
+mui-menubar/
+├── src/
+│   ├── components/     # React components
+│   ├── types/         # TypeScript type definitions
+│   ├── utils/         # Utility functions
+│   └── index.ts       # Main entry point
+├── stories/          # Storybook stories
+├── tests/           # Jest test files
+└── dist/           # Compiled output
+```
+
+### Scripts
+
+- `npm run build` - Build the project
+- `npm run test` - Run tests
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:coverage` - Generate test coverage report
+- `npm run storybook` - Start Storybook development server
+- `npm run build-storybook` - Build Storybook for production
+
+### Testing
+
+The project uses Jest for testing. Tests are located in the `tests` directory. Run tests using:
+
+```bash
+npm run test
+```
+
+### Storybook
+
+Component documentation and examples are available through Storybook. Run:
+
+```bash
+npm run storybook
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
