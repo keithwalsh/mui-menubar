@@ -1,7 +1,7 @@
 {
     "name": "mui-menubar",
     "type": "module",
-    "version": "1.1.0",
+    "version": "1.1.2",
     "description": "A React MenuBar component using Material-UI.",
     "main": "./dist/index.js",
     "module": "./dist/index.js",
@@ -82,7 +82,7 @@
         "@testing-library/jest-dom": "^6.x",
         "@testing-library/react": "^14.x",
         "@testing-library/user-event": "^14.x",
-        "@types/jest": "^29.x",
+        "@types/jest": "^29.5.14",
         "@types/react": "^17.0.0",
         "@types/react-dom": "^17.0.0",
         "chromatic": "^11.12.5",

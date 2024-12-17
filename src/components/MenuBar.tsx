@@ -9,12 +9,7 @@ import { MenuBarProps } from "../types";
 import { useMenuHotkeys } from "../utils";
 import { MainMenuRenderer } from "./MainMenuRenderer";
 
-export const MenuBar: React.FC<MenuBarProps> = ({
-    config = [],
-    color,
-    sx,
-    disableRipple,
-}) => {
+export const MenuBar: React.FC<MenuBarProps> = ({ config = [], color = "transparent", sx, disableRipple }) => {
     const menuConfig = Array.isArray(config) ? config : [config];
 
     // Set up hotkeys for the menu items
@@ -29,21 +24,25 @@ export const MenuBar: React.FC<MenuBarProps> = ({
     }
 
     return (
-        <AppBar position="static" elevation={0} data-testid="menu-bar-root" color={color} sx={{ 
-            px: 0,
-            minHeight: 0,
-            '& .MuiToolbar-root': {
-                minHeight: 0
-            },
-            ...sx 
-        }}>
-            <Toolbar variant="dense" disableGutters={true}>
+        <AppBar
+            position="static"
+            elevation={0}
+            data-testid="menu-bar-root"
+            color={color}
+            sx={{
+                px: 0,
+                minHeight: 0,
+                "& .MuiToolbar-root": {
+                    minHeight: 0,
+                    px: 0,
+                },
+                ...sx,
+            }}
+        >
+            <Toolbar variant="dense" disableGutters={true} sx={{ px: 0 }}>
                 <MainMenuRenderer menuConfig={menuConfig} disableRipple={disableRipple} />
             </Toolbar>
-            <Divider 
-                data-testid="menu-divider" 
-                sx={{ display: 'none' }} 
-            />
+            <Divider data-testid="menu-divider" sx={{ display: "none" }} />
         </AppBar>
     );
 };
