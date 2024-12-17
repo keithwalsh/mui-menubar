@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.1.3](https://github.com/keithwalsh/mui-menubar/compare/v1.1.2...v1.1.3) (2024-12-17)
+
 ## [1.1.0](https://github.com/keithwalsh/mui-menubar/compare/v0.1.15...v1.1.0) (2024-12-05)
 
 
