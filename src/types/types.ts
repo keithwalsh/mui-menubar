@@ -47,6 +47,7 @@ export interface MenuItemCustom extends MenuItemBase {
 export type MenuItems = MenuItemAction | MenuItemDivider | MenuItemSubmenu | MenuItemCustom;
 
 export interface MenuConfig {
+    id?: string;
     label: string;
     disabled?: boolean;
     items: MenuItems[];

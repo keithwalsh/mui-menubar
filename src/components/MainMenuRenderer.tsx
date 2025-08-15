@@ -14,13 +14,14 @@ export const MainMenuRenderer: React.FC<MainMenuRendererProps> = ({ menuConfig, 
     return (
         <Toolbar data-testid="menu-toolbar">
             {menuConfig.map((menu, index) => {
+                const menuId = menu.id ?? menu.label;
                 const popupState = usePopupState({
                     variant: "popover" as const,
-                    popupId: `menu-${index}`,
+                    popupId: `menu-${menuId}`,
                 });
 
                 return (
-                    <React.Fragment key={index}>
+                    <React.Fragment key={menuId}>
                         <Button
                             {...bindTrigger(popupState)}
                             color="inherit"
