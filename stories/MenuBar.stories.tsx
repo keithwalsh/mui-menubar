@@ -35,7 +35,6 @@ Array<{
         label?: string;
         disabled?: boolean;
         selected?: boolean;
-        transitionDuration?: "auto" | number | { appear?: number; enter?: number; exit?: number };
         action?: () => void;
         icon?: React.ReactNode;
         shortcut?: string;

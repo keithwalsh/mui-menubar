@@ -13,13 +13,12 @@
         "strict": true,
         "skipLibCheck": true,
         "baseUrl": "./",
-        "rootDir": "src",
         "types": ["react", "node","jest","@testing-library/jest-dom"],
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": false
     },
-    "include": ["src/**/*", "stories"],
-    "exclude": ["dist", "node_modules", "stories","**/*.test.ts", "**/*.stories.tsx"]
+    "include": ["src/**/*", "stories", "tests/**/*"],
+    "exclude": ["dist", "node_modules", "**/*.stories.tsx"]
 }

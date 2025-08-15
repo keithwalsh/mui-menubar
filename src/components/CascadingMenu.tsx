@@ -20,7 +20,6 @@ const CascadingSubmenu: React.FC<
     MenuItemSubmenu & {
         popupId: string;
         disableRipple?: boolean;
-        disablePadding?: boolean;
         useHover?: boolean;
     }
 > = ({ label, items, icon, popupId, disableRipple, useHover = true }) => {
@@ -115,7 +114,6 @@ export const CascadingMenu: React.FC<CascadingMenuProps> = ({
                     if (item.kind === "submenu") {
                         return (
                             <CascadingSubmenu
-                                disablePadding
                                 key={`submenu-${baseId}`}
                                 {...item}
                                 popupId={`submenu-${baseId}`}

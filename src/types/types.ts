@@ -8,8 +8,6 @@ import { AppBarProps } from "@mui/material";
 import React from "react";
 import { PopupState } from "material-ui-popup-state/hooks";
 
-export type TransitionDuration = "auto" | number | { appear?: number; enter?: number; exit?: number };
-
 export type MenuItemKind = "action" | "divider" | "submenu" | "custom";
 
 interface MenuItemBase {
@@ -18,7 +16,6 @@ interface MenuItemBase {
     id?: string;
     disabled?: boolean;
     selected?: boolean;
-    transitionDuration?: TransitionDuration;
 }
 
 export interface MenuItemAction extends MenuItemBase {

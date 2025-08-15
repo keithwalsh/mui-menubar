@@ -1,5 +1,4 @@
 export type {
-    TransitionDuration,
     MenuItemKind,
     MenuItemAction,
     MenuItemDivider,

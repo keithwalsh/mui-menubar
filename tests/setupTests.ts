@@ -3,40 +3,6 @@
  */
 
 import '@testing-library/jest-dom'
-import { expect } from '@jest/globals'
-
-declare global {
-    namespace jest {
-        interface Matchers<R> {
-            toBeInTheDocument(): R
-            toHaveAttribute(attr: string, value?: string): R
-            toHaveClass(...classNames: string[]): R
-            toHaveStyle(style: Record<string, any>): R
-            toHaveTextContent(text: string | RegExp): R
-            toBeVisible(): R
-            toBeDisabled(): R
-        }
-    }
-}
-
-// Extend expect interface
-interface CustomMatchers<R = unknown> {
-    toBeInTheDocument(): R
-    toHaveAttribute(attr: string, value?: string): R
-    toHaveClass(...classNames: string[]): R
-    toHaveStyle(style: Record<string, any>): R
-    toHaveTextContent(text: string | RegExp): R
-    toBeVisible(): R
-    toBeDisabled(): R
-}
-
-declare global {
-    namespace jest {
-        interface Expect extends CustomMatchers {}
-        interface Matchers<R> extends CustomMatchers<R> {}
-        interface InverseAsymmetricMatchers extends CustomMatchers {}
-    }
-}
 
 // Store original console methods
 const originalConsole = {

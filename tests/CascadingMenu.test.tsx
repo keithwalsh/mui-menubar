@@ -220,8 +220,7 @@ describe('CascadingMenu', () => {
         const mockMenuItems: MenuItems[] = [{
             kind: 'action',
             label: 'Test',
-            action: jest.fn(),
-            transitionDuration: 100
+            action: jest.fn()
         }]
 
         await act(async () => {
@@ -392,14 +391,14 @@ describe('CascadingMenu', () => {
     })
 
     it('handles transition timing correctly', async () => {
-        const transitionDuration = 150
+        const timeoutMs = 150
         await act(async () => {
             render(
                 <TestCascadingMenuContext>
                     <CascadingMenu
                         menuItems={mockMenuItems}
                         popupState={createMockPopupState()}
-                        TransitionProps={{ timeout: transitionDuration }}
+                        TransitionProps={{ timeout: timeoutMs }}
                     />
                 </TestCascadingMenuContext>
             )
@@ -410,7 +409,7 @@ describe('CascadingMenu', () => {
         await userEvent.hover(submenuItem)
 
         // Wait for transition
-        await new Promise(resolve => setTimeout(resolve, transitionDuration))
+        await new Promise(resolve => setTimeout(resolve, timeoutMs))
 
         // Verify submenu is visible after transition
         expect(screen.getByText('Doc 1')).toBeInTheDocument()
