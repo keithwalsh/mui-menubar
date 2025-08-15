@@ -566,4 +566,43 @@ describe('CascadingMenu', () => {
         // Since useHover is false, the submenu's popupState.open should not have been called
         expect(mockPopupState.open).not.toHaveBeenCalled()
     })
+
+    // Popover onClose reasons are covered indirectly via integration tests; direct simulation is flaky in JSDOM
 }) 
+
+describe('CascadingMenuItem edge cases', () => {
+    it('returns null for unsupported item kinds (e.g., submenu)', () => {
+        const submenuItem: MenuItems = {
+            kind: 'submenu',
+            label: 'Should Not Render',
+            items: []
+        } as any
+
+        const ctx = createMockPopupState()
+        render(
+            <CascadingContext.Provider value={{ rootPopupState: ctx, parentPopupState: ctx }}>
+                <CascadingMenuItem {...submenuItem} />
+            </CascadingContext.Provider>
+        )
+
+        expect(screen.queryByText('Should Not Render')).toBeNull()
+    })
+
+    it('renders non-element icons without cloning', () => {
+        const ctx = createMockPopupState()
+        const item: MenuItems = {
+            kind: 'action',
+            label: 'Label',
+            icon: '!' as any,
+            action: jest.fn()
+        }
+
+        render(
+            <CascadingContext.Provider value={{ rootPopupState: ctx, parentPopupState: ctx }}>
+                <CascadingMenuItem {...item} />
+            </CascadingContext.Provider>
+        )
+
+        expect(screen.getByText('!')).toBeInTheDocument()
+    })
+})
