@@ -10,6 +10,5 @@ export type {
     MenuBarProps,
     CascadingMenuProps,
     CascadingContextType,
-    SubmenuRendererProps,
     MainMenuRendererProps
 } from './types'; 

@@ -32,10 +32,6 @@ export const MenuBar: React.FC<MenuBarProps> = ({ config = [], color = "transpar
             sx={{
                 px: 0,
                 minHeight: 0,
-                "& .MuiToolbar-root": {
-                    minHeight: 0,
-                    px: 0,
-                },
                 ...sx,
             }}
         >

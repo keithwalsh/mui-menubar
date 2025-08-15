@@ -15,6 +15,7 @@ export type MenuItemKind = "action" | "divider" | "submenu" | "custom";
 interface MenuItemBase {
     kind: MenuItemKind;
     label?: string;
+    id?: string;
     disabled?: boolean;
     selected?: boolean;
     transitionDuration?: TransitionDuration;
@@ -90,12 +91,6 @@ export interface CascadingContextType {
     rootPopupState: PopupState | null;
 }
 
-export interface SubmenuRendererProps {
-    item: MenuItemSubmenu;
-    disableRipple?: boolean;
-    disableGutters?: boolean;
-    parentPopupState: PopupState;
-}
 
 export interface MainMenuRendererProps {
     menuConfig: MenuConfig[];

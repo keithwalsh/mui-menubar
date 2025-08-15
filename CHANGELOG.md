@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [1.1.4](https://github.com/keithwalsh/mui-menubar/compare/v1.1.3...v1.1.4) (2025-08-15)
 
+### Refactor
+
+- remove dead `SubmenuRenderer` component and its tests
+- remove `SubmenuRendererProps` type from public exports
+
 ## [1.1.3](https://github.com/keithwalsh/mui-menubar/compare/v1.1.2...v1.1.3) (2024-12-17)
 
 ## [1.1.0](https://github.com/keithwalsh/mui-menubar/compare/v0.1.15...v1.1.0) (2024-12-05)

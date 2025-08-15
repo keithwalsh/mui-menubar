@@ -108,24 +108,28 @@ export const CascadingMenu: React.FC<CascadingMenuProps> = ({
     const menuContent = (
         <CascadingContext.Provider value={context}>
             <MenuList dense>
-                {menuItems.map((item: MenuItems, index: number) =>
-                    item.kind === "submenu" ? (
-                        <CascadingSubmenu
-                            disablePadding
-                            key={`submenu-${index}`}
+                {menuItems.map((item: MenuItems, index: number) => {
+                    const baseId = (item as any).id ?? (item as any).label ?? index;
+                    if (item.kind === "submenu") {
+                        return (
+                            <CascadingSubmenu
+                                disablePadding
+                                key={`submenu-${baseId}`}
+                                {...item}
+                                popupId={`submenu-${baseId}`}
+                                disableRipple={disableRipple}
+                                useHover={useHover}
+                            />
+                        )
+                    }
+                    return (
+                        <CascadingMenuItem
+                            key={`item-${baseId}`}
                             {...item}
-                            popupId={`submenu-${index}`}
-                            disableRipple={disableRipple}
-                            useHover={useHover}
-                        />
-                    ) : (
-                        <CascadingMenuItem 
-                            key={`item-${index}`} 
-                            {...item} 
                             disableRipple={disableRipple}
                         />
                     )
-                )}
+                })}
             </MenuList>
         </CascadingContext.Provider>
     )
