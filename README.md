@@ -18,14 +18,20 @@ A React **MenuBar** component built with **Material-UI (MUI)**, providing a cust
 
 ## 📦 Basic Implementation
 ### Installation
-1. Install the menu bar package
+1. Install the package
 ```
-npm install @your-scope/menubar-component
+npm install mui-menubar
 ```
-2. Install peer dependencies (if not already in your project)
+2. Ensure MUI peer dependencies are present in your project
 ```
-npm install @mui/material @mui/icons-material @emotion/react @emotion/styled material-ui-popup-state react-hotkeys-hook
+npm install @mui/material @mui/icons-material @emotion/react @emotion/styled
 ```
+
+### Compatibility
+
+- React: ^17 or ^18
+- MUI: v5 or v6
+- TypeScript: 5.x recommended (for typings)
 ### Basic usage example:
 ```tsx
 import { MenuBar, MenuConfig } from 'mui-menubar';
@@ -57,7 +63,6 @@ const App = () => {
   return (
     <MenuBar 
       config={menuConfig}
-      colorTheme="light"
       color="transparent"
     />
   );
@@ -69,13 +74,20 @@ const App = () => {
 ### MenuBar Interface
 ```tsx
 interface MenuBarProps {
-    config?: MenuConfig[]; // Menu structure configuration
-    colorTheme?: "light" | "dark"; // Theme selection
-    color?: "default" | "primary" | "secondary" | "inherit" | "transparent";
-    sx?: SxProps<Theme>; // MUI styling overrides
-    disableRipple?: boolean; // Disable click animation
-    transitionDuration?: TransitionDuration;
+    config?: MenuConfig[]; // Menu structure configuration (defaults to [])
+    color?: "default" | "primary" | "secondary" | "inherit" | "transparent"; // AppBar color (default: "transparent")
+    sx?: SxProps<Theme>; // MUI styling overrides passed to AppBar
+    disableRipple?: boolean; // Disable ripple on menu items
 }
+```
+
+### Exports
+
+- `MenuBar` (named export)
+- Types: `MenuConfig`, `MenuItems`, `MenuItemAction`, `MenuItemDivider`, `MenuItemSubmenu`
+
+```ts
+import { MenuBar, MenuConfig } from 'mui-menubar';
 ```
 ## 📚 Menu Configuration
 ### Menu Item Types
@@ -90,7 +102,8 @@ The MenuBar supports four types of menu items:
     action: () => void,
     icon?: React.ReactNode, // Optional Material-UI icon
     shortcut?: string, // Keyboard shortcut
-    disabled?: boolean, // If true, the menu item will be disabled
+    disabled?: boolean, // Disable user interaction
+    selected?: boolean, // Visual selected state
 }
 ```
 2. **Divider Items** (`kind: "divider"`): Visual separators between menu items
@@ -123,7 +136,6 @@ The MenuBar supports four types of menu items:
 ```tsx
 <MenuBar
     config={menuConfig}
-    colorTheme="dark"
     color="primary"
     sx={{ backgroundColor: '#1a1a1a' }}
 />
@@ -178,39 +190,42 @@ const menuConfig = [{
    - Icons should be passed as React elements
 
 2. **Keyboard Shortcuts**
-   - Automatically registered when specified in config
-   - Format: "Ctrl+S", "Shift+A", etc.
+   - Automatically registered when a menu item has both `shortcut` and `action`
+   - Case-insensitive; extra spaces are ignored
+   - Normalized format: `ctrl+alt+shift+meta+<key>` (modifiers in that order)
+   - Supported modifiers: Ctrl, Alt, Shift, Meta (Cmd on macOS)
+   - Examples: "Ctrl+S", "Shift+A", "Cmd+P"
 
 3. **Styling**
    - Uses Material-UI's sx prop for custom styling
    - Supports all Material-UI theme configurations
 
 4. **Performance Considerations**
-   - Menu items are rendered lazily
-   - Use memoization for complex custom components
+   - Keyboard listeners attach only when shortcuts are present
+   - Consider memoizing expensive custom components
 
 5. **Accessibility**
    - Supports keyboard navigation
    - ARIA attributes automatically handled
 
+6. **Interaction Model**
+   - Top-level menus open on click
+   - Submenus open on hover
+
 ## 🎨 Common Customization Patterns
 
-1. **Custom Transitions**
-   - Configurable via transitionDuration prop
-   - Supports auto, number, or object configuration
-
-2. **Dynamic Menu Items**
-   - Config can be updated dynamically
+1. **Dynamic Menu Items**
+   - `config` can be updated dynamically
    - Useful for context-sensitive menus
 
-3. **Theme Integration**
+2. **Theme Integration**
    - Automatically integrates with Material-UI theme
-   - Can be overridden with sx prop
+   - Can be overridden with `sx` prop
 
 ## 🚫 Error Handling
-- Invalid config structures will be safely ignored
+- Invalid `config` shapes are prevented by TypeScript in TS projects
 - Disabled items prevent user interaction
-- Type checking ensures proper prop usage
+- Runtime protects against missing handlers for non-custom items
 
 ## 🛠️ Development
 

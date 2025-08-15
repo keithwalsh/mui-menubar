@@ -5,7 +5,7 @@
  */
 
 import { useEffect, useMemo } from "react";
-import { MenuConfig, MenuItemDivider, MenuItemAction, MenuItems } from "../types/types";
+import { MenuConfig, MenuItemDivider, MenuItemAction, MenuItems } from "../types";
 
 /**
  * Type guard to check if a MenuItem is an action item with both a shortcut and an action.

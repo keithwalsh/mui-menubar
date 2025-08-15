@@ -93,6 +93,7 @@ export interface CascadingContextType {
 export interface SubmenuRendererProps {
     item: MenuItemSubmenu;
     disableRipple?: boolean;
+    disableGutters?: boolean;
     parentPopupState: PopupState;
 }
 

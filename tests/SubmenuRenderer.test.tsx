@@ -155,7 +155,27 @@ describe('SubmenuRenderer', () => {
         // Verify ripple is disabled by checking for TouchRipple component
         const ripple = menuItem.querySelector('.MuiTouchRipple-root')
         expect(ripple).toBeNull()
-        
+    })
+
+    it('handles disableGutters prop', () => {
+        const mockPopupState = createMockPopupState()
+        const mockItem: MenuItemSubmenu = {
+            kind: 'submenu',
+            label: 'Test Submenu',
+            items: []
+        }
+
+        render(
+            <SubmenuRenderer
+                item={mockItem}
+                parentPopupState={mockPopupState}
+                disableGutters={true}
+            />
+        )
+
+        const menuItem = screen.getByRole('menuitem')
+        expect(menuItem).toHaveClass('MuiMenuItem-root')
+
         // Verify gutters are disabled by checking computed styles
         expect(menuItem).toHaveStyle({ paddingLeft: '0px', paddingRight: '0px' })
     })

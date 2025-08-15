@@ -2,19 +2,18 @@
  * @fileoverview Renders submenu items for the CascadingMenu component.
  */
 
-import React from "react";
 import { MenuItem, ListItemText } from "@mui/material";
 import { bindHover, bindFocus } from 'material-ui-popup-state/hooks';
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import { SubmenuRendererProps } from "../types";
 import { renderListItemIcon } from "./CascadingShared";
 
-export function SubmenuRenderer({ item, parentPopupState, disableRipple }: SubmenuRendererProps) {
+export function SubmenuRenderer({ item, parentPopupState, disableRipple, disableGutters }: SubmenuRendererProps) {
     return (
         <MenuItem
             disabled={item.disabled}
             disableRipple={disableRipple}
-            disableGutters={disableRipple}
+            disableGutters={disableGutters}
             {...bindHover(parentPopupState)}
             {...bindFocus(parentPopupState)}
         >
