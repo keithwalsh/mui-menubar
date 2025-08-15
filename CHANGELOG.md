@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.0](https://github.com/keithwalsh/mui-menubar/compare/v1.1.4...v1.2.0) (2025-08-15)
+
+
+### Features
+
+* **MainMenuRenderer:** add optional id to menuConfig and update popupId generation for improved uniqueness ([d82ba88](https://github.com/keithwalsh/mui-menubar/commit/d82ba88fec337417d832e2cddb9f207beb689139))
+
+
+### Documentation
+
+* update installation instructions, add compatibility section, and enhance MenuBar interface documentation; introduce disableGutters prop in SubmenuRenderer ([37d5c5f](https://github.com/keithwalsh/mui-menubar/commit/37d5c5fb9125ddb95b321005fbd1aa7545d18442))
+
 ## [1.1.4](https://github.com/keithwalsh/mui-menubar/compare/v1.1.3...v1.1.4) (2025-08-15)
 
 ### Refactor
