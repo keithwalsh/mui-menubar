@@ -1,63 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1733354989947" clover="3.2.0">
-  <project timestamp="1733354989948" name="All files">
-    <metrics statements="87" coveredstatements="82" conditionals="83" coveredconditionals="67" methods="22" coveredmethods="21" elements="192" coveredelements="170" complexity="0" loc="87" ncloc="87" packages="2" files="6" classes="6"/>
+<coverage generated="1755257669415" clover="3.2.0">
+  <project timestamp="1755257669415" name="All files">
+    <metrics statements="93" coveredstatements="90" conditionals="83" coveredconditionals="68" methods="24" coveredmethods="23" elements="200" coveredelements="181" complexity="0" loc="93" ncloc="93" packages="2" files="8" classes="8"/>
     <package name="components">
-      <metrics statements="75" coveredstatements="70" conditionals="77" coveredconditionals="61" methods="14" coveredmethods="13"/>
-      <file name="CascadingMenu.tsx" path="C:\Users\keith\Desktop\mui-menubar\src\components\CascadingMenu.tsx">
-        <metrics statements="50" coveredstatements="45" conditionals="67" coveredconditionals="51" methods="10" coveredmethods="9"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
-        <line num="13" count="4" type="stmt"/>
-        <line num="14" count="4" type="stmt"/>
-        <line num="17" count="4" type="stmt"/>
-        <line num="19" count="4" type="stmt"/>
-        <line num="21" count="4" type="stmt"/>
-        <line num="27" count="4" type="stmt"/>
-        <line num="28" count="18" type="stmt"/>
-        <line num="35" count="85" type="stmt"/>
-        <line num="36" count="83" type="stmt"/>
-        <line num="37" count="83" type="cond" truecount="0" falsecount="1"/>
-        <line num="38" count="83" type="cond" truecount="0" falsecount="1"/>
-        <line num="40" count="83" type="stmt"/>
-        <line num="42" count="3" type="cond" truecount="0" falsecount="1"/>
-        <line num="43" count="3" type="stmt"/>
-        <line num="44" count="3" type="cond" truecount="1" falsecount="0"/>
-        <line num="49" count="83" type="cond" truecount="1" falsecount="0"/>
-        <line num="50" count="17" type="stmt"/>
-        <line num="53" count="66" type="cond" truecount="1" falsecount="0"/>
-        <line num="54" count="1" type="stmt"/>
-        <line num="68" count="65" type="cond" truecount="1" falsecount="0"/>
-        <line num="69" count="65" type="stmt"/>
-        <line num="88" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="89" count="0" type="stmt"/>
-        <line num="96" count="0" type="stmt"/>
-        <line num="106" count="4" type="cond" truecount="0" falsecount="1"/>
-        <line num="107" count="24" type="stmt"/>
-        <line num="108" count="24" type="stmt"/>
-        <line num="115" count="24" type="cond" truecount="2" falsecount="0"/>
-        <line num="117" count="24" type="stmt"/>
-        <line num="146" count="24" type="stmt"/>
-        <line num="153" count="4" type="stmt"/>
-        <line num="159" count="127" type="cond" truecount="1" falsecount="0"/>
-        <line num="160" count="125" type="stmt"/>
-        <line num="162" count="125" type="stmt"/>
-        <line num="163" count="125" type="stmt"/>
-        <line num="164" count="125" type="stmt"/>
-        <line num="171" count="125" type="stmt"/>
-        <line num="172" count="88" type="stmt"/>
-        <line num="182" count="125" type="stmt"/>
-        <line num="183" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="184" count="0" type="stmt"/>
-        <line num="189" count="125" type="stmt"/>
-        <line num="192" count="327" type="cond" truecount="2" falsecount="0"/>
-        <line num="213" count="125" type="cond" truecount="2" falsecount="0"/>
-        <line num="260" count="4" type="stmt"/>
+      <metrics statements="81" coveredstatements="78" conditionals="77" coveredconditionals="62" methods="16" coveredmethods="15"/>
+      <file name="CascadingMenu.tsx" path="C:\Personal Programs\mui-menubar\src\components\CascadingMenu.tsx">
+        <metrics statements="32" coveredstatements="30" conditionals="53" coveredconditionals="42" methods="9" coveredmethods="8"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="26" count="3" type="cond" truecount="0" falsecount="1"/>
+        <line num="27" count="24" type="stmt"/>
+        <line num="28" count="24" type="stmt"/>
+        <line num="35" count="24" type="cond" truecount="2" falsecount="0"/>
+        <line num="37" count="24" type="stmt"/>
+        <line num="66" count="24" type="stmt"/>
+        <line num="73" count="3" type="stmt"/>
+        <line num="79" count="127" type="cond" truecount="1" falsecount="0"/>
+        <line num="80" count="125" type="stmt"/>
+        <line num="82" count="125" type="stmt"/>
+        <line num="83" count="125" type="stmt"/>
+        <line num="84" count="125" type="stmt"/>
+        <line num="91" count="125" type="stmt"/>
+        <line num="92" count="88" type="stmt"/>
+        <line num="102" count="125" type="stmt"/>
+        <line num="103" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="104" count="0" type="stmt"/>
+        <line num="109" count="125" type="stmt"/>
+        <line num="112" count="327" type="cond" truecount="2" falsecount="0"/>
+        <line num="133" count="125" type="cond" truecount="2" falsecount="0"/>
+        <line num="180" count="4" type="stmt"/>
+        <line num="181" count="17" type="stmt"/>
+        <line num="183" count="3" type="stmt"/>
       </file>
-      <file name="MainMenuRenderer.tsx" path="C:\Users\keith\Desktop\mui-menubar\src\components\MainMenuRenderer.tsx">
+      <file name="CascadingMenuItem.tsx" path="C:\Personal Programs\mui-menubar\src\components\CascadingMenuItem.tsx">
+        <metrics statements="18" coveredstatements="17" conditionals="11" coveredconditionals="8" methods="2" coveredmethods="2"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="10" count="85" type="stmt"/>
+        <line num="11" count="83" type="stmt"/>
+        <line num="12" count="83" type="cond" truecount="0" falsecount="1"/>
+        <line num="13" count="83" type="cond" truecount="0" falsecount="1"/>
+        <line num="15" count="83" type="stmt"/>
+        <line num="17" count="3" type="cond" truecount="0" falsecount="1"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="19" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="24" count="83" type="cond" truecount="1" falsecount="0"/>
+        <line num="25" count="17" type="stmt"/>
+        <line num="28" count="66" type="cond" truecount="1" falsecount="0"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="43" count="65" type="cond" truecount="1" falsecount="0"/>
+        <line num="44" count="65" type="stmt"/>
+        <line num="62" count="0" type="stmt"/>
+      </file>
+      <file name="CascadingShared.tsx" path="C:\Personal Programs\mui-menubar\src\components\CascadingShared.tsx">
+        <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="7" count="4" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
+        <line num="14" count="4" type="stmt"/>
+        <line num="19" count="4" type="stmt"/>
+        <line num="20" count="18" type="stmt"/>
+      </file>
+      <file name="MainMenuRenderer.tsx" path="C:\Personal Programs\mui-menubar\src\components\MainMenuRenderer.tsx">
         <metrics statements="9" coveredstatements="9" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
         <line num="5" count="2" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
@@ -69,36 +81,36 @@
         <line num="17" count="83" type="stmt"/>
         <line num="22" count="83" type="stmt"/>
       </file>
-      <file name="MenuBar.tsx" path="C:\Users\keith\Desktop\mui-menubar\src\components\MenuBar.tsx">
-        <metrics statements="10" coveredstatements="10" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+      <file name="MenuBar.tsx" path="C:\Personal Programs\mui-menubar\src\components\MenuBar.tsx">
+        <metrics statements="10" coveredstatements="10" conditionals="5" coveredconditionals="5" methods="1" coveredmethods="1"/>
         <line num="7" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="18" count="30" type="cond" truecount="2" falsecount="0"/>
-        <line num="21" count="30" type="stmt"/>
-        <line num="23" count="30" type="cond" truecount="1" falsecount="0"/>
-        <line num="24" count="2" type="stmt"/>
-        <line num="31" count="28" type="stmt"/>
-        <line num="51" count="1" type="stmt"/>
+        <line num="12" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="13" count="30" type="cond" truecount="2" falsecount="0"/>
+        <line num="16" count="30" type="stmt"/>
+        <line num="18" count="30" type="cond" truecount="1" falsecount="0"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="26" count="28" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
       </file>
-      <file name="SubmenuRenderer.tsx" path="C:\Users\keith\Desktop\mui-menubar\src\components\SubmenuRenderer.tsx">
+      <file name="SubmenuRenderer.tsx" path="C:\Personal Programs\mui-menubar\src\components\SubmenuRenderer.tsx">
         <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="7" count="4" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
-        <line num="12" count="4" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
         <line num="13" count="5" type="stmt"/>
       </file>
     </package>
     <package name="utils">
       <metrics statements="12" coveredstatements="12" conditionals="6" coveredconditionals="6" methods="8" coveredmethods="8"/>
-      <file name="index.ts" path="C:\Users\keith\Desktop\mui-menubar\src\utils\index.ts">
+      <file name="index.ts" path="C:\Personal Programs\mui-menubar\src\utils\index.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="33" type="stmt"/>
       </file>
-      <file name="utils.ts" path="C:\Users\keith\Desktop\mui-menubar\src\utils\utils.ts">
+      <file name="utils.ts" path="C:\Personal Programs\mui-menubar\src\utils\utils.ts">
         <metrics statements="11" coveredstatements="11" conditionals="6" coveredconditionals="6" methods="6" coveredmethods="6"/>
         <line num="6" count="2" type="stmt"/>
         <line num="15" count="173" type="cond" truecount="5" falsecount="0"/>

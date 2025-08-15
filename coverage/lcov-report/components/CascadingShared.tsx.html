@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/SubmenuRenderer.tsx</title>
+    <title>Code coverage report for components/CascadingShared.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">components</a> SubmenuRenderer.tsx</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">components</a> CascadingShared.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
@@ -88,24 +88,28 @@
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -114,31 +118,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
- * @fileoverview Renders submenu items for the CascadingMenu component.
+ * @fileoverview Shared utilities for cascading menu components, including the
+ * React context and rendering helpers used across multiple files.
  */
 &nbsp;
 import React from "react";
-import { MenuItem, ListItemText } from "@mui/material";
-import { bindHover, bindFocus } from 'material-ui-popup-state/hooks';
-import ChevronRight from "@mui/icons-material/ChevronRight";
-import { SubmenuRendererProps } from "../types";
-import { renderListItemIcon } from "./CascadingShared";
+import { ListItemIcon } from "@mui/material";
+import { SxProps, Theme } from "@mui/material/styles";
+import { SvgIconProps } from "@mui/material/SvgIcon";
+import { CascadingContextType } from "../types";
 &nbsp;
-export function SubmenuRenderer({ item, parentPopupState, disableRipple }: SubmenuRendererProps) {
+const iconSx: SxProps&lt;Theme&gt; = { mb: 0.2, fontSize: "small" };
+&nbsp;
+export const CascadingContext = React.createContext&lt;CascadingContextType&gt;({
+    parentPopupState: null,
+    rootPopupState: null,
+});
+&nbsp;
+export function renderListItemIcon(icon: React.ReactNode, sx?: SxProps&lt;Theme&gt;) {
     return (
-        &lt;MenuItem
-            disabled={item.disabled}
-            disableRipple={disableRipple}
-            disableGutters={disableRipple}
-            {...bindHover(parentPopupState)}
-            {...bindFocus(parentPopupState)}
-        &gt;
-            {item.icon &amp;&amp; renderListItemIcon(item.icon, { minWidth: '24px', mr: 1 })}
-            &lt;ListItemText primary={item.label} sx={{ m: 0 }} /&gt;
-            &lt;ChevronRight sx={{ ml: 'auto' }} /&gt;
-        &lt;/MenuItem&gt;
+        &lt;ListItemIcon sx={sx}&gt;
+            {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement&lt;SvgIconProps&gt;, { sx: iconSx }) : <span class="branch-1 cbranch-no" title="branch not covered" >icon}</span>
+        &lt;/ListItemIcon&gt;
     );
-};</pre></td></tr></table></pre>
+}
+&nbsp;
+&nbsp;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->

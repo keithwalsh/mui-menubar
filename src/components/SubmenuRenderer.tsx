@@ -7,7 +7,7 @@ import { MenuItem, ListItemText } from "@mui/material";
 import { bindHover, bindFocus } from 'material-ui-popup-state/hooks';
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import { SubmenuRendererProps } from "../types";
-import { renderListItemIcon } from "./CascadingMenu";
+import { renderListItemIcon } from "./CascadingShared";
 
 export function SubmenuRenderer({ item, parentPopupState, disableRipple }: SubmenuRendererProps) {
     return (

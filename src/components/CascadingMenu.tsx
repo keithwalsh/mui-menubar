@@ -4,97 +4,17 @@
 
 import React, { useContext, useMemo } from "react";
 import HoverMenuImport from "material-ui-popup-state/HoverMenu";
-import { MenuItems, MenuItemSubmenu, CascadingMenuProps, CascadingContextType, TransitionDuration } from "../types";
-import { MenuItem, Divider, ListItemText, ListItemIcon, MenuList, Typography, Box, ClickAwayListener, Popover } from "@mui/material";
+import { MenuItems, MenuItemSubmenu, CascadingMenuProps } from "../types";
+import { MenuItem, MenuList, Popover, ListItemText } from "@mui/material";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import { usePopupState, bindHover, bindFocus, bindMenu, bindTrigger } from "material-ui-popup-state/hooks";
 import { SxProps, Theme } from "@mui/material/styles";
-import { SvgIconProps } from "@mui/material/SvgIcon";
 import { styled } from "@mui/material/styles";
-import { SubmenuRenderer } from "./SubmenuRenderer";
+import { CascadingContext, renderListItemIcon } from "./CascadingShared";
+import { CascadingMenuItem } from "./CascadingMenuItem";
 
 // Cast HoverMenu to any to bypass type checking
 const HoverMenu = HoverMenuImport as any;
-
-const iconSx: SxProps<Theme> = { mb: 0.2, fontSize: "small" };
-
-export const CascadingContext = React.createContext<CascadingContextType>({
-    parentPopupState: null,
-    rootPopupState: null,
-});
-
-// Helper function to render ListItemIcon
-export function renderListItemIcon(icon: React.ReactNode, sx?: SxProps<Theme>) {
-    return (
-        <ListItemIcon sx={sx}>
-            {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<SvgIconProps>, { sx: iconSx }) : icon}
-        </ListItemIcon>
-    )
-}
-
-export const CascadingMenuItem: React.FC<MenuItems & { disableRipple?: boolean }> = ({ disableRipple, ...item }) => {
-    const { rootPopupState, parentPopupState } = useContext(CascadingContext);
-    if (!rootPopupState) throw new Error("must be used inside a CascadingMenu");
-    if (!parentPopupState) throw new Error("must have a parent popup state for submenu");
-
-    const handleClick = React.useCallback(
-        (event: React.MouseEvent<HTMLLIElement>) => {
-            if (item.kind === "custom") return; // Don't close menu for custom components
-            rootPopupState.close(event);
-            if (item.kind === "action") item.action();
-        },
-        [rootPopupState, item]
-    );
-
-    if (item.kind === "divider") {
-        return <Divider />;
-    }
-
-    if (item.kind === "custom") {
-        return (
-            <MenuItem 
-                disableRipple={disableRipple}
-                sx={{ 
-                    '&:hover': { 
-                        backgroundColor: 'transparent' 
-                    } 
-                }}
-            >
-                <Box sx={{ minWidth: 200 }}>{item.component}</Box>
-            </MenuItem>
-        );
-    }
-
-    if (item.kind === "action") {
-        return (
-            <MenuItem 
-                onClick={handleClick} 
-                disabled={item.disabled} 
-                selected={item.selected}
-                disableRipple={disableRipple}
-            >
-                {item.icon && renderListItemIcon(item.icon)}
-                <ListItemText>{item.label}</ListItemText>
-                {item.shortcut && (
-                    <Typography variant="body2" sx={{ ml: 4, color: "text.secondary" }}>
-                        {item.shortcut}
-                    </Typography>
-                )}
-            </MenuItem>
-        );
-    }
-
-    // Must be submenu at this point
-    if (item.kind === "submenu") {
-        return <SubmenuRenderer 
-            item={item} 
-            disableRipple={disableRipple} 
-            parentPopupState={parentPopupState}
-        />;
-    }
-
-    return null; // TypeScript exhaustiveness check
-};
 
 const CascadingSubmenu: React.FC<
     MenuItemSubmenu & {
@@ -256,5 +176,8 @@ export const CascadingMenu: React.FC<CascadingMenuProps> = ({
         </Popover>
     )
 }
+
+export { CascadingMenuItem } from "./CascadingMenuItem";
+export { CascadingContext } from "./CascadingShared";
 
 export default CascadingMenu;
