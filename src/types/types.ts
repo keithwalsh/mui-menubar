@@ -67,6 +67,7 @@ export interface CascadingMenuProps {
     disableRipple?: boolean;
     isSubmenu?: boolean;
     useHover?: boolean;
+    onRootClose?: () => void;
     PopoverProps?: {
         PaperProps?: {
             className?: string;

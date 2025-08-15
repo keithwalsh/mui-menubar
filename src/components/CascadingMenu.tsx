@@ -76,6 +76,7 @@ export const CascadingMenu: React.FC<CascadingMenuProps> = ({
     disableRipple, 
     isSubmenu = false,
     useHover = true,
+    onRootClose,
     PopoverProps = {},
     ...props 
 }) => {
@@ -102,6 +103,7 @@ export const CascadingMenu: React.FC<CascadingMenuProps> = ({
     const handleClose = (_: {}, reason: "backdropClick" | "escapeKeyDown") => {
         if (reason === "backdropClick" || reason === "escapeKeyDown") {
             popupState.close()
+            if (!isSubmenu) onRootClose?.()
         }
     }
 
