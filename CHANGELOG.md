@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.4.0](https://github.com/keithwalsh/mui-menubar/compare/v1.3.0...v1.4.0) (2025-08-16)
+
+
+### Features
+
+* **storybook:** update theme branding and enhance story with dark/light mode toggle functionality ([f6715dc](https://github.com/keithwalsh/mui-menubar/commit/f6715dc11a76ca1aea9becd2a331f9e5cffc8084))
+
 ## [1.3.0](https://github.com/keithwalsh/mui-menubar/compare/v1.2.1...v1.3.0) (2025-08-15)
 
 
