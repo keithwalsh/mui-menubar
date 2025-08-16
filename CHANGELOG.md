@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.0](https://github.com/keithwalsh/mui-menubar/compare/v1.2.1...v1.3.0) (2025-08-15)
+
+
+### Features
+
+* **Menu:** enhance menu interaction with hover navigation and root close handling ([0084425](https://github.com/keithwalsh/mui-menubar/commit/0084425f467aae882817c92e9e92b330450ffbff))
+
 ## [1.2.1](https://github.com/keithwalsh/mui-menubar/compare/v1.2.0...v1.2.1) (2025-08-15)
 
 ## [1.2.0](https://github.com/keithwalsh/mui-menubar/compare/v1.1.4...v1.2.0) (2025-08-15)
