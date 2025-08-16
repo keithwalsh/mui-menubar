@@ -24,7 +24,7 @@ jobs:
             - name: Set up Node.js
               uses: actions/setup-node@v3
               with:
-                  node-version: "16"
+                  node-version: "18"
                   registry-url: "https://registry.npmjs.org/"
 
             - name: Set Git identity
@@ -85,7 +85,7 @@ jobs:
                   node-version: "18"
 
             - name: Install dependencies
-              run: npm ci
+              run: npm install --no-audit --no-fund
 
             - name: Run Chromatic
               id: chromatic
