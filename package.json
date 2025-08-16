@@ -108,6 +108,10 @@
         "url": "https://github.com/keithwalsh/mui-menubar/issues"
     },
     "homepage": "https://github.com/keithwalsh/mui-menubar#readme",
+    "engines": {
+        "node": ">=20",
+        "npm": ">=10"
+    },
     "dependencies": {
         "@emotion/react": "^11.0.0",
         "@emotion/styled": "^11.0.0",
