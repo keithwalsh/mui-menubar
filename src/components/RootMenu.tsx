@@ -1,16 +1,16 @@
 /**
  * @fileoverview Dedicated component for rendering root-level menu popups using Popover.
- * Handles the main menu behavior, root close events, and positioning for top-level menus.
+ * Handles the main menu behaviour, root close events, and positioning for top-level menus.
  */
 
 import React, { useContext, useMemo } from "react";
-import { MenuList, Popover } from "@mui/material";
+import { dividerClasses, MenuList, Popover } from "@mui/material";
 import { SxProps, Theme } from "@mui/material/styles";
 import { PopupState } from "material-ui-popup-state/hooks";
 import { MenuItems } from "../types";
 import { CascadingContext } from "./CascadingShared";
 import { CascadingMenuItem } from "./CascadingMenuItem";
-import { CascadingSubmenu } from "./CascadingSubmenu";
+import { CascadingSubmenu } from "./KindSubmenuItem";
 
 export interface RootMenuProps {
     menuItems: MenuItems[];
@@ -33,6 +33,10 @@ export interface RootMenuProps {
             horizontal: "left" | "center" | "right";
         };
         TransitionProps?: any;
+        slotProps?: {
+            transition?: any;
+            [key: string]: any;
+        };
         [key: string]: any;
     };
     [key: string]: any;
@@ -48,6 +52,16 @@ export const RootMenu: React.FC<RootMenuProps> = ({
     ...props 
 }) => {
     const { rootPopupState } = useContext(CascadingContext);
+    const { TransitionProps: deprecatedTransitionProps, slotProps: incomingSlotProps, ...restPopoverProps } = (PopoverProps as any) ?? {};
+    const mergedTransitionSlotProps = {
+        timeout: 0,
+        ...(deprecatedTransitionProps || {}),
+        ...(incomingSlotProps?.transition || {})
+    };
+    const popoverSlotProps = {
+        ...incomingSlotProps,
+        transition: mergedTransitionSlotProps
+    };
     
     const context = useMemo(
         () => ({
@@ -63,9 +77,9 @@ export const RootMenu: React.FC<RootMenuProps> = ({
             "& .MuiPaper-root": {
                 backgroundColor: "background.paper",
             },
-            ...PopoverProps?.PaperProps?.sx
+            ...restPopoverProps?.PaperProps?.sx
         }),
-        [PopoverProps?.PaperProps?.sx]
+        [restPopoverProps?.PaperProps?.sx]
     );
 
     const handleClose = (_: {}, reason: "backdropClick" | "escapeKeyDown") => {
@@ -77,7 +91,7 @@ export const RootMenu: React.FC<RootMenuProps> = ({
 
     const menuContent = (
         <CascadingContext.Provider value={context}>
-            <MenuList dense>
+            <MenuList dense sx={{ m: 0, [`& .${dividerClasses.root}`]: { m: 0 }, "& .MuiList-padding": { paddingTop: 0, paddingBottom: 0 }, p: 0 }}>
                 {menuItems.map((item: MenuItems, index: number) => {
                     const baseId = (item as any).id ?? (item as any).label ?? index;
                     if (item.kind === "submenu") {
@@ -106,28 +120,25 @@ export const RootMenu: React.FC<RootMenuProps> = ({
     return (
         <Popover
             {...props}
-            {...PopoverProps}
+            {...restPopoverProps}
             open={popupState.isOpen}
             anchorEl={popupState.anchorEl}
             onClose={handleClose}
             anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'left',
-                ...PopoverProps?.anchorOrigin
+                ...restPopoverProps?.anchorOrigin
             }}
             transformOrigin={{
                 vertical: 'top',
                 horizontal: 'left',
-                ...PopoverProps?.transformOrigin
+                ...restPopoverProps?.transformOrigin
             }}
             PaperProps={{
-                ...PopoverProps?.PaperProps,
+                ...restPopoverProps?.PaperProps,
                 sx: paperSx
             }}
-            TransitionProps={{
-                timeout: 0,
-                ...PopoverProps?.TransitionProps
-            }}
+            slotProps={popoverSlotProps}
         >
             {menuContent}
         </Popover>

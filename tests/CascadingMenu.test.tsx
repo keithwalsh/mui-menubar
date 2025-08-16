@@ -2,7 +2,9 @@ import React from 'react'
 import { render, screen, act, fireEvent, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import userEvent from '@testing-library/user-event'
-import CascadingMenu, { CascadingMenuItem, CascadingContext } from '../src/components/CascadingMenu'
+import { RootMenu } from '../src/components/RootMenu'
+import { CascadingMenuItem } from '../src/components/CascadingMenuItem'
+import { CascadingContext } from '../src/components/CascadingShared'
 import { MenuItems } from '../src/types'
 import * as popupState from 'material-ui-popup-state/hooks'
 import { PopoverPosition } from '@mui/material'
@@ -124,13 +126,13 @@ afterEach(() => {
     jest.restoreAllMocks()
 })
 
-describe('CascadingMenu', () => {
+describe('RootMenu', () => {
     const mockPopupState = popupState.usePopupState({ variant: 'popover', popupId: 'test' })
 
     it('renders cascading menu items correctly', async () => {
         await act(async () => {
             render(
-                <CascadingMenu
+                <RootMenu
                     menuItems={mockMenuItems}
                     popupState={mockPopupState}
                     useHover={true}
@@ -144,7 +146,7 @@ describe('CascadingMenu', () => {
     it('opens submenu on hover', async () => {
         await act(async () => {
             render(
-                <CascadingMenu
+                <RootMenu
                     menuItems={mockMenuItems}
                     popupState={mockPopupState}
                     useHover={true}
@@ -162,7 +164,7 @@ describe('CascadingMenu', () => {
     it('handles action item click', async () => {
         await act(async () => {
             render(
-                <CascadingMenu
+                <RootMenu
                     menuItems={mockMenuItems}
                     popupState={mockPopupState}
                     useHover={true}
@@ -206,7 +208,7 @@ describe('CascadingMenu', () => {
 
         await act(async () => {
             render(
-                <CascadingMenu
+                <RootMenu
                     menuItems={mockMenuItems}
                     popupState={mockPopupState}
                 />
@@ -225,10 +227,10 @@ describe('CascadingMenu', () => {
 
         await act(async () => {
             render(
-                <CascadingMenu
+                <RootMenu
                     menuItems={mockMenuItems}
                     popupState={mockPopupState}
-                    TransitionProps={{ timeout: 100 }}
+                    PopoverProps={{ TransitionProps: { timeout: 100 } }}
                 />
             )
         })
@@ -248,7 +250,7 @@ describe('CascadingMenu', () => {
         await act(async () => {
             render(
                 <TestCascadingMenuContext>
-                    <CascadingMenu
+                    <RootMenu
                         menuItems={mockMenuItems}
                         popupState={{ 
                             ...createMockPopupState(),
@@ -277,7 +279,7 @@ describe('CascadingMenu', () => {
         await act(async () => {
             render(
                 <TestCascadingMenuContext>
-                    <CascadingMenu
+                    <RootMenu
                         menuItems={[]}
                         popupState={createMockPopupState()}
                     />
@@ -300,7 +302,7 @@ describe('CascadingMenu', () => {
         await act(async () => {
             render(
                 <TestCascadingMenuContext>
-                    <CascadingMenu
+                    <RootMenu
                         menuItems={itemsWithoutLabel}
                         popupState={createMockPopupState()}
                     />
@@ -317,7 +319,7 @@ describe('CascadingMenu', () => {
         await act(async () => {
             render(
                 <TestCascadingMenuContext>
-                    <CascadingMenu
+                    <RootMenu
                         menuItems={mockMenuItems}
                         popupState={createMockPopupState()}
                         PopoverProps={{
@@ -349,7 +351,7 @@ describe('CascadingMenu', () => {
         await act(async () => {
             render(
                 <TestCascadingMenuContext>
-                    <CascadingMenu
+                    <RootMenu
                         menuItems={disabledItems}
                         popupState={createMockPopupState()}
                     />
@@ -375,7 +377,7 @@ describe('CascadingMenu', () => {
         await act(async () => {
             render(
                 <TestCascadingMenuContext>
-                    <CascadingMenu
+                    <RootMenu
                         menuItems={emptySubmenu}
                         popupState={createMockPopupState()}
                     />
@@ -395,10 +397,10 @@ describe('CascadingMenu', () => {
         await act(async () => {
             render(
                 <TestCascadingMenuContext>
-                    <CascadingMenu
+                    <RootMenu
                         menuItems={mockMenuItems}
                         popupState={createMockPopupState()}
-                        TransitionProps={{ timeout: timeoutMs }}
+                        PopoverProps={{ TransitionProps: { timeout: timeoutMs } }}
                     />
                 </TestCascadingMenuContext>
             )
@@ -419,7 +421,7 @@ describe('CascadingMenu', () => {
         await act(async () => {
             render(
                 <TestCascadingMenuContext>
-                    <CascadingMenu
+                    <RootMenu
                         menuItems={mockMenuItems}
                         popupState={createMockPopupState()}
                     />
@@ -448,7 +450,7 @@ describe('CascadingMenu', () => {
         await act(async () => {
             render(
                 <TestCascadingMenuContext>
-                    <CascadingMenu
+                    <RootMenu
                         menuItems={itemsWithShortcut}
                         popupState={createMockPopupState()}
                     />
@@ -470,7 +472,7 @@ describe('CascadingMenu', () => {
         await act(async () => {
             render(
                 <TestCascadingMenuContext>
-                    <CascadingMenu
+                    <RootMenu
                         menuItems={itemsWithIcon}
                         popupState={createMockPopupState()}
                     />
@@ -492,7 +494,7 @@ describe('CascadingMenu', () => {
         await act(async () => {
             render(
                 <TestCascadingMenuContext>
-                    <CascadingMenu
+                    <RootMenu
                         menuItems={selectedItems}
                         popupState={createMockPopupState()}
                     />
@@ -510,7 +512,7 @@ describe('CascadingMenu', () => {
         await act(async () => {
             render(
                 <TestCascadingMenuContext>
-                    <CascadingMenu
+                    <RootMenu
                         menuItems={mockMenuItems}
                         popupState={{ 
                             ...createMockPopupState(),
@@ -546,7 +548,7 @@ describe('CascadingMenu', () => {
         
         render(
             <TestCascadingMenuContext>
-                <CascadingMenu
+                <RootMenu
                     menuItems={mockMenuItems}
                     popupState={mockPopupState}
                     useHover={false}

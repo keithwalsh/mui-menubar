@@ -1,10 +1,10 @@
 /**
  * @fileoverview Component for rendering submenu items with hover functionality
- * and chevron indicator. Extracted from the original CascadingMenu component.
+ * and chevron indicator.
  */
 
 import React, { useContext } from "react";
-import { MenuItem, MenuList, ListItemText } from "@mui/material";
+import { MenuList, MenuItem, ListItemText, dividerClasses } from "@mui/material";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import { usePopupState, bindHover, bindFocus, bindTrigger } from "material-ui-popup-state/hooks";
 import { MenuItemSubmenu } from "../types";
@@ -37,7 +37,7 @@ export const CascadingSubmenu: React.FC<CascadingSubmenuProps> = ({
 
     return (
         <React.Fragment>
-            <MenuList dense sx={{ px: 0, py: 0.5 }}>
+            <MenuList dense sx={{ m: 0.5, [`& .${dividerClasses.root}`]: { m: 0 }, "& .MuiList-padding": { paddingTop: 0, paddingBottom: 2 }, p: 0 }}>
                 <MenuItem 
                     {...bindMenuProps(popupState)} 
                     {...bindFocus(popupState)}
@@ -47,7 +47,14 @@ export const CascadingSubmenu: React.FC<CascadingSubmenuProps> = ({
                     <ListItemText inset sx={{ px: 0 }}>
                         {label}
                     </ListItemText>
-                    <ChevronRight sx={{ ml: 4 }} />
+                    <ChevronRight sx={{
+                        ml: 4,
+                        mr: -1,
+                        color: (theme) =>
+                            theme.palette.mode === "dark"
+                                ? "#fff"
+                                : "rgba(0, 0, 0, 0.54)"
+                    }} />
                 </MenuItem>
             </MenuList>
             <SubMenu

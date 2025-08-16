@@ -5,7 +5,8 @@
 
 import React from 'react'
 import { render } from '@testing-library/react'
-import { CascadingMenuItem, CascadingContext } from '../src/components/CascadingMenu'
+import { CascadingMenuItem } from '../src/components/CascadingMenuItem'
+import { CascadingContext } from '../src/components/CascadingShared'
 import { MenuItems } from '../src/types'
 
 const actionItem: MenuItems = {
@@ -28,7 +29,7 @@ describe('CascadingMenuItem error branches', () => {
       <CascadingContext.Provider value={{ rootPopupState: null as any, parentPopupState: null as any }}>
         <CascadingMenuItem {...actionItem} />
       </CascadingContext.Provider>
-    )).toThrow('must be used inside a CascadingMenu')
+    )).toThrow('must be used inside a RootMenu/SubMenu context')
   })
 
   it('throws when parentPopupState is missing', () => {

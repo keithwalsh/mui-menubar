@@ -1,10 +1,10 @@
 /**
  * @fileoverview Renders the main menu items for the MenuBar component. Wraps
- * children in MenuButtonGroup so that MenuButton props are minimized.
+ * children in MenuButtonGroup so that MenuButton props are minimised.
  */
 
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, dividerClasses } from "@mui/material";
 import { MenuConfig, MainMenuRendererProps } from "../types";
 import MenuButton from "./MenuButton";
 import { MenuButtonGroup } from "./MenuButtonGroup";

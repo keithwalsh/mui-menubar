@@ -9,8 +9,9 @@ export * from "../types";
 // Export the new specialized menu components
 export { RootMenu } from "./RootMenu";
 export { SubMenu } from "./SubMenu";
-export { CascadingSubmenu } from "./CascadingSubmenu";
+export { CascadingSubmenu } from "./KindSubmenuItem";
 
-// Export backward compatibility component
-export { CascadingMenu } from "./CascadingMenu";
 export { CascadingMenuItem } from "./CascadingMenuItem";
+export { KindActionItem } from "./KindActionItem";
+export { KindCustomItem } from "./KindCustomItem";
+export { KindDividerItem } from "./KindDividerItem";

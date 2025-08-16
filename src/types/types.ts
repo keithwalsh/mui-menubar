@@ -79,6 +79,10 @@ export interface CascadingMenuProps {
             horizontal: "left" | "center" | "right";
         };
         TransitionProps?: any;
+        slotProps?: {
+            transition?: any;
+            [key: string]: any;
+        };
         [key: string]: any;
     };
     [key: string]: any;

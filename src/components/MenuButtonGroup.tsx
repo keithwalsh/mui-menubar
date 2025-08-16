@@ -1,6 +1,6 @@
 /**
  * @fileoverview Provides a context-based group wrapper to coordinate top-level
- * menu button behavior including active state, hover navigation, and root-close
+ * menu button behaviour including active state, hover navigation, and root-close
  * handling across all top-level buttons.
  */
 

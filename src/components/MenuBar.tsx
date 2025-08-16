@@ -38,7 +38,6 @@ export const MenuBar: React.FC<MenuBarProps> = ({ config, color = "transparent",
             <Toolbar variant="dense" disableGutters={true} sx={{ px: 0 }}>
                 <MainMenuRenderer menuConfig={menuConfig} disableRipple={disableRipple} />
             </Toolbar>
-            <Divider data-testid="menu-divider" sx={{ display: "none" }} />
         </AppBar>
     );
 };

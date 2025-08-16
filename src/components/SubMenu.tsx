@@ -1,11 +1,11 @@
 /**
  * @fileoverview Dedicated component for rendering submenu popups using HoverMenu.
- * Handles the popup behavior and styling for nested menu items.
+ * Handles the popup behaviour and styling for nested menu items.
  */
 
 import React, { useContext, useMemo } from "react";
 import HoverMenuImport from "material-ui-popup-state/HoverMenu";
-import { MenuList, MenuItem } from "@mui/material";
+import { MenuList, MenuItem, dividerClasses } from "@mui/material";
 import { bindMenu } from "material-ui-popup-state/hooks";
 import { styled } from "@mui/material/styles";
 import { SxProps, Theme } from "@mui/material/styles";
@@ -13,7 +13,7 @@ import { PopupState } from "material-ui-popup-state/hooks";
 import { MenuItems } from "../types";
 import { CascadingContext } from "./CascadingShared";
 import { CascadingMenuItem } from "./CascadingMenuItem";
-import { CascadingSubmenu } from "./CascadingSubmenu";
+import { CascadingSubmenu } from "./KindSubmenuItem";
 
 // Cast HoverMenu to any to bypass type checking
 const HoverMenu = HoverMenuImport as any;
@@ -21,8 +21,10 @@ const HoverMenu = HoverMenuImport as any;
 // Create a styled version of Menu with custom styles
 const StyledMenu = styled(HoverMenu)(() => ({
     "& .MuiList-padding": {
-        paddingTop: 1,
-        paddingBottom: 1,
+        paddingTop: 0,
+        paddingBottom: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
     },
 }));
 
@@ -45,6 +47,10 @@ export interface SubMenuProps {
         [key: string]: any;
     };
     TransitionProps?: any;
+    slotProps?: {
+        transition?: any;
+        [key: string]: any;
+    }
     [key: string]: any;
 }
 
@@ -55,9 +61,19 @@ export const SubMenu: React.FC<SubMenuProps> = ({
     useHover = true,
     PaperProps = {},
     TransitionProps,
+    slotProps,
     ...props 
 }) => {
     const { rootPopupState } = useContext(CascadingContext);
+    const mergedTransitionSlotProps = {
+        ...(TransitionProps || {}),
+        ...(slotProps?.transition || {}),
+        timeout: 0
+    };
+    const incomingSlotProps = {
+        ...slotProps,
+        transition: mergedTransitionSlotProps
+    };
     
     const context = useMemo(
         () => ({
@@ -80,7 +96,7 @@ export const SubMenu: React.FC<SubMenuProps> = ({
 
     const menuContent = (
         <CascadingContext.Provider value={context}>
-            <MenuList dense>
+            <MenuList dense sx={{ m: 0, [`& .${dividerClasses.root}`]: { m: 0 }, "& .MuiList-padding": { paddingTop: 0, paddingBottom: 0 }, p: 0 }}>
                 {menuItems.map((item: MenuItems, index: number) => {
                     const baseId = (item as any).id ?? (item as any).label ?? index;
                     if (item.kind === "submenu") {
@@ -115,10 +131,7 @@ export const SubMenu: React.FC<SubMenuProps> = ({
                 sx: paperSx,
                 component: MenuItem,
             }}
-            TransitionProps={{
-                ...TransitionProps,
-                timeout: 0
-            }}
+            slotProps={incomingSlotProps}
         >
             {menuContent}
         </StyledMenu>

@@ -1,11 +1,11 @@
 /**
- * @fileoverview Tests close handling branches in `CascadingMenu` by mocking
+ * @fileoverview Tests close handling branches in `RootMenu` by mocking
  * Popover to trigger `onClose` with specific reasons.
  */
 
 import React from 'react'
 import { render } from '@testing-library/react'
-import CascadingMenu from '../src/components/CascadingMenu'
+import { RootMenu } from '../src/components/RootMenu'
 
 // Partially mock @mui/material to control Popover's onClose reason
 jest.mock('@mui/material', () => {
@@ -47,13 +47,13 @@ const createMockPopupState = () => ({
   _setChildPopupState: jest.fn()
 })
 
-describe('CascadingMenu handleClose', () => {
+describe('RootMenu handleClose', () => {
   it('calls popupState.close and onRootClose on backdropClick', () => {
     const popupState = createMockPopupState()
     const onRootClose = jest.fn()
 
     render(
-      <CascadingMenu
+      <RootMenu
         menuItems={[]}
         popupState={popupState as any}
         onRootClose={onRootClose}
@@ -70,7 +70,7 @@ describe('CascadingMenu handleClose', () => {
     const onRootClose = jest.fn()
 
     render(
-      <CascadingMenu
+      <RootMenu
         menuItems={[]}
         popupState={popupState as any}
         onRootClose={onRootClose}

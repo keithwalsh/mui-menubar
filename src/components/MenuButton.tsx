@@ -9,7 +9,6 @@ import { Button } from "@mui/material";
 import { usePopupState } from "material-ui-popup-state/hooks";
 import { RootMenu } from "./RootMenu";
 import { MenuConfig } from "../types";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useMenuButtonGroup } from "./MenuButtonGroup";
 
 
@@ -86,13 +85,12 @@ export const MenuButton: React.FC<MenuButtonProps> = ({ menu, disableRipple }) =
 					'&:hover': {
 						backgroundColor: popupState.isOpen ? 'action.selected' : 'action.hover',
 					},
-					'& .MuiButton-endIcon': { marginLeft: '2px' },
-					px: 1,
+					px: 0,
 					py: 0.25,
+					minWidth: 0.7
 				}}
 				disabled={menu.disabled}
 				disableRipple={disableRipple}
-				endIcon={<KeyboardArrowDownIcon />}
 			>
 				{menu.label}
 			</Button>
