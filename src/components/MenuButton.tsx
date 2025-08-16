@@ -7,7 +7,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { usePopupState } from "material-ui-popup-state/hooks";
-import CascadingMenu from "./CascadingMenu";
+import { RootMenu } from "./RootMenu";
 import { MenuConfig } from "../types";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useMenuButtonGroup } from "./MenuButtonGroup";
@@ -96,7 +96,7 @@ export const MenuButton: React.FC<MenuButtonProps> = ({ menu, disableRipple }) =
 			>
 				{menu.label}
 			</Button>
-			<CascadingMenu
+			<RootMenu
 				menuItems={menu.items}
 				popupState={popupState}
 				disableRipple={disableRipple}

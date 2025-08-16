@@ -1,10 +1,11 @@
 /**
  * @fileoverview Utility functions for the MenuBar component. Includes a
- * keyboard shortcut hook implemented with a stable effect and type guards for
+ * keyboard shortcut hook using react-hotkeys-hook and type guards for
  * menu item types.
  */
 
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 import { MenuConfig, MenuItemDivider, MenuItemAction, MenuItems } from "../types";
 
 /**
@@ -18,7 +19,7 @@ function hasShortcutAndAction(item: MenuItems): item is MenuItemAction & { short
 
 /**
  * Custom hook to set up hotkeys for menu items with shortcuts.
- * Uses the useHotkeys hook from react-hotkeys-hook for keyboard shortcut handling.
+ * Uses react-hotkeys-hook for simplified keyboard shortcut handling.
  * @see {@link https://react-hotkeys-hook.vercel.app/docs/api/use-hotkeys|useHotkeys API}
  * @param {MenuConfig[]} config - An array of menu configurations.
  * @returns {void}
@@ -29,90 +30,18 @@ export const useMenuHotkeys = (config: MenuConfig[]) => {
         config.forEach((menu) => {
             menu.items.forEach((item) => {
                 if (hasShortcutAndAction(item)) {
-                    const normalized = normalizeShortcut(item.shortcut);
-                    if (normalized) {
-                        map.set(normalized, item.action);
-                    }
+                    map.set(item.shortcut, item.action);
                 }
             });
         });
         return map;
     }, [config]);
 
-    useEffect(() => {
-        if (shortcutToAction.size === 0) {
-            return;
-        }
-
-        const handler = (event: KeyboardEvent) => {
-            const pressed = eventToShortcut(event);
-            if (!pressed) {
-                return;
-            }
-            const action = shortcutToAction.get(pressed);
-            if (action) {
-                event.preventDefault();
-                action();
-            }
-        };
-
-        document.addEventListener("keydown", handler);
-        return () => {
-            document.removeEventListener("keydown", handler);
-        };
-    }, [shortcutToAction]);
-};
-
-function normalizeShortcut(input: string): string | null {
-    const trimmed = input.trim().toLowerCase().replace(/\s+/g, "");
-    if (!trimmed) return null;
-    const parts = trimmed.split("+");
-    const canonical = new Set<string>();
-    let key: string | null = null;
-
-    parts.forEach((part) => {
-        switch (part) {
-            case "ctrl":
-            case "control":
-                canonical.add("ctrl");
-                break;
-            case "alt":
-            case "option":
-                canonical.add("alt");
-                break;
-            case "shift":
-                canonical.add("shift");
-                break;
-            case "meta":
-            case "cmd":
-            case "command":
-            case "super":
-                canonical.add("meta");
-                break;
-            default:
-                key = part;
-        }
+    // Register each shortcut with useHotkeys
+    shortcutToAction.forEach((action, shortcut) => {
+        useHotkeys(shortcut, action, { preventDefault: true });
     });
-
-    const modifiersInOrder = ["ctrl", "alt", "shift", "meta"].filter((m) => canonical.has(m));
-    const keySegment = key ? key : null;
-    if (!keySegment && modifiersInOrder.length === 0) return null;
-    return (modifiersInOrder.length ? modifiersInOrder.join("+") + (keySegment ? "+" : "") : "") + (keySegment ? keySegment : "");
-}
-
-function eventToShortcut(event: KeyboardEvent): string | null {
-    const modifiers: string[] = [];
-    if (event.ctrlKey) modifiers.push("ctrl");
-    if (event.altKey) modifiers.push("alt");
-    if (event.shiftKey) modifiers.push("shift");
-    if (event.metaKey) modifiers.push("meta");
-
-    const key = (event.key || "").toLowerCase();
-    if (!key || key === "control" || key === "shift" || key === "alt" || key === "meta") {
-        return modifiers.length ? modifiers.join("+") : null;
-    }
-    return (modifiers.length ? modifiers.join("+") + "+" : "") + key;
-}
+};
 
 /**
  * Type guard to check if a MenuItem is a divider.
