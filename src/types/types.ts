@@ -52,7 +52,7 @@ export interface MenuConfig {
 }
 
 export interface MenuBarProps {
-    config?: MenuConfig[];
+    config: MenuConfig[];
     color?: AppBarProps["color"];
     sx?: SxProps<Theme>;
     disableRipple?: boolean;

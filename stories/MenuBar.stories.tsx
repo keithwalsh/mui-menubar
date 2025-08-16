@@ -4,10 +4,11 @@
  */
 
 import React from "react";
-import type { Meta, StoryObj } from "@storybook/react";
-import MenuBar, { MenuBarProps, MenuConfig } from "../src/components";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import MenuBar from "../src/components/MenuBar";
+import type { MenuBarProps, MenuConfig } from "../src/types";
 import { FileCopy, FolderOpen, Save, ExitToApp, Undo, Redo, ContentCopy, ContentPaste, Visibility, ZoomIn, ZoomOut } from "@mui/icons-material";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import TableSizeChooser from "./TableSizeChooser";
 import TableChart from '@mui/icons-material/TableChart';
 import { Container, IconButton, CssBaseline } from "@mui/material";

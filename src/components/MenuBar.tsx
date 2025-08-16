@@ -9,8 +9,8 @@ import { MenuBarProps } from "../types";
 import { useMenuHotkeys } from "../utils";
 import { MainMenuRenderer } from "./MainMenuRenderer";
 
-export const MenuBar: React.FC<MenuBarProps> = ({ config = [], color = "transparent", sx, disableRipple }) => {
-    const menuConfig = Array.isArray(config) ? config : [config];
+export const MenuBar: React.FC<MenuBarProps> = ({ config, color = "transparent", sx, disableRipple }) => {
+    const menuConfig = config;
 
     // Set up hotkeys for the menu items
     useMenuHotkeys(menuConfig);

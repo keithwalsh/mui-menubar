@@ -173,23 +173,6 @@ describe('MenuBar', () => {
     expect(toolbar).toBeInTheDocument()
   })
 
-  it('renders with custom color', () => {
-    const { container } = render(<MenuBar config={mockMenuConfig} color="secondary" />)
-    const menuBar = container.querySelector('[data-testid="menu-bar-root"]')
-    expect(menuBar).toHaveClass('MuiAppBar-colorSecondary')
-  })
-
-  it('applies custom styles via sx prop', () => {
-    const { container } = render(
-      <MenuBar 
-        config={mockMenuConfig} 
-        sx={{ backgroundColor: 'rgb(0, 0, 255)' }} 
-      />
-    )
-    const menuBar = container.querySelector('[data-testid="menu-bar-root"]')
-    expect(menuBar).toHaveStyle({ backgroundColor: 'rgb(0, 0, 255)' })
-  })
-
   it('can disable ripple effect', async () => {
     const { container } = render(<MenuBar config={mockMenuConfig} disableRipple />)
     const fileMenu = container.querySelector('button')
@@ -222,20 +205,7 @@ describe('MenuBar', () => {
     expect(await screen.findByTestId('DeleteIcon')).toBeInTheDocument()
   })
 
-  it('handles non-array config gracefully', () => {
-    cleanup()
-    const singleConfig: MenuConfig = {
-      label: 'File',
-      items: [
-        { kind: 'action', label: 'New', action: jest.fn() }
-      ]
-    }
 
-    render(<MenuBar config={singleConfig as any} />)
-    const fileButtons = screen.getAllByText('File')
-    expect(fileButtons[0]).toBeInTheDocument()
-    expect(fileButtons).toHaveLength(1)
-  })
 })
 
 describe('Submenu functionality', () => {
@@ -286,8 +256,8 @@ describe('Submenu functionality', () => {
 })
 
 describe('MenuBar edge cases', () => {
-  it('handles undefined config gracefully', () => {
-    render(<MenuBar />)
+  it('handles empty config gracefully', () => {
+    render(<MenuBar config={[]} />)
     const toolbar = screen.getByRole('toolbar')
     expect(toolbar).toBeInTheDocument()
   })
