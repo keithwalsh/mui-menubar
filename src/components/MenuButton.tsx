@@ -1,6 +1,7 @@
 /**
  * @fileoverview Encapsulates a single top-level menu button with its popup state
- * and associated cascading menu rendering.
+ * and associated cascading menu rendering. Uses group context to coordinate
+ * active state, hover navigation, and root-close behavior.
  */
 
 import React from "react";
@@ -9,20 +10,15 @@ import { usePopupState } from "material-ui-popup-state/hooks";
 import CascadingMenu from "./CascadingMenu";
 import { MenuConfig } from "../types";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useMenuButtonGroup } from "./MenuButtonGroup";
 
 
 export interface MenuButtonProps {
 	menu: MenuConfig;
 	disableRipple?: boolean;
-	isActive?: boolean;
-	isOpenByGroup?: boolean;
-	onActivate?: () => void;
-	onHoverNavigate?: () => void;
-	onRootClose?: () => void;
-	onButtonRef?: (ref: HTMLButtonElement | null) => void;
 }
 
-export const MenuButton: React.FC<MenuButtonProps> = ({ menu, disableRipple, isActive = false, isOpenByGroup = false, onActivate, onHoverNavigate, onRootClose, onButtonRef }) => {
+export const MenuButton: React.FC<MenuButtonProps> = ({ menu, disableRipple }) => {
 	const menuId = menu.id ?? menu.label;
 	const popupState = usePopupState({
 		variant: "popover" as const,
@@ -30,14 +26,16 @@ export const MenuButton: React.FC<MenuButtonProps> = ({ menu, disableRipple, isA
 	});
 
 	const buttonRef = React.useRef<HTMLButtonElement | null>(null);
+	const { isActive, activeKey, registerButtonRef, onActivate, onHoverNavigate, onRootClose } = useMenuButtonGroup();
 	
 	// Handle button ref callback
 	const handleButtonRef = React.useCallback((ref: HTMLButtonElement | null) => {
 		buttonRef.current = ref;
-		onButtonRef?.(ref);
-	}, [onButtonRef]);
+		registerButtonRef(menuId, ref);
+	}, [registerButtonRef, menuId]);
 
 	React.useEffect(() => {
+		const isOpenByGroup = activeKey === menuId;
 		if (isOpenByGroup && !popupState.isOpen) {
 			if (!popupState.anchorEl && buttonRef.current) {
 				popupState.setAnchorEl(buttonRef.current as any);
@@ -47,30 +45,31 @@ export const MenuButton: React.FC<MenuButtonProps> = ({ menu, disableRipple, isA
 			popupState.close();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isOpenByGroup]);
+	}, [activeKey]);
 
 	// Deactivate group when the currently active (key) menu closes
 	const wasOpenRef = React.useRef<boolean>(false);
 	React.useEffect(() => {
 		const wasOpen = wasOpenRef.current;
+		const isOpenByGroup = activeKey === menuId;
 		if (wasOpen && !popupState.isOpen && isOpenByGroup) {
 			onRootClose?.();
 		}
 		wasOpenRef.current = popupState.isOpen;
-	}, [popupState.isOpen, isOpenByGroup, onRootClose]);
+	}, [popupState.isOpen, activeKey, onRootClose, menuId]);
 
 	const handleClick = React.useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
 		popupState.setAnchorEl(event.currentTarget as any);
-		onActivate?.();
+		onActivate?.(menuId);
 		if (!popupState.isOpen) popupState.open();
 		else popupState.close();
-	}, [onActivate, popupState]);
+	}, [onActivate, popupState, menuId]);
 
 	const handleMouseEnter = React.useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
 		if (!isActive) return;
 		popupState.setAnchorEl(event.currentTarget as any);
-		onHoverNavigate?.();
-	}, [isActive, onHoverNavigate, popupState]);
+		onHoverNavigate?.(menuId);
+	}, [isActive, onHoverNavigate, popupState, menuId]);
 
 	return (
 		<React.Fragment>
