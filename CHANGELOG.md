@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.5.0](https://github.com/keithwalsh/mui-menubar/compare/v1.4.0...v1.5.0) (2025-08-16)
+
+
+### Features
+
+* **Menu:** add CascadingSubmenu and SubMenu components for enhanced submenu functionality and hover behavior ([2ef99c2](https://github.com/keithwalsh/mui-menubar/commit/2ef99c2d9e030dcbfe30df5045ba50c1e13851bf))
+
+
+### Bug Fixes
+
+* **imports:** adjust import path for SubMenu in CascadingSubmenu component for improved module resolution ([46edf99](https://github.com/keithwalsh/mui-menubar/commit/46edf9981159f5df9896be5b262fb3a31b37c0d8))
+
 ## [1.4.0](https://github.com/keithwalsh/mui-menubar/compare/v1.3.0...v1.4.0) (2025-08-16)
 
 
