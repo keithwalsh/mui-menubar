@@ -3,8 +3,8 @@
  * component and its subcomponents, including new types for material-ui-popup-state.
  */
 
-import { SxProps, Theme, PopoverProps } from "@mui/material";
 import { AppBarProps } from "@mui/material";
+import { SxProps, Theme } from "@mui/material/styles";
 import React from "react";
 import { PopupState } from "material-ui-popup-state/hooks";
 

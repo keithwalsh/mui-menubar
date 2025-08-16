@@ -6,7 +6,7 @@
 import React from "react";
 import { ListItemIcon } from "@mui/material";
 import { SxProps, Theme } from "@mui/material/styles";
-import { SvgIconProps } from "@mui/material/SvgIcon";
+import { SvgIconProps } from "@mui/material";
 import { CascadingContextType } from "../types";
 
 const iconSx: SxProps<Theme> = { mb: 0.2, fontSize: "small" };

@@ -4,6 +4,40 @@
 
 import '@testing-library/jest-dom'
 
+// Mock react-hotkeys-hook with a functional keybinding for tests
+jest.mock('react-hotkeys-hook', () => {
+    function parseShortcut(shortcut: string) {
+        const parts = shortcut.toLowerCase().split('+').map(p => p.trim());
+        const key = parts[parts.length - 1];
+        const modifiers = new Set(parts.slice(0, -1));
+        return { key, modifiers };
+    }
+
+    function matches(event: KeyboardEvent, shortcut: string) {
+        const { key, modifiers } = parseShortcut(shortcut);
+        const keyMatch = (event.key || '').toLowerCase() === key;
+        const ctrlMatch = modifiers.has('ctrl') ? !!event.ctrlKey : !event.ctrlKey;
+        const metaMatch = modifiers.has('meta') ? !!event.metaKey : !event.metaKey;
+        const altMatch = modifiers.has('alt') ? !!event.altKey : !event.altKey;
+        const shiftMatch = modifiers.has('shift') ? !!event.shiftKey : !event.shiftKey;
+        return keyMatch && ctrlMatch && metaMatch && altMatch && shiftMatch;
+    }
+
+    function useHotkeys(shortcut: string, handler: (e: KeyboardEvent) => void) {
+        const listener = (e: KeyboardEvent) => {
+            if (matches(e, shortcut)) {
+                handler(e);
+                if (typeof (e as any).preventDefault === 'function') {
+                    (e as any).preventDefault();
+                }
+            }
+        };
+        document.addEventListener('keydown', listener);
+    }
+
+    return { useHotkeys };
+});
+
 // Store original console methods
 const originalConsole = {
     error: console.error,

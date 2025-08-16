@@ -6,7 +6,6 @@
 import React, { useContext, useMemo } from "react";
 import { MenuList, Popover } from "@mui/material";
 import { SxProps, Theme } from "@mui/material/styles";
-import { PopoverProps } from "@mui/material";
 import { PopupState } from "material-ui-popup-state/hooks";
 import { MenuItems } from "../types";
 import { CascadingContext } from "./CascadingShared";
