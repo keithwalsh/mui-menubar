@@ -10,6 +10,9 @@ import { FileCopy, FolderOpen, Save, ExitToApp, Undo, Redo, ContentCopy, Content
 import { action } from "@storybook/addon-actions";
 import TableSizeChooser from "./TableSizeChooser";
 import TableChart from '@mui/icons-material/TableChart';
+import { Container, IconButton, CssBaseline } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Brightness4, Brightness7 } from "@mui/icons-material";
 
 const meta: Meta<typeof MenuBar> = {
     title: "MenuBar",
@@ -141,7 +144,20 @@ export const Default: Story = {
         color: "transparent",
         disableRipple: true,
     },
-    render: (args: MenuBarProps) => (
-            <MenuBar {...args} />
-    ),
+    render: (args: MenuBarProps) => {
+        const [mode, setMode] = React.useState<'light' | 'dark'>('light');
+        const theme = React.useMemo(() => createTheme({ palette: { mode } }), [mode]);
+
+        return (
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <Container maxWidth="lg" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 2 }}>
+                    <MenuBar {...args} />
+                    <IconButton aria-label="toggle color scheme" color="inherit" onClick={() => setMode(prev => (prev === 'light' ? 'dark' : 'light'))}>
+                        {mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
+                    </IconButton>
+                </Container>
+            </ThemeProvider>
+        );
+    }
 };
