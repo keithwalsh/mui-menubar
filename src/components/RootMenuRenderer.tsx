@@ -1,18 +1,18 @@
 /**
- * @fileoverview Renders the main menu items for the MenuBar component. Wraps
+ * @fileoverview Renders the root menu items for the MenuBar component. Wraps
  * children in MenuButtonGroup so that MenuButton props are minimised.
  */
 
 import React from "react";
-import { Box, dividerClasses } from "@mui/material";
-import { MenuConfig, MainMenuRendererProps } from "../types";
-import MenuButton from "./MenuButton";
-import { MenuButtonGroup } from "./MenuButtonGroup";
+import { Box } from "@mui/material";
+import { MenuConfig, RootMenuRendererProps } from "../types";
+import RootMenuButton from "./RootMenuButton";
+import { RootMenuButtonGroup } from "./RootMenuButtonGroup";
 
 
-export const MainMenuRenderer: React.FC<MainMenuRendererProps> = ({ menuConfig, disableRipple }) => {
+export const RootMenuRenderer: React.FC<RootMenuRendererProps> = ({ menuConfig, disableRipple }) => {
     return (
-        <MenuButtonGroup>
+        <RootMenuButtonGroup>
             <Box 
                 data-testid="menu-toolbar"
                 sx={{ display: 'flex' }}
@@ -20,7 +20,7 @@ export const MainMenuRenderer: React.FC<MainMenuRendererProps> = ({ menuConfig, 
                 {menuConfig.map((menu: MenuConfig) => {
                     const key = menu.id ?? menu.label;
                     return (
-                        <MenuButton
+                        <RootMenuButton
                             key={key}
                             menu={menu}
                             disableRipple={disableRipple}
@@ -28,6 +28,6 @@ export const MainMenuRenderer: React.FC<MainMenuRendererProps> = ({ menuConfig, 
                     );
                 })}
             </Box>
-        </MenuButtonGroup>
+        </RootMenuButtonGroup>
     );
 };

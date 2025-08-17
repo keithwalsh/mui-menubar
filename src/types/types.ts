@@ -94,7 +94,7 @@ export interface CascadingContextType {
 }
 
 
-export interface MainMenuRendererProps {
+export interface RootMenuRendererProps {
     menuConfig: MenuConfig[];
     disableRipple?: boolean;
 }

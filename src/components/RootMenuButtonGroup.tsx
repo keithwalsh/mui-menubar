@@ -1,12 +1,12 @@
 /**
- * @fileoverview Provides a context-based group wrapper to coordinate top-level
- * menu button behaviour including active state, hover navigation, and root-close
- * handling across all top-level buttons.
+ * @fileoverview Provides a context-based group wrapper to coordinate root menu button
+ * behaviour including active state, hover navigation, and root-close handling across
+ * all root menu buttons.
  */
 
 import React from "react";
 
-export interface MenuButtonGroupContextValue {
+export interface RootMenuButtonGroupContextValue {
 	isActive: boolean;
 	activeKey: string | null;
 	registerButtonRef: (key: string, ref: HTMLButtonElement | null) => void;
@@ -15,7 +15,7 @@ export interface MenuButtonGroupContextValue {
 	onRootClose: () => void;
 }
 
-export const MenuButtonGroupContext = React.createContext<MenuButtonGroupContextValue>({
+export const RootMenuButtonGroupContext = React.createContext<RootMenuButtonGroupContextValue>({
 	isActive: false,
 	activeKey: null,
 	registerButtonRef: () => {},
@@ -24,11 +24,11 @@ export const MenuButtonGroupContext = React.createContext<MenuButtonGroupContext
 	onRootClose: () => {},
 });
 
-export interface MenuButtonGroupProps {
+export interface RootMenuButtonGroupProps {
 	children: React.ReactNode;
 }
 
-export const MenuButtonGroup: React.FC<MenuButtonGroupProps> = ({ children }) => {
+export const RootMenuButtonGroup: React.FC<RootMenuButtonGroupProps> = ({ children }) => {
 	const [isActive, setIsActive] = React.useState<boolean>(false);
 	const [activeKey, setActiveKey] = React.useState<string | null>(null);
 
@@ -85,14 +85,14 @@ export const MenuButtonGroup: React.FC<MenuButtonGroupProps> = ({ children }) =>
 	);
 
 	return (
-		<MenuButtonGroupContext.Provider value={contextValue}>
+		<RootMenuButtonGroupContext.Provider value={contextValue}>
 			{children}
-		</MenuButtonGroupContext.Provider>
+		</RootMenuButtonGroupContext.Provider>
 	);
 };
 
-export const useMenuButtonGroup = () => React.useContext(MenuButtonGroupContext);
+export const useRootMenuButtonGroup = () => React.useContext(RootMenuButtonGroupContext);
 
-export default MenuButtonGroup;
+export default RootMenuButtonGroup;
 
 

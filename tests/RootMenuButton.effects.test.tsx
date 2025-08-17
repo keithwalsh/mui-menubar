@@ -1,12 +1,11 @@
 /**
- * @fileoverview Tests effect-driven open/close behavior in `MenuButton` when
- * active key toggles within the MenuButtonGroup.
+ * @fileoverview Tests effect-driven open/close behaviour in `RootMenuButton` when
+ * active key toggles within the RootMenuButtonGroup.
  */
 
-import React from 'react'
 import { render } from '@testing-library/react'
-import { MenuButton } from '../src/components/MenuButton'
-import { MenuButtonGroup } from '../src/components/MenuButtonGroup'
+import { RootMenuButton } from '../src/components/RootMenuButton'
+import { RootMenuButtonGroup } from '../src/components/RootMenuButtonGroup'
 import { MenuConfig } from '../src/types'
 
 jest.mock('material-ui-popup-state/hooks', () => {
@@ -24,21 +23,21 @@ jest.mock('material-ui-popup-state/hooks', () => {
 
 const menu: MenuConfig = { label: 'Menu', items: [] }
 
-describe('MenuButton effects', () => {
+describe('RootMenuButton effects', () => {
   it('opens when activeKey becomes this menu and closes when it changes away while active', () => {
     const onRootClose = jest.fn()
     const { rerender } = render(
-      <MenuButtonGroup>
-        <MenuButton menu={menu} />
-      </MenuButtonGroup>
+      <RootMenuButtonGroup>
+        <RootMenuButton menu={menu} />
+      </RootMenuButtonGroup>
     )
 
     // Simulate group activation by clicking the button
     // The mocked popup state allows open/close to be called without DOM
     rerender(
-      <MenuButtonGroup>
-        <MenuButton menu={menu} />
-      </MenuButtonGroup>
+      <RootMenuButtonGroup>
+        <RootMenuButton menu={menu} />
+      </RootMenuButtonGroup>
     )
   })
 })

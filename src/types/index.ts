@@ -9,5 +9,5 @@ export type {
     MenuBarProps,
     CascadingMenuProps,
     CascadingContextType,
-    MainMenuRendererProps
+    RootMenuRendererProps
 } from './types'; 

@@ -1,12 +1,11 @@
 /**
- * @fileoverview Tests `MainMenuRenderer` global mousemove hover navigation
- * behavior across top-level menu buttons.
+ * @fileoverview Tests `RootMenuRenderer` global mousemove hover navigation
+ * behavior across root menu buttons.
  */
 
-import React from 'react'
 import { render, screen, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { MainMenuRenderer } from '../src/components/MainMenuRenderer'
+import { RootMenuRenderer } from '../src/components/RootMenuRenderer'
 import { MenuConfig } from '../src/types'
 
 const config: MenuConfig[] = [
@@ -14,9 +13,9 @@ const config: MenuConfig[] = [
   { label: 'Edit', items: [{ kind: 'action', label: 'B', action: jest.fn() }] }
 ]
 
-describe('MainMenuRenderer hover navigation', () => {
+describe('RootMenuRenderer hover navigation', () => {
   it('navigates to another menu via global mouse move when active', async () => {
-    render(<MainMenuRenderer menuConfig={config} />)
+    render(<RootMenuRenderer menuConfig={config} />)
     const user = userEvent.setup()
 
     const fileButton = screen.getByRole('button', { name: /file/i }) as HTMLButtonElement

@@ -1,4 +1,9 @@
-import React from 'react'
+/**
+ * @fileoverview Test suite for the MenuBar component, covering rendering,
+ * interaction, submenu behavior, disabled states, custom styles, icons,
+ * ripple effect, and edge cases. Uses React Testing Library and Jest.
+ */
+
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MenuBar } from '../src/components/MenuBar'

@@ -1,5 +1,5 @@
 /**
- * @fileoverview Encapsulates a single top-level menu button with its popup state
+ * @fileoverview Encapsulates a single root menu button with its popup state
  * and associated cascading menu rendering. Uses group context to coordinate
  * active state, hover navigation, and root-close behavior.
  */
@@ -9,15 +9,15 @@ import { Button } from "@mui/material";
 import { usePopupState } from "material-ui-popup-state/hooks";
 import { RootMenu } from "./RootMenu";
 import { MenuConfig } from "../types";
-import { useMenuButtonGroup } from "./MenuButtonGroup";
+import { useRootMenuButtonGroup } from "./RootMenuButtonGroup";
 
 
-export interface MenuButtonProps {
+export interface RootMenuButtonProps {
 	menu: MenuConfig;
 	disableRipple?: boolean;
 }
 
-export const MenuButton: React.FC<MenuButtonProps> = ({ menu, disableRipple }) => {
+export const RootMenuButton: React.FC<RootMenuButtonProps> = ({ menu, disableRipple }) => {
 	const menuId = menu.id ?? menu.label;
 	const popupState = usePopupState({
 		variant: "popover" as const,
@@ -25,7 +25,7 @@ export const MenuButton: React.FC<MenuButtonProps> = ({ menu, disableRipple }) =
 	});
 
 	const buttonRef = React.useRef<HTMLButtonElement | null>(null);
-	const { isActive, activeKey, registerButtonRef, onActivate, onHoverNavigate, onRootClose } = useMenuButtonGroup();
+	const { isActive, activeKey, registerButtonRef, onActivate, onHoverNavigate, onRootClose } = useRootMenuButtonGroup();
 	
 	// Handle button ref callback
 	const handleButtonRef = React.useCallback((ref: HTMLButtonElement | null) => {
@@ -105,6 +105,6 @@ export const MenuButton: React.FC<MenuButtonProps> = ({ menu, disableRipple }) =
 	);
 };
 
-export default MenuButton;
+export default RootMenuButton;
 
 

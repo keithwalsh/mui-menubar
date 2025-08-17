@@ -1,13 +1,13 @@
 /**
- * @fileoverview Implements the main MenuBar component, rendering a customizable
+ * @fileoverview Implements the main MenuBar component, rendering a customisable
  * menu bar using Material-UI components and popup state management.
  */
 
 import React from "react";
-import { AppBar, Toolbar, Divider } from "@mui/material";
+import { AppBar, Toolbar } from "@mui/material";
 import { MenuBarProps } from "../types";
 import { useMenuHotkeys } from "../utils";
-import { MainMenuRenderer } from "./MainMenuRenderer";
+import { RootMenuRenderer } from "./RootMenuRenderer";
 
 export const MenuBar: React.FC<MenuBarProps> = ({ config, color = "transparent", sx, disableRipple }) => {
     const menuConfig = config;
@@ -36,7 +36,7 @@ export const MenuBar: React.FC<MenuBarProps> = ({ config, color = "transparent",
             }}
         >
             <Toolbar variant="dense" disableGutters={true} sx={{ px: 0 }}>
-                <MainMenuRenderer menuConfig={menuConfig} disableRipple={disableRipple} />
+                <RootMenuRenderer menuConfig={menuConfig} disableRipple={disableRipple} />
             </Toolbar>
         </AppBar>
     );
