@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.5.5](https://github.com/keithwalsh/mui-menubar/compare/v1.5.4...v1.5.5) (2025-08-17)
+
+
+### Documentation
+
+* update installation instructions for MUI v5, v6, and v7 to clarify peer dependency requirements ([8f388f0](https://github.com/keithwalsh/mui-menubar/commit/8f388f0a0e99563ca8c9a13d7326c737b49aa968))
+
 ## [1.5.4](https://github.com/keithwalsh/mui-menubar/compare/v1.5.3...v1.5.4) (2025-08-17)
 
 ## [1.5.3](https://github.com/keithwalsh/mui-menubar/compare/v1.5.2...v1.5.3) (2025-08-17)
