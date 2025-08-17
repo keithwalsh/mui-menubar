@@ -5,7 +5,7 @@
 
 import React, { useContext, useMemo } from "react";
 import HoverMenuImport from "material-ui-popup-state/HoverMenu";
-import { MenuList, MenuItem, dividerClasses } from "@mui/material";
+import { MenuList, MenuItem } from "@mui/material";
 import { bindMenu } from "material-ui-popup-state/hooks";
 import { styled } from "@mui/material/styles";
 import { SxProps, Theme } from "@mui/material/styles";
@@ -54,7 +54,7 @@ export interface SubMenuProps {
     [key: string]: any;
 }
 
-export const SubMenu: React.FC<SubMenuProps> = ({ 
+const SubMenuComponent: React.FC<SubMenuProps> = ({ 
     menuItems, 
     popupState, 
     disableRipple, 
@@ -96,7 +96,7 @@ export const SubMenu: React.FC<SubMenuProps> = ({
 
     const menuContent = (
         <CascadingContext.Provider value={context}>
-            <MenuList dense sx={{ m: 0, [`& .${dividerClasses.root}`]: { m: 0 }, "& .MuiList-padding": { paddingTop: 0, paddingBottom: 0 }, p: 0 }}>
+            <MenuList dense sx={{ m: 0, p: 0 }}>
                 {menuItems.map((item: MenuItems, index: number) => {
                     const baseId = (item as any).id ?? (item as any).label ?? index;
                     if (item.kind === "submenu") {
@@ -126,10 +126,12 @@ export const SubMenu: React.FC<SubMenuProps> = ({
         <StyledMenu
             {...props}
             {...bindMenu(popupState)}
+            autoFocus={props?.autoFocus ?? false}
+            disableAutoFocusItem={props?.disableAutoFocusItem ?? true}
+            transitionDuration={0}
             PaperProps={{
                 ...(PaperProps ?? {}),
                 sx: paperSx,
-                component: MenuItem,
             }}
             slotProps={incomingSlotProps}
         >
@@ -137,5 +139,7 @@ export const SubMenu: React.FC<SubMenuProps> = ({
         </StyledMenu>
     );
 };
+
+export const SubMenu = React.memo(SubMenuComponent);
 
 export default SubMenu;

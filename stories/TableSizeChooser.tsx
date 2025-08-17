@@ -4,6 +4,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Box, Typography, TextField } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 
 export interface TableSizeChooserProps {
     maxRows?: number;
@@ -31,8 +32,15 @@ function SizeInput({ label, value, type, max, onChange, onBlur, onFocus }: SizeI
             onChange={(e) => onChange(type, e.target.value)}
             onBlur={onBlur}
             onFocus={onFocus}
+            sx={{
+                mx: 0,
+                "& .MuiInputBase-input": {
+                    color: "text.secondary",
+                    py: 0.7,
+                }
+            }}
             type="number"
-            InputProps={{ inputProps: { min: 1, max } }}
+            slotProps={{ input: { inputProps: { min: 1, max } } }}
             size="small"
         />
     )
@@ -101,8 +109,8 @@ const TableSizeChooser: React.FC<TableSizeChooserProps> = ({ maxRows = 20, maxCo
     ]
 
     return (
-        <Box sx={{ padding: 2, width: "auto" }}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
+        <Box sx={{ py: 1.5, paddingLeft: 1, width: "auto" }}>
+            <Box sx={{ color: "text.secondary", display: "flex", alignItems: "center", gap: 0.5, mb: 2 }}>
                 {inputs.map((input, index) => (
                     <React.Fragment key={input.type}>
                         <SizeInput
@@ -111,7 +119,7 @@ const TableSizeChooser: React.FC<TableSizeChooserProps> = ({ maxRows = 20, maxCo
                             onBlur={handleInputBlur}
                             onFocus={handleInputFocus}
                         />
-                        {index === 0 && <Typography variant="h6">x</Typography>}
+                        {index === 0 && <Typography variant="body1" sx={{ fontSize: '1.2rem' }}>×</Typography>}
                     </React.Fragment>
                 ))}
             </Box>
@@ -142,13 +150,14 @@ const TableSizeChooser: React.FC<TableSizeChooserProps> = ({ maxRows = 20, maxCo
                                 sx={{
                                     width: 10,
                                     height: 10,
-                                    border: rowIndex < currentRows && colIndex < currentCols ? "1px solid #000" : "1px solid #ccc",
-                                    backgroundColor:
+                                    border: "1px solid",
+                                    borderColor: "text.disabled",
+                                    backgroundColor: (theme) =>
                                         rowIndex <= hoveredRow && colIndex <= hoveredCol
-                                            ? "rgba(25, 118, 210, 0.12)"
+                                            ? alpha(theme.palette.primary.main, 0.12)
                                             : rowIndex < currentRows && colIndex < currentCols
-                                            ? "rgba(25, 118, 210, 0.12)"
-                                            : "#fff",
+                                            ? alpha(theme.palette.primary.main, 0.12)
+                                            : alpha(theme.palette.background.paper, 0.12),
                                     cursor: "pointer",
                                 }}
                                 onMouseEnter={() => handleMouseEnter(rowIndex, colIndex)}

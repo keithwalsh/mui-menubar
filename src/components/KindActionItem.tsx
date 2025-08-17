@@ -29,7 +29,7 @@ export const KindActionItem: React.FC<MenuItemAction & { disableRipple?: boolean
             disableRipple={disableRipple}
         >
             {item.icon && renderListItemIcon(item.icon)}
-            <ListItemText>{item.label}</ListItemText>
+            <ListItemText><Typography variant="body2" sx={{ color: "text.secondary" }}>{item.label}</Typography></ListItemText>
             {item.shortcut && (
                 <Typography variant="body2" sx={{ ml: 4, color: "text.secondary" }}>
                     {item.shortcut}

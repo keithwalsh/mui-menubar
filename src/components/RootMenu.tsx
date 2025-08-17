@@ -4,7 +4,7 @@
  */
 
 import React, { useContext, useMemo } from "react";
-import { dividerClasses, MenuList, Popover } from "@mui/material";
+import { MenuList, Popover } from "@mui/material";
 import { SxProps, Theme } from "@mui/material/styles";
 import { PopupState } from "material-ui-popup-state/hooks";
 import { MenuItems } from "../types";
@@ -91,7 +91,7 @@ export const RootMenu: React.FC<RootMenuProps> = ({
 
     const menuContent = (
         <CascadingContext.Provider value={context}>
-            <MenuList dense sx={{ m: 0, [`& .${dividerClasses.root}`]: { m: 0 }, "& .MuiList-padding": { paddingTop: 0, paddingBottom: 0 }, p: 0 }}>
+            <MenuList dense sx={{ m: 0, p: 0 }}>
                 {menuItems.map((item: MenuItems, index: number) => {
                     const baseId = (item as any).id ?? (item as any).label ?? index;
                     if (item.kind === "submenu") {

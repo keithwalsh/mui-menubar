@@ -5,7 +5,7 @@
  */
 
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { usePopupState } from "material-ui-popup-state/hooks";
 import { RootMenu } from "./RootMenu";
 import { MenuConfig } from "../types";
@@ -92,9 +92,13 @@ export const RootMenuButton: React.FC<RootMenuButtonProps> = ({ menu, disableRip
 				disabled={menu.disabled}
 				disableRipple={disableRipple}
 			>
-				{menu.label}
+				<Typography variant="body2" color="text.secondary">{menu.label}</Typography>
 			</Button>
 			<RootMenu
+			PopoverProps={{
+				transitionDuration: 222,                 // or { enter: 222, exit: 222 }
+				slotProps: { transition: { timeout: 222 } } // optional; transitionDuration is what matters
+			  }}
 				menuItems={menu.items}
 				popupState={popupState}
 				disableRipple={disableRipple}

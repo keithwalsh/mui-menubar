@@ -4,7 +4,7 @@
  */
 
 import React, { useContext } from "react";
-import { MenuList, MenuItem, ListItemText, dividerClasses } from "@mui/material";
+import { MenuList, MenuItem, ListItemText, dividerClasses, Typography } from "@mui/material";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import { usePopupState, bindHover, bindFocus, bindTrigger } from "material-ui-popup-state/hooks";
 import { MenuItemSubmenu } from "../types";
@@ -45,15 +45,12 @@ export const CascadingSubmenu: React.FC<CascadingSubmenuProps> = ({
                 >
                     {icon && renderListItemIcon(icon, { mr: -4.5 })}
                     <ListItemText inset sx={{ px: 0 }}>
-                        {label}
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>{label}</Typography>   
                     </ListItemText>
                     <ChevronRight sx={{
                         ml: 4,
                         mr: -1,
-                        color: (theme) =>
-                            theme.palette.mode === "dark"
-                                ? "#fff"
-                                : "rgba(0, 0, 0, 0.54)"
+                        color: "text.secondary"
                     }} />
                 </MenuItem>
             </MenuList>
