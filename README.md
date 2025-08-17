@@ -51,7 +51,7 @@ import { MenuBar, MenuConfig } from 'mui-menubar';
 import { FileCopy, Save } from '@mui/icons-material';
 
 const App = () => {
-  const menuConfig = [
+  const menuConfig: MenuConfig[] = [
     {
       label: "File",
       items: [
@@ -157,7 +157,7 @@ The MenuBar supports four types of menu items:
 ### Custom Menu with Icons
 
 ```tsx
-const menuConfig = [{
+const menuConfig: MenuConfig[] = [
     label: "Edit",
     items: [
         {
