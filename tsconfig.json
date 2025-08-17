@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "outDir": "dist",
+        "rootDir": "src",
         "module": "ESNext",
         "target": "es2016",
         "lib": ["DOM", "DOM.Iterable", "ESNext"],
@@ -13,12 +14,12 @@
         "strict": true,
         "skipLibCheck": true,
         "baseUrl": "./",
-        "types": ["react", "node","jest","@testing-library/jest-dom"],
+        "types": ["react", "node", "jest", "@testing-library/jest-dom"],
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": false
     },
-    "include": ["src/**/*", "stories", "tests/**/*"],
-    "exclude": ["dist", "node_modules", "**/*.stories.tsx"]
+    "include": ["src/**/*"],
+    "exclude": ["dist", "node_modules", "stories", "tests", "**/*.stories.tsx"]
 }
