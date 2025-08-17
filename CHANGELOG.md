@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.5.3](https://github.com/keithwalsh/mui-menubar/compare/v1.5.2...v1.5.3) (2025-08-17)
+
+
+### Bug Fixes
+
+* **theme:** update brand title from 'mui-menustrip' to 'mui-menubar' for consistency; enhance package.json exports and typesVersions for better type support ([eff4af8](https://github.com/keithwalsh/mui-menubar/commit/eff4af80d725debb35712ad2c79cd191c9065d3e))
+
 ## [1.5.2](https://github.com/keithwalsh/mui-menubar/compare/v1.5.1...v1.5.2) (2025-08-17)
 
 ## [1.5.1](https://github.com/keithwalsh/mui-menubar/compare/v1.5.0...v1.5.1) (2025-08-16)
