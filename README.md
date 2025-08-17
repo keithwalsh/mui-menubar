@@ -24,8 +24,20 @@ A React **MenuBar** component built with **Material-UI (MUI)**, providing a cust
 npm install mui-menubar
 ```
 2. Ensure MUI peer dependencies are present in your project
+
+For MUI v6:
 ```
-npm install @mui/material @mui/icons-material @emotion/react @emotion/styled
+npm install @mui/material@^6 @mui/icons-material@^6 @emotion/react @emotion/styled
+```
+
+For MUI v7:
+```
+npm install @mui/material@^7 @mui/icons-material@^7 @emotion/react @emotion/styled
+```
+
+MUI v5 is also supported:
+```
+npm install @mui/material@^5 @mui/icons-material@^5 @emotion/react @emotion/styled
 ```
 
 ### Compatibility
