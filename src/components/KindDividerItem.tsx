@@ -7,7 +7,7 @@ import { Divider } from "@mui/material";
 import { MenuItemDivider } from "../types";
 
 export const KindDividerItem: React.FC<MenuItemDivider> = () => {
-    return <Divider sx={{ mx: 0 }} component="li"/>;
+    return <Divider data-testid="menu-divider" sx={{ mx: 0 }} component="li"/>;
 };
 
 export default KindDividerItem;

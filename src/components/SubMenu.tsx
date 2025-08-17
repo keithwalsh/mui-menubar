@@ -66,12 +66,12 @@ export const SubMenu: React.FC<SubMenuProps> = ({
 }) => {
     const { rootPopupState } = useContext(CascadingContext);
     const mergedTransitionSlotProps = {
-        ...(TransitionProps || {}),
-        ...(slotProps?.transition || {}),
+        ...(TransitionProps ?? {}),
+        ...(slotProps?.transition ?? {}),
         timeout: 0
     };
     const incomingSlotProps = {
-        ...slotProps,
+        ...(slotProps ?? {}),
         transition: mergedTransitionSlotProps
     };
     
@@ -89,7 +89,7 @@ export const SubMenu: React.FC<SubMenuProps> = ({
             "& .MuiPaper-root": {
                 backgroundColor: "background.paper",
             },
-            ...PaperProps?.sx
+            ...(PaperProps?.sx ?? {})
         }),
         [PaperProps?.sx]
     );
@@ -127,7 +127,7 @@ export const SubMenu: React.FC<SubMenuProps> = ({
             {...props}
             {...bindMenu(popupState)}
             PaperProps={{
-                ...PaperProps,
+                ...(PaperProps ?? {}),
                 sx: paperSx,
                 component: MenuItem,
             }}

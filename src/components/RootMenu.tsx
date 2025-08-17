@@ -55,11 +55,11 @@ export const RootMenu: React.FC<RootMenuProps> = ({
     const { TransitionProps: deprecatedTransitionProps, slotProps: incomingSlotProps, ...restPopoverProps } = (PopoverProps as any) ?? {};
     const mergedTransitionSlotProps = {
         timeout: 0,
-        ...(deprecatedTransitionProps || {}),
-        ...(incomingSlotProps?.transition || {})
+        ...(deprecatedTransitionProps ?? {}),
+        ...(incomingSlotProps?.transition ?? {})
     };
     const popoverSlotProps = {
-        ...incomingSlotProps,
+        ...(incomingSlotProps ?? {}),
         transition: mergedTransitionSlotProps
     };
     
@@ -77,7 +77,7 @@ export const RootMenu: React.FC<RootMenuProps> = ({
             "& .MuiPaper-root": {
                 backgroundColor: "background.paper",
             },
-            ...restPopoverProps?.PaperProps?.sx
+            ...(restPopoverProps?.PaperProps?.sx ?? {})
         }),
         [restPopoverProps?.PaperProps?.sx]
     );
@@ -127,15 +127,15 @@ export const RootMenu: React.FC<RootMenuProps> = ({
             anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'left',
-                ...restPopoverProps?.anchorOrigin
+                ...(restPopoverProps?.anchorOrigin ?? {})
             }}
             transformOrigin={{
                 vertical: 'top',
                 horizontal: 'left',
-                ...restPopoverProps?.transformOrigin
+                ...(restPopoverProps?.transformOrigin ?? {})
             }}
             PaperProps={{
-                ...restPopoverProps?.PaperProps,
+                ...(restPopoverProps?.PaperProps ?? {}),
                 sx: paperSx
             }}
             slotProps={popoverSlotProps}

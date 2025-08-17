@@ -3,6 +3,7 @@
 ![Build](https://github.com/keithwalsh/mui-menubar/actions/workflows/build.yml/badge.svg)
 [![codecov](https://codecov.io/gh/keithwalsh/mui-menubar/branch/main/graph/badge.svg)](https://codecov.io/gh/keithwalsh/mui-menubar)
 [![Code Climate](https://codeclimate.com/github/keithwalsh/mui-menubar/badges/gpa.svg)](https://codeclimate.com/github/keithwalsh/mui-menubar)
+[![code quality](https://img.shields.io/codefactor/grade/github/keithwalsh/obsidian-kbd)](https://www.codefactor.io/repository/github/keithwalsh/obsidian-kbd)
 [![NPM Version](https://img.shields.io/npm/v/mui-menubar.svg)](https://www.npmjs.com/package/mui-menubar)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)
 
