@@ -7,12 +7,13 @@
 [![NPM Version](https://img.shields.io/npm/v/mui-menubar.svg)](https://www.npmjs.com/package/mui-menubar)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)
 
-A React **MenuBar** component built with **Material-UI (MUI)**, providing a customizable and accessible menu bar implementation for applications. A menu bar is common in desktop applications and provides quick access to a consistent set of commands (e.g. File, Edit, View).
+A React stateful **MenuBar** component built with **Material-UI (MUI)**, providing a customizable and accessible menu bar implementation for applications. A menu bar is common in desktop applications and provides quick access to a consistent set of commands (e.g. File, Edit, View).
 
 ## 🚀 Features
 
 - Cascading menus with unlimited nesting
 - Light and dark theme support
+- Activation on click, navigation on hover
 - Keyboard shortcuts
 - Support for integrating components as a custom menu item
 - Material-UI icons integration
@@ -222,8 +223,10 @@ const menuConfig: MenuConfig[] = [
    - ARIA attributes automatically handled
 
 6. **Interaction Model**
-   - Top-level menus open on click
-   - Submenus open on hover
+   - Activation on click, navigation on hover
+   - After clicking a top-level item, the menu stays active; hovering another top-level item switches submenus without extra clicks.
+   - Submenus open on hover for seamless navigation
+   - Click outside to close the menu and exit active state
 
 ## 🎨 Common Customization Patterns
 

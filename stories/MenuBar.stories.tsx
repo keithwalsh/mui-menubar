@@ -85,8 +85,8 @@ const sampleConfig: MenuConfig[] = [
     {
         label: "File",
         items: [
-            { kind: "action", label: "Hello", action: action("New file"), icon: <FileCopy />, shortcut: "Ctrl+S" },
-            { kind: "action", label: "Open", action: action("Open file action triggered"), icon: <FolderOpen />, disabled: true },
+            { kind: "action", label: "Hello", action: action("New file"), icon: <FileCopy /> },
+            { kind: "action", label: "Open", action: action("Open file action triggered"), icon: <FolderOpen />, shortcut: "Ctrl+O", disabled: true },
             { kind: "divider" },
             {
                 kind: "submenu",
@@ -107,19 +107,19 @@ const sampleConfig: MenuConfig[] = [
                     }
                 ]
             },
-            { kind: "action", label: "Save", action: action("Save file"), icon: <Save /> },
+            { kind: "action", label: "Save", action: action("Save file"), icon: <Save />,  shortcut: "Ctrl+S" },
             { kind: "action", label: "Exit", action: action("Exit application"), icon: <ExitToApp /> },
         ],
     },
     {
         label: "Edit",
         items: [
-            { kind: "action", label: "Undo", action: action("Undo"), icon: <Undo /> },
-            { kind: "action", label: "Redo", action: action("Redo"), icon: <Redo /> },
+            { kind: "action", label: "Undo", action: action("Undo"), icon: <Undo />, shortcut: "Ctrl+Z" },
+            { kind: "action", label: "Redo", action: action("Redo"), icon: <Redo />, shortcut: "Ctrl+Y" },
             { kind: "divider" },
             {
                 kind: "submenu",
-                label: "Advanced",
+                label: "Other",
                 items: [
                     { kind: "action", label: "Copy", action: action("Copy"), icon: <ContentCopy /> },
                     { kind: "divider" },
@@ -133,8 +133,8 @@ const sampleConfig: MenuConfig[] = [
         items: [
             { kind: "action", label: "Show/Hide Sidebar", action: action("Toggle Sidebar"), icon: <Visibility />, selected: true },
             { kind: "divider" },
-            { kind: "action", label: "Zoom In", action: action("Zoom In"), icon: <ZoomIn /> },
-            { kind: "action", label: "Zoom Out", action: action("Zoom Out"), icon: <ZoomOut /> },
+            { kind: "action", label: "Zoom In", action: action("Zoom In"), icon: <ZoomIn />, shortcut: "Ctrl+Plus" },
+            { kind: "action", label: "Zoom Out", action: action("Zoom Out"), icon: <ZoomOut />, shortcut: "Ctrl+Minus" },
         ],
     },
 ];
