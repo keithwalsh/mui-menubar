@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.5.6](https://github.com/keithwalsh/mui-menubar/compare/v1.5.5...v1.5.6) (2025-08-18)
+
+
+### Bug Fixes
+
+* **README, KindDividerItem:** update menuConfig type annotations for TypeScript support; adjust margin style in KindDividerItem component ([e9fa51d](https://github.com/keithwalsh/mui-menubar/commit/e9fa51d2464dc186a2fc7769127693815925255f))
+
+
+### Documentation
+
+* enhance README with stateful MenuBar description and interaction model; update storybook examples to include keyboard shortcuts for menu actions ([93603e7](https://github.com/keithwalsh/mui-menubar/commit/93603e7677d919912ef588eac94602029c970fce))
+
 ## [1.5.5](https://github.com/keithwalsh/mui-menubar/compare/v1.5.4...v1.5.5) (2025-08-17)
 
 
