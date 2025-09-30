@@ -116,8 +116,8 @@
     "dependencies": {
         "@emotion/react": "^11.0.0",
         "@emotion/styled": "^11.0.0",
-        "@mui/icons-material": "^7.0.0",
-        "@mui/material": "^7.0.0",
+        "@mui/icons-material": "^7.3.2",
+        "@mui/material": "^7.3.2",
         "material-ui-popup-state": "^5.3.1",
         "react-hotkeys-hook": "^5.1.0"
     },

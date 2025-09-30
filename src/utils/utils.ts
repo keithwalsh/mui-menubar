@@ -30,7 +30,8 @@ export const useMenuHotkeys = (config: MenuConfig[]) => {
         config.forEach((menu) => {
             menu.items.forEach((item) => {
                 if (hasShortcutAndAction(item)) {
-                    map.set(item.shortcut, item.action);
+                    // Replace 'Plus' with '=' because react-hotkeys-hook expects '=' for the plus key (e.g., 'Ctrl+Plus' should be 'Ctrl+=')
+                    map.set(item.shortcut.replace(/Plus/g, "="), item.action);
                 }
             });
         });
