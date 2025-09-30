@@ -26,25 +26,16 @@ npm install mui-menubar
 ```
 2. Ensure MUI peer dependencies are present in your project
 
-For MUI v6:
-```
-npm install @mui/material@^6 @mui/icons-material@^6 @emotion/react @emotion/styled
-```
-
 For MUI v7:
 ```
 npm install @mui/material@^7 @mui/icons-material@^7 @emotion/react @emotion/styled
 ```
 
-MUI v5 is also supported:
-```
-npm install @mui/material@^5 @mui/icons-material@^5 @emotion/react @emotion/styled
-```
 
 ### Compatibility
 
 - React: ^17 or ^18
-- MUI: v5 or v6
+- MUI: v7
 - TypeScript: 5.x recommended (for typings)
 ### Basic usage example:
 ```tsx
