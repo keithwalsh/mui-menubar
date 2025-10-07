@@ -1,45 +1,65 @@
 /**
- * @fileoverview Implements the main MenuBar component, rendering a customisable
- * menu bar using Material-UI components and popup state management.
+ * @fileoverview Horizontal menu bar rendering menu buttons from MenuConfig,
+ * supporting menu chaining and activation logic.
  */
 
-import React from "react";
-import { AppBar, Toolbar } from "@mui/material";
-import { MenuBarProps } from "../types";
-import { useMenuHotkeys } from "../utils";
-import { RootMenuRenderer } from "./RootMenuRenderer";
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Box, SxProps, Theme } from '@mui/material';
+import { MenuConfig } from '../types';
+import { resolveMenuId } from '../utils/menuUtils';
+import { MenuButton } from './MenuButton';
 
-export const MenuBar: React.FC<MenuBarProps> = ({ config, color = "transparent", sx, disableRipple }) => {
-    const menuConfig = config;
+export interface MenuBarProps {
+    menuConfig: MenuConfig[];
+    sx?: SxProps<Theme>;
+}
 
-    // Set up hotkeys for the menu items
-    useMenuHotkeys(menuConfig);
+export function MenuBar({ menuConfig, sx }: MenuBarProps) {
+    const [activeMenuId, setActiveMenuId] = useState<string | null>(null);
+    const buttonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
 
-    if (menuConfig.length === 0) {
-        return (
-            <AppBar position="static" elevation={0} color={color} sx={sx}>
-                <Toolbar variant="dense" disableGutters={true} role="toolbar" />
-            </AppBar>
-        );
-    }
+    const handleActivate = (menuId: string) => {
+        setActiveMenuId(menuId);
+    };
+
+    const handleDeactivate = useCallback(() => {
+        setActiveMenuId(null);
+    }, []);
+
+    const handleRegisterRef = (menuId: string, ref: HTMLButtonElement | null) => {
+        if (ref) {
+            buttonRefs.current.set(menuId, ref);
+        } else {
+            buttonRefs.current.delete(menuId);
+        }
+    };
+
+    useEffect(() => {
+        const onMouseDown = (event: MouseEvent) => {
+            const buttons = [...buttonRefs.current.values()];
+            const clickedOutside = !buttons.some(btn => btn?.contains(event.target as Node));
+            if (clickedOutside) {
+                handleDeactivate();
+            }
+        };
+
+        document.addEventListener('mousedown', onMouseDown);
+        return () => document.removeEventListener('mousedown', onMouseDown);
+    }, [handleDeactivate]);
 
     return (
-        <AppBar
-            position="static"
-            elevation={0}
-            data-testid="menu-bar-root"
-            color={color}
-            sx={{
-                px: 0,
-                minHeight: 0,
-                ...sx,
-            }}
-        >
-            <Toolbar variant="dense" disableGutters={true} sx={{ px: 0 }}>
-                <RootMenuRenderer menuConfig={menuConfig} disableRipple={disableRipple} />
-            </Toolbar>
-        </AppBar>
+        <Box sx={{ display: 'flex', ...sx }}>
+            {menuConfig.map((menu) => (
+                <MenuButton 
+                    key={resolveMenuId(menu)} 
+                    menu={menu}
+                    activeMenuId={activeMenuId}
+                    onActivate={handleActivate}
+                    onHoverNavigate={handleActivate}
+                    onDeactivate={handleDeactivate}
+                    onRegisterRef={handleRegisterRef}
+                />
+            ))}
+        </Box>
     );
-};
-
-export default MenuBar;
+}

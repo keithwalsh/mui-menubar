@@ -1,288 +1,160 @@
-# Ⓜ ─ mui-menubar ─ 🍫
+# mui-nested-menu
 
-![Build](https://github.com/keithwalsh/mui-menubar/actions/workflows/build.yml/badge.svg)
-[![codecov](https://codecov.io/gh/keithwalsh/mui-menubar/branch/main/graph/badge.svg)](https://codecov.io/gh/keithwalsh/mui-menubar)
-[![Code Climate](https://codeclimate.com/github/keithwalsh/mui-menubar/badges/gpa.svg)](https://codeclimate.com/github/keithwalsh/mui-menubar)
-[![code quality](https://img.shields.io/codefactor/grade/github/keithwalsh/obsidian-kbd)](https://www.codefactor.io/repository/github/keithwalsh/obsidian-kbd)
-[![NPM Version](https://img.shields.io/npm/v/mui-menubar.svg)](https://www.npmjs.com/package/mui-menubar)
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)
+React MenuBar component built with Material-UI. Supports nested submenus, keyboard shortcuts, icons, and hover navigation.
 
-A React stateful **MenuBar** component built with **Material-UI (MUI)**, providing a customizable and accessible menu bar implementation for applications. A menu bar is common in desktop applications and provides quick access to a consistent set of commands (e.g. File, Edit, View).
+## Installation
 
-## 🚀 Features
-
-- Cascading menus with unlimited nesting
-- Light and dark theme support
-- Activation on click, navigation on hover
-- Keyboard shortcuts
-- Support for integrating components as a custom menu item
-- Material-UI icons integration
-
-## 📦 Basic Implementation
-### Installation
-1. Install the package
-```
-npm install mui-menubar
-```
-2. Ensure MUI peer dependencies are present in your project
-
-For MUI v7:
-```
-npm install @mui/material@^7 @mui/icons-material@^7 @emotion/react @emotion/styled
+```bash
+npm install mui-nested-menu
 ```
 
+## Usage
 
-### Compatibility
-
-- React: ^17 or ^18
-- MUI: v7
-- TypeScript: 5.x recommended (for typings)
-### Basic usage example:
 ```tsx
-import { MenuBar, MenuConfig } from 'mui-menubar';
-import { FileCopy, Save } from '@mui/icons-material';
+import { MenuBar, MenuConfig } from 'mui-nested-menu';
 
-const App = () => {
-  const menuConfig: MenuConfig[] = [
-    {
-      label: "File",
-      items: [
-        {
-          kind: "action",
-          label: "New",
-          action: () => console.log("New file"),
-          icon: <FileCopy />,
-          shortcut: "Ctrl+N"
-        },
-        {
-          kind: "action",
-          label: "Save",
-          action: () => console.log("Save file"),
-          icon: <Save />,
-          shortcut: "Ctrl+S"
-        }
-      ]
-    }
-  ];
+const menuConfig: MenuConfig[] = [
+  {
+    label: 'File',
+    items: [
+      { kind: 'action', label: 'New', action: () => {}, shortcut: '⌘N' },
+      { kind: 'divider' },
+      { kind: 'action', label: 'Exit', action: () => {} }
+    ]
+  }
+];
 
-  return (
-    <MenuBar 
-      config={menuConfig}
-      color="transparent"
-    />
-  );
-};
+<MenuBar menuConfig={menuConfig} />
 ```
 
-## ⚙️ API Reference
+## MenuConfig
 
-### MenuBar Interface
+Defines the structure of each top-level menu. Each menu contains:
+
+- `label` - Text displayed in the menu bar
+- `items` - Array of menu items (actions, dividers, or submenus)
+- `id` - Optional unique identifier
+- `disabled` - Optional flag to disable the entire menu
+
+## Menu Items
+
+Three types of menu items:
+
+### Action
+
+Executes a function when clicked.
+
+```tsx
+{
+  kind: 'action',
+  label: 'Save',
+  action: () => console.log('saved'),
+  shortcut: '⌘S',
+  icon: <SaveIcon />,
+  disabled: false,
+  selected: false
+}
+```
+
+### Divider
+
+Visual separator between menu items.
+
+```tsx
+{
+  kind: 'divider'
+}
+```
+
+### Submenu
+
+Nested menu that opens on hover. Supports infinite nesting depth.
+
+```tsx
+{
+  kind: 'submenu',
+  label: 'Recent Files',
+  icon: <FolderIcon />,
+  items: [
+    { kind: 'action', label: 'file1.txt', action: () => {} },
+    { kind: 'action', label: 'file2.txt', action: () => {} }
+  ]
+}
+```
+
+## Components
+
+**MenuBar** - Horizontal bar that renders menu buttons. Handles activation state and hover navigation between menus. Clicking outside any menu closes all open menus.
+
+**MenuButton** - Individual button in the menu bar. Opens a dropdown menu on click. Supports hover navigation when another menu is already open.
+
+**MenuItemAction** - Leaf menu item that executes an action. Displays label, optional icon on left, and optional shortcut or icon on right. Supports selected and disabled states.
+
+**MenuItemSubmenu** - Menu item that opens a submenu on hover. Default delay is 0ms but configurable. Displays chevron icon on the right by default.
+
+**renderMenuItem** - Helper function that renders the appropriate component based on menu item kind (action, divider, or submenu).
+
+## Utilities
+
+**menuUtils.ts** contains:
+
+- `generateMenuItemKey()` - Creates unique keys for React rendering using id, label, or random fallback
+- `resolveMenuId()` - Determines menu identifier from id or label
+- `NESTED_MENU_SX` - Shared styling for nested Menu components
+- Color and alpha constants for consistent theming across menu items
+
+## Props
+
+### MenuBar
+
 ```tsx
 interface MenuBarProps {
-    config?: MenuConfig[]; // Menu structure configuration (defaults to [])
-    color?: "default" | "primary" | "secondary" | "inherit" | "transparent"; // AppBar color (default: "transparent")
-    sx?: SxProps<Theme>; // MUI styling overrides passed to AppBar
-    disableRipple?: boolean; // Disable ripple on menu items
+  menuConfig: MenuConfig[];
+  sx?: SxProps<Theme>;
 }
 ```
 
-### Exports
+### MenuButton
 
-- `MenuBar` (named export)
-- Types: `MenuConfig`, `MenuItems`, `MenuItemAction`, `MenuItemDivider`, `MenuItemSubmenu`
+Internal component. Receives menu configuration, active state, and callbacks for activation/deactivation.
 
-```ts
-import { MenuBar, MenuConfig } from 'mui-menubar';
-```
-## 📚 Menu Configuration
-### Menu Item Types
+### MenuItemAction
 
-The MenuBar supports four types of menu items:
-
-1. **Action Items** (`kind: "action"`): Clickable menu items that trigger a function
 ```tsx
-{
-    kind: "action",
-    label: "Save",
-    action: () => void,
-    icon?: React.ReactNode, // Optional Material-UI icon
-    shortcut?: string, // Keyboard shortcut
-    disabled?: boolean, // Disable user interaction
-    selected?: boolean, // Visual selected state
-}
-```
-2. **Divider Items** (`kind: "divider"`): Visual separators between menu items
-```tsx
-{
-    kind: "divider"
-}
-```
-3. **Submenu Items** (`kind: "submenu"`): Nested menus that contain additional menu items
-```tsx
-{
-    kind: "submenu",
-    label: "Settings",
-    items: MenuItems[], // Nested menu items
-    icon?: React.ReactNode
-}
-```
-4. **Custom Items** (`kind: "custom"`): Custom React components rendered within the menu
-```tsx
-{
-    kind: "custom",
-    component: React.ReactNode // Any custom React component
+interface MenuItemActionProps {
+  disabled?: boolean;
+  label?: string;
+  leftIcon?: ReactNode;
+  onClick?: (event: MouseEvent<HTMLElement>) => void;
+  rightIcon?: ReactNode;
+  shortcut?: string;
+  selected?: boolean;
 }
 ```
 
-## ⏩ Advanced Usage Examples
-
-### Theme Configuration
+### MenuItemSubmenu
 
 ```tsx
-<MenuBar
-    config={menuConfig}
-    color="primary"
-    sx={{ backgroundColor: '#1a1a1a' }}
-/>
-```
-
-### Custom Menu with Icons
-
-```tsx
-const menuConfig: MenuConfig[] = [
-    label: "Edit",
-    items: [
-        {
-            kind: "action",
-            label: "Undo",
-            action: () => handleUndo(),
-            icon: <Undo />,
-            shortcut: "Ctrl+Z"
-        },
-        {
-            kind: "submenu",
-            label: "Advanced",
-            icon: <Settings />,
-            items: [
-                {
-                    kind: "action",
-                    label: "Custom Action",
-                    action: () => handleCustomAction()
-                }
-            ]
-        }
-    ]
-}];
-```
-### Custom Component Integration
-```tsx
-{
-    kind: "custom",
-        component: (
-            <TableSizeChooser
-                maxRows={10}
-                maxCols={10}
-                onSizeSelect={(rows, cols) => handleSizeSelect(rows, cols)}
-            />
-        )
+interface MenuItemSubmenuProps {
+  parentMenuOpen: boolean;
+  label?: string;
+  rightIcon?: ReactNode;
+  leftIcon?: ReactNode;
+  children?: ReactNode;
+  disabled?: boolean;
+  delay?: number;
 }
 ```
 
-## 🚨 Important Notes for Implementation
+## Behavior
 
-1. **Icon Integration**
-   - Requires @mui/icons-material package
-   - Icons should be passed as React elements
-
-2. **Keyboard Shortcuts**
-   - Automatically registered when a menu item has both `shortcut` and `action`
-   - Case-insensitive; extra spaces are ignored
-   - Normalized format: `ctrl+alt+shift+meta+<key>` (modifiers in that order)
-   - Supported modifiers: Ctrl, Alt, Shift, Meta (Cmd on macOS)
-   - Examples: "Ctrl+S", "Shift+A", "Cmd+P"
-
-3. **Styling**
-   - Uses Material-UI's sx prop for custom styling
-   - Supports all Material-UI theme configurations
-
-4. **Performance Considerations**
-   - Keyboard listeners attach only when shortcuts are present
-   - Consider memoizing expensive custom components
-
-5. **Accessibility**
-   - Supports keyboard navigation
-   - ARIA attributes automatically handled
-
-6. **Interaction Model**
-   - Activation on click, navigation on hover
-   - After clicking a top-level item, the menu stays active; hovering another top-level item switches submenus without extra clicks.
-   - Submenus open on hover for seamless navigation
-   - Click outside to close the menu and exit active state
-
-## 🎨 Common Customization Patterns
-
-1. **Dynamic Menu Items**
-   - `config` can be updated dynamically
-   - Useful for context-sensitive menus
-
-2. **Theme Integration**
-   - Automatically integrates with Material-UI theme
-   - Can be overridden with `sx` prop
-
-## 🚫 Error Handling
-- Invalid `config` shapes are prevented by TypeScript in TS projects
-- Disabled items prevent user interaction
-- Runtime protects against missing handlers for non-custom items
-
-## 🛠️ Development
-
-### Project Structure
-
-```
-mui-menubar/
-├── src/
-│   ├── components/     # React components
-│   ├── types/         # TypeScript type definitions
-│   ├── utils/         # Utility functions
-│   └── index.ts       # Main entry point
-├── stories/          # Storybook stories
-├── tests/           # Jest test files
-└── dist/           # Compiled output
-```
-
-### Scripts
-
-- `npm run build` - Build the project
-- `npm run test` - Run tests
-- `npm run test:watch` - Run tests in watch mode
-- `npm run test:coverage` - Generate test coverage report
-- `npm run storybook` - Start Storybook development server
-- `npm run build-storybook` - Build Storybook for production
-
-### Testing
-
-The project uses Jest for testing. Tests are located in the `tests` directory. Run tests using:
-
-```bash
-npm run test
-```
-
-### Storybook
-
-Component documentation and examples are available through Storybook. Run:
-
-```bash
-npm run storybook
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+- Click a menu button to open its menu
+- Click again or click outside to close
+- When a menu is open, hovering over other menu buttons switches to that menu
+- Submenus open on hover with configurable delay
+- Keyboard shortcuts are displayed but not handled by the component
+- Menus use zero transition duration for instant response
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT

@@ -1,25 +1,22 @@
 {
-    "compilerOptions": {
-        "outDir": "dist",
-        "rootDir": "src",
-        "module": "ESNext",
-        "target": "es2016",
-        "lib": ["DOM", "DOM.Iterable", "ESNext"],
-        "jsx": "react-jsx",
-        "declaration": true,
-        "declarationDir": "dist",
-        "moduleResolution": "node",
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "strict": true,
-        "skipLibCheck": true,
-        "baseUrl": "./",
-        "types": ["react", "node", "jest", "@testing-library/jest-dom"],
-        "forceConsistentCasingInFileNames": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "noEmit": false
-    },
-    "include": ["src/**/*"],
-    "exclude": ["dist", "node_modules", "stories", "tests", "**/*.stories.tsx"]
+  "compilerOptions": {
+    "declaration": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
+    "lib": ["ES2024", "DOM", "DOM.Iterable"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "preserveSymlinks": true,
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": false,
+    "strict": true,
+    "target": "ES2024",
+    "types": ["node", "jest", "@testing-library/jest-dom"]
+  },
+  "exclude": [".git", "node_modules"],
+  "include": ["src/**/*"]
 }
