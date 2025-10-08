@@ -3,10 +3,10 @@
  * rendering of action, divider, and submenu types.
  */
 
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { ContentCopy, Save } from '@mui/icons-material';
 import { renderMenuItem } from '../components/renderMenuItem';
-import { MenuItemConfig, MenuItemActionConfig, MenuItemDividerConfig, MenuItemSubmenuConfig } from '../types';
-import { Save, ContentCopy } from '@mui/icons-material';
+import { MenuItemActionConfig, MenuItemDividerConfig, MenuItemSubmenuConfig } from '../types';
 
 describe('renderMenuItem', () => {
   const handleClose = jest.fn();

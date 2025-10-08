@@ -12,13 +12,13 @@ React MenuBar component built with Material-UI. Supports nested submenus, keyboa
 ## Installation
 
 ```bash
-npm install mui-nested-menu
+npm install mui-menubar
 ```
 
 ## Usage
 
 ```tsx
-import { MenuBar, MenuConfig } from 'mui-nested-menu';
+import { MenuBar, MenuConfig } from 'mui-menubar';
 
 const menuConfig: MenuConfig[] = [
   {
@@ -153,7 +153,7 @@ interface MenuItemSubmenuProps {
 }
 ```
 
-## Behavior
+## Behaviour
 
 - Click a menu button to open its menu
 - Click again or click outside to close

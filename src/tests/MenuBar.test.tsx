@@ -3,10 +3,10 @@
  * activation logic, and click-outside behavior.
  */
 
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { ContentCopy, ContentPaste, FolderOpen } from '@mui/icons-material';
 import { MenuBar } from '../components/MenuBar';
 import { MenuConfig } from '../types';
-import { Save, FolderOpen, ContentCopy, ContentPaste } from '@mui/icons-material';
 
 describe('MenuBar', () => {
   const basicMenuConfig: MenuConfig[] = [

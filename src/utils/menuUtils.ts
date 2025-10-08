@@ -33,11 +33,17 @@ export const NESTED_MENU_SX: SxProps<Theme> = {
     pointerEvents: 'none',
     m: 0,
     p: 0,
+    '& .MuiPaper-root': {
+        maxHeight: 'none',
+        overflow: 'visible',
+    },
     '& .MuiList-root': {
         pt: 0.5,
         pb: 0.5,
         m: 0,
         p: 0,
+        maxHeight: 'none',
+        overflow: 'visible',
     },
 };
 

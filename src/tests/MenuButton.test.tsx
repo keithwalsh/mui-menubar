@@ -3,10 +3,10 @@
  * hover navigation, and menu item rendering.
  */
 
-import { render, screen, fireEvent, waitFor, cleanup } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { FolderOpen } from '@mui/icons-material';
 import { MenuButton } from '../components/MenuButton';
 import { MenuConfig } from '../types';
-import { Save, FolderOpen, ExitToApp } from '@mui/icons-material';
 
 describe('MenuButton', () => {
   const mockOnActivate = jest.fn();

@@ -3,9 +3,8 @@
  * delay handling, and nested menu rendering.
  */
 
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { MenuItemSubmenu } from '../components/MenuItemSubmenu';
-import { ChevronRight } from '@mui/icons-material';
 
 describe('MenuItemSubmenu', () => {
   beforeEach(() => {

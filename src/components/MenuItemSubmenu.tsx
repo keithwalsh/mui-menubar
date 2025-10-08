@@ -3,7 +3,7 @@
  * delay and supports infinite nesting depth.
  */
 
-import { MouseEvent, ReactNode, useImperativeHandle, useRef, useState, Ref, useEffect } from 'react';
+import { ReactNode, useImperativeHandle, useRef, useState, Ref, useEffect } from 'react';
 import { Box, Menu } from '@mui/material';
 import { ChevronRight } from '@mui/icons-material';
 import { MenuItemAction } from './MenuItemAction';
@@ -81,6 +81,8 @@ export function MenuItemSubmenu(props: MenuItemSubmenuProps & { ref?: Ref<HTMLLI
                 sx={{
                   ...NESTED_MENU_SX,
                   '& .MuiPaper-root': {
+                    maxHeight: 'none',
+                    overflow: 'visible',
                     mt: 0.5
                   }
                 }}

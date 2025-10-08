@@ -4,8 +4,8 @@
  */
 
 import { createTheme, Theme } from '@mui/material';
-import { generateMenuItemKey, resolveMenuId, getMenuItemIconColor, getMenuItemLabelColor, getMenuItemShortcutColor, NESTED_MENU_SX, POINTER_EVENTS_AUTO_STYLE, MENU_ITEM_ICON_ALPHA, MENU_ITEM_LABEL_ALPHA, MENU_ITEM_SHORTCUT_ALPHA } from '../utils/menuUtils';
-import { MenuItemConfig, MenuItemActionConfig, MenuItemDividerConfig, MenuItemSubmenuConfig } from '../types';
+import { getMenuItemIconColor, getMenuItemLabelColor, getMenuItemShortcutColor, generateMenuItemKey, MENU_ITEM_ICON_ALPHA, MENU_ITEM_LABEL_ALPHA, MENU_ITEM_SHORTCUT_ALPHA, NESTED_MENU_SX, POINTER_EVENTS_AUTO_STYLE, resolveMenuId } from '../utils/menuUtils';
+import { MenuItemActionConfig, MenuItemDividerConfig } from '../types';
 
 describe('menuUtils', () => {
   describe('generateMenuItemKey', () => {

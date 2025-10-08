@@ -3,9 +3,9 @@
  * interactions, and visual states.
  */
 
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { MenuItemAction } from '../components/MenuItemAction';
-import { Save, FileCopy } from '@mui/icons-material';
+import { FileCopy, Save } from '@mui/icons-material';
 
 describe('MenuItemAction', () => {
   it('should render with label', () => {

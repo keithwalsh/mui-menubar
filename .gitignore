@@ -3,3 +3,4 @@ node_modules
 !.storybook/*
 !.github/*
 package-lock.json
+!.*/publish.yml
