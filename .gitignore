@@ -1,6 +1,5 @@
 node_modules
 .*
-!.storybook/*
-!.github/*
+!.storybook*
+!.github*
 package-lock.json
-!.*/publish.yml
