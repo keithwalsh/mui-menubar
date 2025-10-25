@@ -7,7 +7,7 @@ import { ReactNode, useImperativeHandle, useRef, useState, Ref, useEffect } from
 import { Box, Menu } from '@mui/material';
 import { ChevronRight } from '@mui/icons-material';
 import { MenuItemAction } from './MenuItemAction';
-import { NESTED_MENU_SX, POINTER_EVENTS_AUTO_STYLE } from '../utils/menuUtils';
+import { NESTED_MENU_SX } from '../utils/menuUtils';
 
 export interface MenuItemSubmenuProps {
     parentMenuOpen: boolean;
@@ -87,9 +87,7 @@ export function MenuItemSubmenu(props: MenuItemSubmenuProps & { ref?: Ref<HTMLLI
                   }
                 }}
             >
-                <Box style={POINTER_EVENTS_AUTO_STYLE}>
-                    {children}
-                </Box>
+                {children}
             </Menu>
         </Box>
     );

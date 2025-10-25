@@ -4,7 +4,6 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react';
-import { action } from "storybook/actions";
 import { MenuBar, MenuBarProps } from '../components/MenuBar';
 import { MenuConfig } from '../types';
 import { Brightness4, Brightness7, ContentCopy, ContentPaste, ExitToApp, FileCopy, FolderOpen, Redo, Save, Undo, Visibility, ZoomIn, ZoomOut } from '@mui/icons-material';
@@ -72,26 +71,26 @@ const nestedMenuConfig: MenuConfig[] = [
     {
         label: "File",
         items: [
-            { kind: "action", label: "Hello", action: action("New file"), icon: <FileCopy /> },
-            { kind: "action", label: "Open", action: action("Open file action triggered"), icon: <FolderOpen />, shortcut: "Ctrl+O", disabled: true },
+            { kind: "action", label: "Hello", action: () => console.log("New file"), icon: <FileCopy /> },
+            { kind: "action", label: "Open", action: () => console.log("Open file action triggered"), icon: <FolderOpen />, shortcut: "Ctrl+O", disabled: true },
             { kind: "divider" },
-            { kind: "action", label: "Save", action: action("Save file"), icon: <Save />,  shortcut: "Ctrl+S" },
-            { kind: "action", label: "Exit", action: action("Exit application"), icon: <ExitToApp /> },
+            { kind: "action", label: "Save", action: () => console.log("Save file"), icon: <Save />,  shortcut: "Ctrl+S" },
+            { kind: "action", label: "Exit", action: () => console.log("Exit application"), icon: <ExitToApp /> },
         ],
     },
     {
         label: "Edit",
         items: [
-            { kind: "action", label: "Undo", action: action("Undo"), icon: <Undo />, shortcut: "Ctrl+Z" },
-            { kind: "action", label: "Redo", action: action("Redo"), icon: <Redo />, shortcut: "Ctrl+Y" },
+            { kind: "action", label: "Undo", action: () => console.log("Undo"), icon: <Undo />, shortcut: "Ctrl+Z" },
+            { kind: "action", label: "Redo", action: () => console.log("Redo"), icon: <Redo />, shortcut: "Ctrl+Y" },
             { kind: "divider" },
             {
                 kind: "submenu",
                 label: "Other",
                 items: [
-                    { kind: "action", label: "Copy", action: action("Copy"), icon: <ContentCopy /> },
+                    { kind: "action", label: "Copy", action: () => console.log("Copy"), icon: <ContentCopy /> },
                     { kind: "divider" },
-                    { kind: "action", label: "Paste", action: action("Paste"), icon: <ContentPaste /> },
+                    { kind: "action", label: "Paste", action: () => console.log("Paste"), icon: <ContentPaste /> },
                 ],
             },
         ],
@@ -99,10 +98,10 @@ const nestedMenuConfig: MenuConfig[] = [
     {
         label: "View",
         items: [
-            { kind: "action", label: "Show/Hide Sidebar", action: action("Toggle Sidebar"), icon: <Visibility />, selected: true },
+            { kind: "action", label: "Show/Hide Sidebar", action: () => console.log("Toggle Sidebar"), icon: <Visibility />, selected: true },
             { kind: "divider" },
-            { kind: "action", label: "Zoom In", action: action("Zoom In"), icon: <ZoomIn />, shortcut: "Ctrl+Plus" },
-            { kind: "action", label: "Zoom Out", action: action("Zoom Out"), icon: <ZoomOut />, shortcut: "Ctrl+Minus" },
+            { kind: "action", label: "Zoom In", action: () => console.log("Zoom In"), icon: <ZoomIn />, shortcut: "Ctrl+Plus" },
+            { kind: "action", label: "Zoom Out", action: () => console.log("Zoom Out"), icon: <ZoomOut />, shortcut: "Ctrl+Minus" },
         ],
     },
 ];

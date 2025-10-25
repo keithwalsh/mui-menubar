@@ -4,10 +4,10 @@
  */
 
 import { Fragment, MouseEvent, PointerEvent, useRef, useState } from 'react';
-import { alpha, Box, Button, Menu, Theme } from '@mui/material';
+import { alpha, Button, Menu, Theme } from '@mui/material';
 import { MenuConfig, MenuItemConfig } from '../types';
 import { renderMenuItem } from './renderMenuItem';
-import { getMenuItemLabelColor, MENU_ITEM_LABEL_ALPHA, NESTED_MENU_SX, POINTER_EVENTS_AUTO_STYLE, resolveMenuId } from '../utils/menuUtils';
+import { getMenuItemLabelColor, MENU_ITEM_LABEL_ALPHA, NESTED_MENU_SX, resolveMenuId } from '../utils/menuUtils';
 
 export interface MenuButtonProps {
     menu: MenuConfig;
@@ -83,15 +83,13 @@ export function MenuButton(props: MenuButtonProps) {
         }}
         sx={NESTED_MENU_SX}
       >
-        <Box style={POINTER_EVENTS_AUTO_STYLE}>
-          {props.menu.items.map((item: MenuItemConfig) =>
-            renderMenuItem({
-              item,
-              handleClose: props.onDeactivate,
-              isOpen,
-            })
-          )}
-        </Box>
+        {props.menu.items.map((item: MenuItemConfig) =>
+          renderMenuItem({
+            item,
+            handleClose: props.onDeactivate,
+            isOpen,
+          })
+        )}
       </Menu>
     </Fragment>
   );

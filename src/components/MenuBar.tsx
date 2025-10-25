@@ -36,11 +36,19 @@ export function MenuBar({ menuConfig, sx }: MenuBarProps) {
 
     useEffect(() => {
         const onMouseDown = (event: MouseEvent) => {
+            const target = event.target as Node;
             const buttons = [...buttonRefs.current.values()];
-            const clickedOutside = !buttons.some(btn => btn?.contains(event.target as Node));
-            if (clickedOutside) {
-                handleDeactivate();
-            }
+            
+            // Check if clicked inside a button
+            const clickedButton = buttons.some(btn => btn?.contains(target));
+            if (clickedButton) return;
+            
+            // Check if clicked inside a menu (MUI menus are portaled)
+            const clickedMenu = (target as Element).closest?.('.MuiMenu-root, .MuiPopover-root');
+            if (clickedMenu) return;
+            
+            // Clicked outside - close menu
+            handleDeactivate();
         };
 
         document.addEventListener('mousedown', onMouseDown);

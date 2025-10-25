@@ -30,7 +30,6 @@ export function resolveMenuId(menu: { id?: string; label: string }): string {
  * Common Menu component styling configuration for nested menus.
  */
 export const NESTED_MENU_SX: SxProps<Theme> = {
-    pointerEvents: 'none',
     m: 0,
     p: 0,
     '& .MuiPaper-root': {
